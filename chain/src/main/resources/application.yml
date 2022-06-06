@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: chain
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.8.142:8848
+        username: nacos
+        password: nacos
+server:
+  port: 6666
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+

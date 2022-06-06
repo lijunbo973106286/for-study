@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.8.142:8848
+        username: nacos
+        password: nacos
+      config:
+        server-addr: 192.168.8.142:8848
+        file-extension: yaml
+        namespace: 2002e92e-a583-4cb3-9923-fd6d192a257f
+  application:
+    name: config-client
+  profiles:
+    active:  dev
+
