@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.chain.dao.ScfpChainDao;
 import com.woniuxy.chain.service.ScfpChainService;
+import com.woniuxy.commons.entity.ResStatus;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResStatus;
 import com.woniuxy.commons.entity.ResponseResult;
@@ -57,5 +58,23 @@ public class ScfpChainServiceImpl implements ScfpChainService {
             PageInfo<ScfpChain> info = PageInfo.of(all);
             return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
         }
+    }
+
+    @Override
+    public ResponseResult<Object> delete(int id) {
+        int i = scfpChainDao.delete(id);
+        if(i>0){
+            return ResponseResult.SUCCESS;
+        }else {
+            return ResponseResult.FAIL;
+        }
+    }
+
+    @Override
+    public ResponseResult search(ScfpChain scfpChain) {
+        PageHelper.startPage(scfpChain.getCurrentPage(),scfpChain.getPageSize());
+        List<ScfpChain> all= scfpChainDao.search(scfpChain);
+        PageInfo<ScfpChain> pageInfo = PageInfo.of(all);
+        return new ResponseResult<>(200,"查询成功",pageInfo, ResStatus.SUCCESS);
     }
 }

@@ -29,4 +29,8 @@ public class ScfpMenu {
     private int fid;
     @ApiModelProperty("子菜单")
     private List<ScfpMenu> menus;
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
 }

@@ -18,11 +18,11 @@
         <module>user</module>
         <module>supply</module>
         <module>fiance</module>
-        <module>payment</module>
         <module>commons</module>
         <module>gateway</module>
         <module>chain</module>
         <module>auth</module>
         <module>config-client</module>
+        <module>loan</module>
     </modules>
 </project>

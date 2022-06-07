@@ -26,4 +26,8 @@ public class ScfpNetwork {
     private String bank;
     @ApiModelProperty("链单参与企业范围设置方式")
     private String set_way;
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
 }

@@ -14,5 +14,9 @@ public interface ScfpChainService {
 
     ResponseResult<Object> insert(ScfpChain scfpChain);
 
+    ResponseResult<Object> delete(int id);
+
+    ResponseResult<ScfpChain> search(ScfpChain scfpChain);
+
     ResponseResult<Object> findAll(PageInfomation pageInfomation);
 }
