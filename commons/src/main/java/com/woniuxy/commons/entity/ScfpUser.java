@@ -36,5 +36,8 @@ public class ScfpUser {
     private int role_id;
     @ApiModelProperty("管理员id")
     int fid;
-
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
 }

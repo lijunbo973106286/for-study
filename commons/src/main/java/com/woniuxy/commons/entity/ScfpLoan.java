@@ -40,5 +40,8 @@ public class ScfpLoan {
     private BigDecimal interest;
     @ApiModelProperty("利息状态")
     private String interest_status;
-
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
 }

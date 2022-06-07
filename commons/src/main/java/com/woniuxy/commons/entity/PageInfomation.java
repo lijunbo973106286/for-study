@@ -7,19 +7,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * \* @author: ZJH
- * \* @DateTime: 2022-06-06 17:47
- * \* @Description：
+ * @BelongsProject supply-chain-finance
+ * @BelongsPackage com.woniuxy.commons.entity
+ * @Author qfx
+ * @CreateTime 2022-06-07  11:14
+ * @Description 分页信息实体类
+ * @Version 1.0
  */
-@ApiModel(description = "供应链实体类")
+@ApiModel(description = "分页信息实体类")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ScfpSupply {
-    @ApiModelProperty("供应商id（enterprise中的id）")
-    private int supply_id;
-    @ApiModelProperty("供应商的上游企业id")
-    private int fid;
+public class PageInfomation {
     @ApiModelProperty("当前页")
     private int currentPage;
     @ApiModelProperty("每页条数")
