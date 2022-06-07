@@ -12,5 +12,5 @@ spring:
   application:
     name: config-client
   profiles:
-    active:  dev
+    active: dev
 
