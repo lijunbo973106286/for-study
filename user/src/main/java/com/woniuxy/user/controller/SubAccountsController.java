@@ -2,7 +2,7 @@ package com.woniuxy.user.controller;
 
 import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
-import com.woniuxy.user.service.SubAccountService;
+import com.woniuxy.user.service.SubAccountsService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -17,17 +17,17 @@ import javax.annotation.Resource;
  * @version: 1.0
  */
 @RestController
-@RequestMapping("/sub_ac")
-public class SubAccountController {
+@RequestMapping("/subAccounts")
+public class SubAccountsController {
     @Resource
-    SubAccountService subAccountService;
+    SubAccountsService subAccountsService;
 
     /**
      * 新增子账户
      */
     @PostMapping("/add")
     ResponseResult add(@RequestBody ScfpUser user) {
-        return subAccountService.add(user);
+        return subAccountsService.add(user);
     }
 
     /**
@@ -35,7 +35,7 @@ public class SubAccountController {
      */
     @GetMapping("/findByFid/{fid}")
     ResponseResult findByFid(@PathVariable("fid") int fid) {
-        return subAccountService.findByFid(fid);
+        return subAccountsService.findByFid(fid);
     }
 
     /**
@@ -43,7 +43,7 @@ public class SubAccountController {
      */
     @DeleteMapping("/delete/{id}")
     ResponseResult delete(@PathVariable("id") int id) {
-        return subAccountService.delete(id);
+        return subAccountsService.delete(id);
     }
 
     /**
@@ -51,7 +51,7 @@ public class SubAccountController {
      */
     @PutMapping("/statusChange/{id}/{status}")
     ResponseResult statusChange(@PathVariable("id") int id, @PathVariable("status") String status) {
-        return subAccountService.statusChange(id, status);
+        return subAccountsService.statusChange(id, status);
     }
 
     /**
@@ -59,13 +59,14 @@ public class SubAccountController {
      */
     @PutMapping("/update")
     ResponseResult update(@RequestBody ScfpUser user) {
-        return subAccountService.update(user);
+        return subAccountsService.update(user);
     }
+
     /**
      * 根据条件查询子账号
      */
     @PutMapping("/search")
-    ResponseResult search(@RequestBody ScfpUser user){
-        return subAccountService.search(user);
+    ResponseResult search(@RequestBody ScfpUser user) {
+        return subAccountsService.search(user);
     }
 }

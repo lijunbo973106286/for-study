@@ -12,7 +12,7 @@ import com.woniuxy.user.entity.ScfpUser;
  * @date: 2022/6/7 15:03
  * @version: 1.0
  */
-public interface SubAccountService {
+public interface SubAccountsService {
     ResponseResult add(ScfpUser user);
 
     ResponseResult findByFid(int fid);

@@ -20,7 +20,9 @@ public class ScfpChainController {
     @Resource
     ScfpChainService scfpChainService;
 
-    /** 通过传入的chain对象插入scfp_chain表中，没有的信息默认为null或者0 */
+    /**
+     * 通过传入的chain对象插入scfp_chain表中，没有的信息默认为null或者0
+     */
     @PostMapping("/insert")
     public ResponseResult<Object> insert(@RequestBody ScfpChain scfpChain) {
         return scfpChainService.insert(scfpChain);
@@ -33,21 +35,28 @@ public class ScfpChainController {
     public ResponseResult<Object> update(@RequestBody ScfpChain scfpChain) {
         return scfpChainService.update(scfpChain);
     }
-    /** 通过id进行软删除*/
+
+    /**
+     * 通过id进行软删除
+     */
     @DeleteMapping("/delete/{id}")
-    public  ResponseResult<Object> delete(@PathVariable("id") int id){
+    public ResponseResult<Object> delete(@PathVariable("id") int id) {
         return scfpChainService.delete(id);
     }
 
-    /** 通过scfpchain对象动态查询ScfpChain对象*/
+    /**
+     * 通过scfpchain对象动态查询ScfpChain对象
+     */
     @GetMapping("/search")
-    public ResponseResult<ScfpChain> search(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<ScfpChain> search(@RequestBody ScfpChain scfpChain) {
         return scfpChainService.search(scfpChain);
     }
 
-    /** 分页查询所有链单信息 */
+    /**
+     * 分页查询所有链单信息
+     */
     @PostMapping("/findAll")
-    public ResponseResult<Object> findAll(@RequestBody PageInfomation pageInfomation){
+    public ResponseResult<Object> findAll(@RequestBody PageInfomation pageInfomation) {
         return scfpChainService.findAll(pageInfomation);
     }
 

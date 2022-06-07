@@ -4,9 +4,10 @@
 <mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
     <insert id="insert">
         insert into scfp_chain
-            (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, creator, create_time, updator, update_time)
-        values
-            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{creator}, #{create_time}, #{updator}, #{update_time})
+        (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, creator,
+         create_time, updator, update_time)
+        values (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id},
+                #{deadline}, #{status}, #{creator}, #{create_time}, #{updator}, #{update_time})
     </insert>
 
     <update id="update" parameterType="scfpChain">
@@ -58,48 +59,50 @@
         where id = #{id}
     </update>
     <delete id="delete">
-        update scfp_chain set status=1 where id=#{id}
+        update scfp_chain
+        set status=1
+        where id = #{id}
     </delete>
     <select id="search" resultMap="findUser">
         select * from scfp_chain where 1=1
         <if test="id != '' and id != null">
-             and id = #{id}
+            and id = #{id}
         </if>
         <if test="chain_no != '' and chain_no != null">
-             and chain_no = #{chain_no}
+            and chain_no = #{chain_no}
         </if>
         <if test="enterprise_id != '' and enterprise_id != null">
-             and enterprise_id = #{enterprise_id}
+            and enterprise_id = #{enterprise_id}
         </if>
         <if test="bank != '' and bank != null">
-             and bank like '%${bank}%'
+            and bank like '%${bank}%'
         </if>
         <if test="fund_id != '' and fund_id != null">
-             and fund_id =#{fund_id}
+            and fund_id =#{fund_id}
         </if>
         <if test="money != '' and money != null">
-             and money = #{money}
+            and money = #{money}
         </if>
         <if test="surplus != '' and surplus != null">
-             and surplus = #{surplus}
+            and surplus = #{surplus}
         </if>
         <if test="deadline != '' and deadline != null">
-             and deadline =#{deadline}
+            and deadline =#{deadline}
         </if>
         <if test="status != '' and status != null">
-             and status = #{status}
+            and status = #{status}
         </if>
         <if test="creator != '' and creator != null">
-             and creator = #{creator}
+            and creator = #{creator}
         </if>
         <if test="create_time != '' and create_time != null">
-             and create_time = #{create_time}
+            and create_time = #{create_time}
         </if>
         <if test="updator != '' and updator != null">
-             and updator = #{updator}
+            and updator = #{updator}
         </if>
         <if test="update_time != '' and update_time != null">
-             and update_time = #{update_time}
+            and update_time = #{update_time}
         </if>
         order by id desc
     </select>
@@ -133,6 +136,8 @@
         </association>
     </resultMap>
     <select id="findAll" resultMap="findUser">
-        select * from scfp_chain order by id desc
+        select *
+        from scfp_chain
+        order by id desc
     </select>
 </mapper>

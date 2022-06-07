@@ -25,7 +25,7 @@ public class LoanController {
 
     //申请放款
     @PostMapping("/apply")
-    public ResponseResult<Object> applyLoan(@RequestBody ScfpLoan scfpLoan){
+    public ResponseResult<Object> applyLoan(@RequestBody ScfpLoan scfpLoan) {
         return loanService.applyLoan(scfpLoan);
     }
 

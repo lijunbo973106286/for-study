@@ -34,12 +34,12 @@ public class LoanServiceImpl implements LoanService {
 
             //获取当前时间
             Date now = new Date();
-            SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String loan_time = dateFormat.format(now);
             scfpLoan.setLoan_time(loan_time);
 
             //假设还款时间为2个月（是否需要定时任务？）
-            String repay_time = dateFormat.format(new Date(now.getTime() + 60*24*60*60*1000L));
+            String repay_time = dateFormat.format(new Date(now.getTime() + 60 * 24 * 60 * 60 * 1000L));
             scfpLoan.setRepay_time(repay_time);
             scfpLoan.setPrincipal_status("未还款");
 
@@ -57,12 +57,12 @@ public class LoanServiceImpl implements LoanService {
             int num = loanDao.add(scfpLoan);
 
             //调用链单微服务，修改余额
-            if (num>0){
+            if (num > 0) {
                 return ResponseResult.SUCCESS;
-            }else{
+            } else {
                 return ResponseResult.FAIL;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseResult.FAIL;
         }

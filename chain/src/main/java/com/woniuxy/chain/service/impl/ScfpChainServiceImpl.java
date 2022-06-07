@@ -50,11 +50,11 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     public ResponseResult<Object> findAll(PageInfomation pageInfomation) {
         int currentPage = pageInfomation.getCurrentPage();
         int pageSize = pageInfomation.getPageSize();
-        PageHelper.startPage(currentPage,pageSize);
+        PageHelper.startPage(currentPage, pageSize);
         List<ScfpChain> all = scfpChainDao.findAll();
-        if(all.isEmpty()){
+        if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
-        }else{
+        } else {
             PageInfo<ScfpChain> info = PageInfo.of(all);
             return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
         }
@@ -63,18 +63,18 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     @Override
     public ResponseResult<Object> delete(int id) {
         int i = scfpChainDao.delete(id);
-        if(i>0){
+        if (i > 0) {
             return ResponseResult.SUCCESS;
-        }else {
+        } else {
             return ResponseResult.FAIL;
         }
     }
 
     @Override
     public ResponseResult search(ScfpChain scfpChain) {
-        PageHelper.startPage(scfpChain.getCurrentPage(),scfpChain.getPageSize());
-        List<ScfpChain> all= scfpChainDao.search(scfpChain);
+        PageHelper.startPage(scfpChain.getCurrentPage(), scfpChain.getPageSize());
+        List<ScfpChain> all = scfpChainDao.search(scfpChain);
         PageInfo<ScfpChain> pageInfo = PageInfo.of(all);
-        return new ResponseResult<>(200,"查询成功",pageInfo, ResStatus.SUCCESS);
+        return new ResponseResult<>(200, "查询成功", pageInfo, ResStatus.SUCCESS);
     }
 }

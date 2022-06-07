@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woniuxy.loan.dao.LoanDao">
     <insert id="add">
-        insert into scfp_loan values
-        (null,#{chain_id}, #{enterprise_id}, #{money}, #{loan_time}, #{repay_time},
-            #{principal_status}, #{service}, #{service_status}, #{interest}, #{interest_status})
+        insert into scfp_loan
+        values (null, #{chain_id}, #{enterprise_id}, #{money}, #{loan_time}, #{repay_time},
+                #{principal_status}, #{service}, #{service_status}, #{interest}, #{interest_status})
     </insert>
 </mapper>

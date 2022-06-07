@@ -2,9 +2,9 @@ package com.woniuxy.user.service.impl;
 
 import com.woniuxy.commons.util.ResStatus;
 import com.woniuxy.commons.util.ResponseResult;
-import com.woniuxy.user.dao.SubAccountDao;
+import com.woniuxy.user.dao.SubAccountsDao;
 import com.woniuxy.user.entity.ScfpUser;
-import com.woniuxy.user.service.SubAccountService;
+import com.woniuxy.user.service.SubAccountsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,41 +20,41 @@ import javax.annotation.Resource;
  * @version: 1.0
  */
 @Service
-public class SubAccountServiceImpl implements SubAccountService {
+public class SubAccountsServiceImpl implements SubAccountsService {
     @Resource
-    SubAccountDao subAccountDao;
+    SubAccountsDao subAccountsDao;
 
     @Override
     public ResponseResult add(ScfpUser user) {
-        return subAccountDao.add(user) > 0 ? new ResponseResult(200, "添加成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "添加失败", null, ResStatus.FAIL);
+        return subAccountsDao.add(user) > 0 ? new ResponseResult(200, "添加成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "添加失败", null, ResStatus.FAIL);
     }
 
     @Override
     public ResponseResult findByFid(int fid) {
         return new ResponseResult(200, "查询成功",
-                subAccountDao.findByFid(fid),
+                subAccountsDao.findByFid(fid),
                 ResStatus.SUCCESS);
     }
 
     @Override
     public ResponseResult delete(int id) {
-        return subAccountDao.delete(id) > 0 ? new ResponseResult(200, "删除成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "删除失败", null, ResStatus.FAIL);
+        return subAccountsDao.delete(id) > 0 ? new ResponseResult(200, "删除成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "删除失败", null, ResStatus.FAIL);
     }
 
     @Override
     public ResponseResult statusChange(int id, String status) {
-        return subAccountDao.statusChange(id, status) > 0 ? new ResponseResult(200, "状态更改成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "状态更改失败", null, ResStatus.FAIL);
+        return subAccountsDao.statusChange(id, status) > 0 ? new ResponseResult(200, "状态更改成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "状态更改失败", null, ResStatus.FAIL);
     }
 
     @Override
     public ResponseResult update(ScfpUser user) {
-        return subAccountDao.update(user) > 0 ? new ResponseResult(200, "资料更改成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "资料更改失败", null, ResStatus.FAIL);
+        return subAccountsDao.update(user) > 0 ? new ResponseResult(200, "资料更改成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "资料更改失败", null, ResStatus.FAIL);
     }
 
     @Override
     public ResponseResult search(ScfpUser user) {
         return new ResponseResult(200, "查询成功",
-                subAccountDao.search(user),
+                subAccountsDao.search(user),
                 ResStatus.SUCCESS);
     }
 }

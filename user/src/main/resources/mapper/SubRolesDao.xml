@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.user.dao.SubRolesDao">
+
+    <insert id="create">
+        insert into scfp_user_role
+        values (null, #{name}, #{description}, #{status})
+    </insert>
+    <update id="update">
+        update scfp_user_role
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="name!='' and name != null">
+                `name` = #{name}
+            </if>
+            <if test="description!='' and description != null">
+                description = #{description}
+            </if>
+            <if test="status!='' and status != null">
+                status = #{status}
+            </if>
+        </trim>
+    </update>
+    <update id="statusChange">
+        update scfp_user_role
+        set status = #{status}
+        where id = #{id}
+    </update>
+    <delete id="delete">
+        delete
+        from scfp_user_role
+        where id = #{id}
+    </delete>
+    <select id="findAll" resultType="com.woniuxy.user.entity.ScfpRole">
+        select *
+        from scfp_user_role
+    </select>
+</mapper>
