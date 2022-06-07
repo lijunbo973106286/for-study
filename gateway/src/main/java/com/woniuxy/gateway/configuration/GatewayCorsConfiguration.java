@@ -10,7 +10,7 @@ import org.springframework.web.util.pattern.PathPatternParser;
 @Configuration
 public class GatewayCorsConfiguration {
     @Bean
-    public CorsWebFilter corsWebFilter(){
+    public CorsWebFilter corsWebFilter() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedMethod("*");
         configuration.addAllowedOrigin("*");

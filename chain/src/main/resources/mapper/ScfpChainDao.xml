@@ -4,9 +4,9 @@
 <mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
     <insert id="insert">
         insert into scfp_chain
-            (chain_no, network_id, bank, fund_id, money, surplus, file_id, deadline, status, creator, create_time, updator, update_time)
+            (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, creator, create_time, updator, update_time)
         values
-            (#{chain_no}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{creator}, #{create_time}, #{updator}, #{update_time})
+            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{creator}, #{create_time}, #{updator}, #{update_time})
     </insert>
 
     <update id="update" parameterType="scfpChain">
@@ -14,6 +14,9 @@
         <set>
             <if test="chain_no != null and chain_no != ''">
                 chain_no = #{chain_no},
+            </if>
+            <if test="enterprise_id != null and enterprise_id != ''">
+                enterprise_id = #{enterprise_id},
             </if>
             <if test="network_id != null and network_id != ''">
                 network_id = #{network_id},
@@ -57,13 +60,16 @@
     <delete id="delete">
         update scfp_chain set status=1 where id=#{id}
     </delete>
-    <select id="search" resultType="com.woniuxy.commons.entity.ScfpChain">
+    <select id="search" resultMap="findUser">
         select * from scfp_chain where 1=1
         <if test="id != '' and id != null">
              and id = #{id}
         </if>
         <if test="chain_no != '' and chain_no != null">
              and chain_no = #{chain_no}
+        </if>
+        <if test="enterprise_id != '' and enterprise_id != null">
+             and enterprise_id = #{enterprise_id}
         </if>
         <if test="bank != '' and bank != null">
              and bank like '%${bank}%'
@@ -78,14 +84,83 @@
              and surplus = #{surplus}
         </if>
         <if test="deadline != '' and deadline != null">
-             and deadline =#{deadline}
+             and deadline between #{deadline} and #{deadlineMax}
         </if>
         <if test="status != '' and status != null">
              and status = #{status}
         </if>
+        <if test="creator != '' and creator != null">
+             and creator = (select id from scfp_user where name like concat('%',#{scfpUser.name},'%'))
+        </if>
+        <if test="create_time != '' and create_time != null">
+             and create_time = #{create_time}
+        </if>
+        <if test="updator != '' and updator != null">
+             and updator = #{updator}
+        </if>
+        <if test="update_time != '' and update_time != null">
+             and update_time = #{update_time}
+        </if>
         order by id desc
     </select>
-    <select id="findAll" resultType="scfpChain">
+
+    <resultMap id="findUser" type="scfpChain">
+        <id property="id" column="id"/>
+        <result property="chain_no" column="chain_no"/>
+        <result property="enterprise_id" column="enterprise_id"/>
+        <result property="network_id" column="network_id"/>
+        <result property="bank" column="bank"/>
+        <result property="fund_id" column="fund_id"/>
+        <result property="money" column="money"/>
+        <result property="surplus" column="surplus"/>
+        <result property="file_id" column="file_id"/>
+        <result property="deadline" column="deadline"/>
+        <result property="deadlineMax" column="deadlineMax"/>
+        <result property="status" column="status"/>
+        <result property="chain_no" column="chain_no"/>
+        <result property="creator" column="creator"/>
+        <result property="create_time" column="create_time"/>
+        <result property="updator" column="updator"/>
+        <result property="update_time" column="update_time"/>
+        <association select="findUserInfo" property="scfpUser" column="creator" javaType="scfpUser">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="role_id" column="role_id"/>
+            <result property="identity" column="identity"/>
+            <result property="phonenum" column="phonenum"/>
+            <result property="email" column="email"/>
+            <result property="enterprise_id" column="enterprise_id"/>
+            <result property="status" column="status"/>
+        </association>
+        <association select="findScfpFund" property="scfpFund" column="fund_id" javaType="scfpFund">
+            <id property="id" column="id"/>
+            <result property="fund_name" column="fund_name"/>
+            <result property="fund_interest" column="fund_interest"/>
+        </association>
+        <association select="findScfpEnterprises" property="scfpEnterprise" column="enterprise_id" javaType="scfpEnterprise">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="credit_code" column="credit_code"/>
+            <result property="legal_person" column="legal_person"/>
+            <result property="id_card" column="id_card"/>
+            <result property="address" column="address"/>
+            <result property="account_id" column="account_id"/>
+            <result property="role" column="role"/>
+            <result property="money" column="money"/>
+            <result property="surplus" column="surplus"/>
+            <result property="status" column="status"/>
+        </association>
+    </resultMap>
+    <select id="findUserInfo" resultType="scfpUser">
+        select * from scfp_user where id = #{creator}
+    </select>
+    <select id="findAll" resultMap="findUser">
         select * from scfp_chain order by id desc
+    </select>
+    <select id="findScfpFund" resultType="com.woniuxy.commons.entity.ScfpFund">
+        select * from scfp_fund where id=#{fund_id}
+    </select>
+    <select id="findScfpEnterprises" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select * from scfp_enterprise where id=#{enterprise_id}
     </select>
 </mapper>

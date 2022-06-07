@@ -6,5 +6,5 @@ package com.woniuxy.commons.util;
  * Description:
  */
 public enum ResStatus {
-        SUCCESS,FAIL,NO_LOGIN,NO_PERMISSION
+    SUCCESS, FAIL, NO_LOGIN, NO_PERMISSION
 }

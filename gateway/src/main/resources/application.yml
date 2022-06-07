@@ -1,14 +1,11 @@
 spring:
   application:
     name: gateway
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.8.142:3306/scfp?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
-    username: root
-    password: 123
   cloud:
     gateway:
       routes:
+        - id: fiance   #路由名
+          uri: lb://fiance   #lb:loadbalance   goods:微服务名
         - id: network   #路由名
           uri: lb://supply   #lb:loadbalance   goods:微服务名
           predicates: #谓词
@@ -16,15 +13,7 @@ spring:
         - id: order   #路由名
           uri: lb://order-feign   #lb:loadbalance   goods:微服务名
           predicates: #谓词
-            - Path=/order/**   #匹配的路径
-        - id: auth   #路由名
-          uri: lb://auth   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/user/**   #匹配的路径
-        - id: kill   #路由名
-          uri: lb://kill   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/kill/**   #匹配的路径
+            - Path=/fiance/**   #匹配的路径
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848
