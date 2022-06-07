@@ -54,4 +54,8 @@ public class ScfpChain {
     private int pageSize;
     @ApiModelProperty("开单人信息")
     private ScfpUser scfpUser;
+    @ApiModelProperty("资金产品信息")
+    private ScfpFund scfpFund;
+    @ApiModelProperty("银行信息")
+    private ScfpEnterprise scfpEnterprise;
 }
