@@ -38,6 +38,14 @@ public class ScfpChain {
     private String deadline;
     @ApiModelProperty("链单当前状态")
     private String status;
+    @ApiModelProperty("创建人")
+    private int creator;
+    @ApiModelProperty("创建时间")
+    private String create_time;
+    @ApiModelProperty("更新人")
+    private int updator;
+    @ApiModelProperty("更新时间")
+    private String update_time;
     @ApiModelProperty("当前页")
     private int currentPage;
     @ApiModelProperty("每页条数")
