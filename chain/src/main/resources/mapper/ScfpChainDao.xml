@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
+    <insert id="insert">
+        insert into scfp_chain
+            (chain_no, network_id, bank, fund_id, money, surplus, file_id, deadline, status)
+        values
+            (#{chain_no}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status})
+    </insert>
+
+    <update id="update" parameterType="scfpChain">
+        update scfp_chain
+        <set>
+            <if test="chain_no != null and chain_no != ''">
+                chain_no = #{chain_no},
+            </if>
+            <if test="network_id != null and network_id != ''">
+                network_id = #{network_id},
+            </if>
+            <if test="bank != null and bank != ''">
+                bank = #{bank},
+            </if>
+            <if test="fund_id != null and fund_id != ''">
+                fund_id = #{fund_id},
+            </if>
+            <if test="money != null and money != ''">
+                money = #{money}
+            </if>
+            <if test="surplus != null and surplus != ''">
+                surplus = #{surplus}
+            </if>
+            <if test="file_id != null and file_id != ''">
+                file_id = #{file_id}
+            </if>
+            <if test="deadline != null and deadline != ''">
+                deadline = #{deadline}
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>
