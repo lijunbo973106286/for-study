@@ -1,6 +1,8 @@
 package com.woniuxy.commons.util;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: QFX
@@ -8,6 +10,8 @@ import lombok.Data;
  * Description:
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResponseResult<T> {
     private int code;
     private String msg;

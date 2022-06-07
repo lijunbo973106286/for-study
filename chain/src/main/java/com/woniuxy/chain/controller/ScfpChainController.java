@@ -20,13 +20,15 @@ public class ScfpChainController {
     ScfpChainService scfpChainService;
 
     @PostMapping("/insert")
-    public ResponseResult<Object> insert(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<Object> insert(@RequestBody ScfpChain scfpChain) {
         return scfpChainService.insert(scfpChain);
     }
 
-    /** 通过传入chain对象动态修改scfp_chain表中的信息 */
+    /**
+     * 通过传入chain对象动态修改scfp_chain表中的信息
+     */
     @PutMapping("/update")
-    public ResponseResult<Object> update(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<Object> update(@RequestBody ScfpChain scfpChain) {
         return scfpChainService.update(scfpChain);
     }
 }

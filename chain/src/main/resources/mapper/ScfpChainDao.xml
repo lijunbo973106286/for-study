@@ -4,9 +4,9 @@
 <mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
     <insert id="insert">
         insert into scfp_chain
-            (chain_no, network_id, bank, fund_id, money, surplus, file_id, deadline, status)
-        values
-            (#{chain_no}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status})
+        (chain_no, network_id, bank, fund_id, money, surplus, file_id, deadline, status)
+        values (#{chain_no}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline},
+                #{status})
     </insert>
 
     <update id="update" parameterType="scfpChain">
