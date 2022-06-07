@@ -32,6 +32,8 @@ public class ScfpEnterpriseAccount {
     private int file_id;
     @ApiModelProperty("企业账户状态")
     private String status;
+    @ApiModelProperty("对应企业id")
+    private int enterprisid;
     @ApiModelProperty("当前页")
     private int currentPage;
     @ApiModelProperty("每页条数")
