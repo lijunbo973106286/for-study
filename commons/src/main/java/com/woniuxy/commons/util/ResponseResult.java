@@ -6,7 +6,7 @@ import lombok.Data;
  * @author: QFX
  * DateTime: 2022-05-17 11:43
  * Description:
- */a
+ */
 @Data
 public class ResponseResult<T> {
     private int code;
