@@ -42,4 +42,7 @@
         </set>
         where id = #{id}
     </update>
+    <select id="findAll" resultType="scfpChain">
+        select * from scfp_chain order by id desc
+    </select>
 </mapper>
