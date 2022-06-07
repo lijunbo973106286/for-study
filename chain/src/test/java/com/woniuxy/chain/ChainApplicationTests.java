@@ -15,8 +15,7 @@ class ChainApplicationTests {
     ScfpChainService service;
     @Test
     void contextLoads() {
-        ResponseResult<Object> all = service.findAll(new PageInfomation(1, 5));
-        System.out.println(all);
+
     }
 
 }
