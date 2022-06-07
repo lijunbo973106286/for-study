@@ -1,7 +1,10 @@
 package com.woniuxy.user.dao;
 
+import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @projectName: BackEnd
@@ -15,4 +18,14 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SubAccountDao {
     int add(ScfpUser user);
+
+    List<ScfpUser> findByFid(int fid);
+
+    int delete(int id);
+
+    int statusChange(int id, String status);
+
+    int update(ScfpUser user);
+
+    List<ScfpUser> search(ScfpUser user);
 }

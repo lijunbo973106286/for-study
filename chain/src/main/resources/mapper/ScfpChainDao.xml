@@ -121,11 +121,11 @@
         <result property="create_time" column="create_time"/>
         <result property="updator" column="updator"/>
         <result property="update_time" column="update_time"/>
-        <association property="scfpUser" column="creator" javaType="scfpUser">
+        <association select="findUserInfo" property="scfpUser" column="creator" javaType="scfpUser">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="role_id" column="role_id"/>
-            <result property="identity" column="id_card"/>
+            <result property="identity" column="identity"/>
             <result property="phonenum" column="phonenum"/>
             <result property="email" column="email"/>
             <result property="enterprise_id" column="enterprise_id"/>
@@ -150,6 +150,9 @@
             <result property="status" column="status"/>
         </association>
     </resultMap>
+    <select id="findUserInfo" resultType="scfpUser">
+        select * from scfp_user where id = #{creator}
+    </select>
     <select id="findAll" resultMap="findUser">
         select * from scfp_chain order by id desc
     </select>

@@ -38,6 +38,8 @@ public class ScfpChain {
     private int file_id;
     @ApiModelProperty("截止兑付时间")
     private String deadline;
+    @ApiModelProperty("兑付日止")
+    private String deadlineMax;
     @ApiModelProperty("链单当前状态")
     private String status;
     @ApiModelProperty("创建人")

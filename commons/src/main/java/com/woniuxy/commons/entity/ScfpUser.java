@@ -18,10 +18,12 @@ import lombok.NoArgsConstructor;
 public class ScfpUser {
     @ApiModelProperty("用户id")
     private int id;
-    @ApiModelProperty("用户名")
-    private String name;
     @ApiModelProperty("登录名")
     private String uname;
+    @ApiModelProperty("用户密码")
+    String password;
+    @ApiModelProperty("用户名")
+    private String name;
     @ApiModelProperty("用户身份证")
     private String identity;
     @ApiModelProperty("用户手机号")
@@ -36,8 +38,5 @@ public class ScfpUser {
     private int role_id;
     @ApiModelProperty("管理员id")
     int fid;
-    @ApiModelProperty("当前页")
-    private int currentPage;
-    @ApiModelProperty("每页条数")
-    private int pageSize;
+
 }

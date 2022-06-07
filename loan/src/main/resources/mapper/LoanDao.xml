@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.loan.dao.LoanDao">
+    <insert id="add">
+        insert into scfp_loan values
+        (null,#{chain_id}, #{enterprise_id}, #{money}, #{loan_time}, #{repay_time},
+            #{principal_status}, #{service}, #{service_status}, #{interest}, #{interest_status})
+    </insert>
+
+
+    <update id="update">
+        update scfp_loan
+        <set>
+            <if test="service != null and service != ''">
+                service = #{service},
+            </if>
+            <if test="interest != null and interest != ''">
+                interest = #{interest},
+            </if>
+            <if test="principal_status != null and principal_status != ''">
+                principal_status = #{principal_status},
+            </if>
+            <if test="service_status != null and service_status != ''">
+                service_status = #{service_status},
+            </if>
+            <if test="interest_status != null and interest_status != ''">
+                interest_status = #{interest_status}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <select id="findById" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select * from scfp_loan where id = #{id}
+    </select>
+</mapper>
