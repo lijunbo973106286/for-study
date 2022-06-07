@@ -14,4 +14,14 @@ import com.woniuxy.user.entity.ScfpUser;
  */
 public interface SubAccountService {
     ResponseResult add(ScfpUser user);
+
+    ResponseResult findByFid(int fid);
+
+    ResponseResult delete(int id);
+
+    ResponseResult statusChange(int id, String status);
+
+    ResponseResult update(ScfpUser user);
+
+    ResponseResult search(ScfpUser user);
 }
