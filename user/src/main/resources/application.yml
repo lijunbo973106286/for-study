@@ -1,6 +1,6 @@
 spring:
   application:
-    name: supply
+    name: user
   cloud:
     nacos:
       discovery:
