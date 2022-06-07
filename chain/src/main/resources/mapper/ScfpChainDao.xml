@@ -132,11 +132,35 @@
             <result property="enterprise_id" column="enterprise_id"/>
             <result property="status" column="status"/>
         </association>
+        <association select="findScfpFund" property="scfpFund" column="fund_id" javaType="scfpFund">
+            <id property="id" column="id"/>
+            <result property="fund_name" column="fund_name"/>
+            <result property="fund_interest" column="fund_interest"/>
+        </association>
+        <association select="findScfpEnterprises" property="scfpEnterprise" column="enterprise_id" javaType="scfpEnterprise">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="credit_code" column="credit_code"/>
+            <result property="legal_person" column="legal_person"/>
+            <result property="id_card" column="id_card"/>
+            <result property="address" column="address"/>
+            <result property="account_id" column="account_id"/>
+            <result property="role" column="role"/>
+            <result property="money" column="money"/>
+            <result property="surplus" column="surplus"/>
+            <result property="status" column="status"/>
+        </association>
     </resultMap>
     <select id="findUserInfo" resultType="scfpUser">
         select * from scfp_user where id = #{creator}
     </select>
     <select id="findAll" resultMap="findUser">
         select * from scfp_chain order by id desc
+    </select>
+    <select id="findScfpFund" resultType="com.woniuxy.commons.entity.ScfpFund">
+        select * from scfp_fund where id=#{fund_id}
+    </select>
+    <select id="findScfpEnterprises" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select * from scfp_enterprise where id=#{enterprise_id}
     </select>
 </mapper>
