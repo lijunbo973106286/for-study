@@ -22,5 +22,7 @@
         <module>commons</module>
         <module>gateway</module>
         <module>chain</module>
+        <module>auth</module>
+        <module>config-client</module>
     </modules>
 </project>
