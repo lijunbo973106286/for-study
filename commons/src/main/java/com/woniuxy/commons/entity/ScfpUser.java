@@ -32,5 +32,8 @@ public class ScfpUser {
     private int enterprise_id;
     @ApiModelProperty("状态")
     private String status;
-
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
 }
