@@ -1,6 +1,11 @@
 spring:
   application:
-    name: payment
+    name: user
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.8.142:3306/scfp
+    username: root
+    password: 123
   cloud:
     nacos:
       discovery:
@@ -8,11 +13,16 @@ spring:
         username: nacos
         password: nacos
 server:
-  port: 3366
+  port: 9898
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+
+
+
+
+
 
 

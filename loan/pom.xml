@@ -3,15 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.woniuxy</groupId>
-    <artifactId>payment</artifactId>
+    <artifactId>loan</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>payment</name>
-    <description>Demo project for Spring Boot</description>
-    <parent>
-        <artifactId>supply-chain-finance</artifactId>
-        <groupId>com.woniuxy</groupId>
-        <version>1.0</version>
-    </parent>
+    <name>loan</name>
+    <description>loan</description>
+
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,11 +30,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.woniuxy</groupId>
-            <artifactId>commons</artifactId>
-            <version>1.0</version>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -49,6 +41,24 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.woniuxy</groupId>
+            <artifactId>commons</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!--    mybatis    -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <!--     mysql驱动   -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
 
@@ -95,7 +105,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>com.woniuxy.payment.PaymentApplication</mainClass>
+                    <mainClass>com.woniuxy.loan.LoanApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

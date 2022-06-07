@@ -20,4 +20,8 @@ public class ScfpSupply {
     private int supply_id;
     @ApiModelProperty("供应商的上游企业id")
     private int fid;
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
 }
