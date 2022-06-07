@@ -23,4 +23,5 @@ public class PageInfomation {
     private int currentPage;
     @ApiModelProperty("每页条数")
     private int pageSize;
+    private int total;
 }
