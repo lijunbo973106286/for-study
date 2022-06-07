@@ -6,7 +6,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients("com.woniuxy.commons.service")
-
 public class UserApplication {
 
     public static void main(String[] args) {

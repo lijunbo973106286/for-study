@@ -66,14 +66,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                         System.out.println("*88888888888888888");
                         noLogin(response);
                         return false;
-                    }else{
+                    } else {
                         String username = JWTUtil.getUname(token);
                         //5、通过openfeign调用认证、鉴权微服务鉴定是否有权限
                         ResponseResult<Boolean> identification = authService.identification(username, perssions);
                         //6、根据鉴定的结果返回true或false
-                       if(!identification.getData()){
-                           noPermissions(response);
-                       }
+                        if (!identification.getData()) {
+                            noPermissions(response);
+                        }
                         return identification.getData();
                     }
                 }
@@ -98,6 +98,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         responseResult.setMsg("未登录aaa");
         response.getWriter().write(new ObjectMapper().writeValueAsString(responseResult));
     }
+
     /**
      * @param response
      * @description:无权限，返回结果

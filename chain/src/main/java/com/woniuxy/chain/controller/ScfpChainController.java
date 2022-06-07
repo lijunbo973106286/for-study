@@ -22,13 +22,15 @@ public class ScfpChainController {
 
     /** 通过传入的chain对象插入scfp_chain表中，没有的信息默认为null或者0 */
     @PostMapping("/insert")
-    public ResponseResult<Object> insert(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<Object> insert(@RequestBody ScfpChain scfpChain) {
         return scfpChainService.insert(scfpChain);
     }
 
-    /** 通过传入chain对象动态修改scfp_chain表中的信息 */
+    /**
+     * 通过传入chain对象动态修改scfp_chain表中的信息
+     */
     @PutMapping("/update")
-    public ResponseResult<Object> update(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<Object> update(@RequestBody ScfpChain scfpChain) {
         return scfpChainService.update(scfpChain);
     }
     /** 通过id进行软删除*/
@@ -38,7 +40,7 @@ public class ScfpChainController {
     }
 
     /** 通过scfpchain对象动态查询ScfpChain对象*/
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseResult<ScfpChain> search(@RequestBody ScfpChain scfpChain){
         return scfpChainService.search(scfpChain);
     }
