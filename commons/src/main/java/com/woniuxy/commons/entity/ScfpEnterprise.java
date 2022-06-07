@@ -32,8 +32,8 @@ public class ScfpEnterprise {
     private String address;
     @ApiModelProperty("企业银行账户id")
     private int account_id;
-    @ApiModelProperty("角色id")
-    private int role_id;
+    @ApiModelProperty("业务角色类型")
+    private String  type;
     @ApiModelProperty("授信额度")
     private BigDecimal money;
     @ApiModelProperty("可用额度")
