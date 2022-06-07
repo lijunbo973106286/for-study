@@ -4,22 +4,16 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: goods   #路由名
-          uri: lb://goods   #lb:loadbalance   goods:微服务名
+        - id: fiance   #路由名
+          uri: lb://fiance   #lb:loadbalance   goods:微服务名
+        - id: network   #路由名
+          uri: lb://supply   #lb:loadbalance   goods:微服务名
           predicates: #谓词
-            - Path=/goods/**   #匹配的路径
+            - Path=/network/**   #匹配的路径
         - id: order   #路由名
           uri: lb://order-feign   #lb:loadbalance   goods:微服务名
           predicates: #谓词
-            - Path=/order/**   #匹配的路径
-        - id: auth   #路由名
-          uri: lb://auth   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/user/**   #匹配的路径
-        - id: kill   #路由名
-          uri: lb://kill   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/kill/**   #匹配的路径
+            - Path=/fiance/**   #匹配的路径
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848

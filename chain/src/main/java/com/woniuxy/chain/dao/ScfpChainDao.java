@@ -1,6 +1,8 @@
 package com.woniuxy.chain.dao;
 
 import com.woniuxy.commons.entity.ScfpChain;
+import com.woniuxy.commons.entity.ScfpEnterprise;
+import com.woniuxy.commons.entity.ScfpFund;
 
 import java.util.List;
 
@@ -19,4 +21,8 @@ public interface ScfpChainDao {
     List<ScfpChain> search(ScfpChain scfpChain);
 
     List<ScfpChain> findAll();
+
+    List<ScfpFund> findScfpFund(ScfpChain scfpChain);
+
+    List<ScfpEnterprise> findScfpEnterprises(ScfpChain scfpChain);
 }
