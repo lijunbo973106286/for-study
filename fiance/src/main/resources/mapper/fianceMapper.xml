@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.fiance.mapper.fianceMapper" >
+    <select id="findbankaccount" resultType="com.woniuxy.commons.entity.ScfpEnterpriseAccount">
+        SELECT sea.id,sea.bank,sea.name,sea.num,sea.type,sea.address,sea.file_id,sea.status,se.`name` FROM scfp_enterprise_accout sea LEFT JOIN scfp_enterprise se ON sea.`id`=se.`accout_id`
+    </select>
+</mapper>
