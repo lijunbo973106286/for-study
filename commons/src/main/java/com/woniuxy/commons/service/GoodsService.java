@@ -1,6 +1,5 @@
 package com.woniuxy.commons.service;
 
-import com.woniuxy.commons.entity.Goods;
 import com.woniuxy.commons.service.factory.GoodsServiceFallbackFactory;
 import com.woniuxy.commons.util.ResponseResult;
 import org.springframework.cloud.openfeign.FeignClient;

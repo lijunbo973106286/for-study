@@ -1,6 +1,5 @@
 package com.woniuxy.commons.service.factory;
 
-import com.woniuxy.commons.entity.Goods;
 import com.woniuxy.commons.service.GoodsService;
 import com.woniuxy.commons.util.ResponseResult;
 import feign.hystrix.FallbackFactory;
