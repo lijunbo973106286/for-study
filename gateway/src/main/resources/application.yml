@@ -1,13 +1,18 @@
 spring:
   application:
     name: gateway
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.8.142:3306/scfp?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: root
+    password: 123
   cloud:
     gateway:
       routes:
-        - id: goods   #路由名
-          uri: lb://goods   #lb:loadbalance   goods:微服务名
+        - id: network   #路由名
+          uri: lb://supply   #lb:loadbalance   goods:微服务名
           predicates: #谓词
-            - Path=/goods/**   #匹配的路径
+            - Path=/network/**   #匹配的路径
         - id: order   #路由名
           uri: lb://order-feign   #lb:loadbalance   goods:微服务名
           predicates: #谓词
