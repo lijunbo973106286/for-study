@@ -23,11 +23,9 @@ public class ScfpNetwork {
     @ApiModelProperty("业务产品类型")
     private String type;
     @ApiModelProperty("融资机构（银行）")
-    private String bank;
-    @ApiModelProperty("链单参与企业范围设置方式")
-    private String set_way;
-    @ApiModelProperty("当前页")
-    private int currentPage;
-    @ApiModelProperty("每页条数")
-    private int pageSize;
+    private int bank_id;
+    @ApiModelProperty("链单状态")
+    private int status;
+    @ApiModelProperty("链单名称")
+    private String name;
 }

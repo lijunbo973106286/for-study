@@ -52,7 +52,7 @@ public class AuthController {
         response.setHeader("Authorization", token);
         response.setHeader("refreshtoken", refreshToken);
         //设置过期时间
-        redisTemplate.expire(refreshToken,60, TimeUnit.SECONDS);
+        redisTemplate.expire(refreshToken, 60, TimeUnit.SECONDS);
         //暴露响应头，使前端能够访问
         response.setHeader("Access-Control-Expose-Headers", "Authorization,refreshtoken");
         //返回结果

@@ -1,4 +1,4 @@
-package com.woniuxy.commons.entity;
+package com.woniuxy.user.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

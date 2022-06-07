@@ -16,6 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "AUTH")
 public interface AuthService {
     @GetMapping("/user/identification/{username}/{permissions}")
-    public ResponseResult<Boolean> identification(@PathVariable("username") String username, @PathVariable("permissions") String permissions) ;
+    public ResponseResult<Boolean> identification(@PathVariable("username") String username, @PathVariable("permissions") String permissions);
 
 }

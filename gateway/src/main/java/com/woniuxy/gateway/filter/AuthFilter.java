@@ -146,7 +146,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
     private boolean requireAuth(String uri) {
         //uri不写死，读取配置文件或数据库
         //模拟数据
-        List<String> noAuthUri = Arrays.asList("/user/login", "/user/regist","/kill/start","/order/all");
+        List<String> noAuthUri = Arrays.asList("/user/login", "/user/regist", "/kill/start", "/order/all");
         for (String nau : noAuthUri
         ) {
             if (uri.startsWith(nau)) {
