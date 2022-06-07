@@ -42,6 +42,37 @@
         </set>
         where id = #{id}
     </update>
+    <delete id="delete">
+        update scfp_chain set status=1 where id=#{id}
+    </delete>
+    <select id="search" resultType="com.woniuxy.commons.entity.ScfpChain">
+        select * from scfp_chain where 1=1
+        <if test="id != '' and id != null">
+             and id = #{id}
+        </if>
+        <if test="chain_no != '' and chain_no != null">
+             and chain_no = #{chain_no}
+        </if>
+        <if test="bank != '' and bank != null">
+             and bank like '%${bank}%'
+        </if>
+        <if test="fund_id != '' and fund_id != null">
+             and fund_id =#{fund_id}
+        </if>
+        <if test="money != '' and money != null">
+             and money = #{money}
+        </if>
+        <if test="surplus != '' and surplus != null">
+             and surplus = #{surplus}
+        </if>
+        <if test="deadline != '' and deadline != null">
+             and deadline =#{deadline}
+        </if>
+        <if test="status != '' and status != null">
+             and status = #{status}
+        </if>
+        order by id desc
+    </select>
     <select id="findAll" resultType="scfpChain">
         select * from scfp_chain order by id desc
     </select>

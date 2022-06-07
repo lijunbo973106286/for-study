@@ -20,4 +20,8 @@ public class ScfpRoleMenu {
     private int role_id;
     @ApiModelProperty("菜单id")
     private int menu_id;
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
 }

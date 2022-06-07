@@ -14,5 +14,9 @@ public interface ScfpChainDao {
 
     int insert(ScfpChain scfpChain);
 
+    int delete(int id);
+
+    List<ScfpChain> search(ScfpChain scfpChain);
+
     List<ScfpChain> findAll();
 }
