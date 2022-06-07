@@ -22,6 +22,8 @@ public class ScfpChain {
     private int id;
     @ApiModelProperty("链单编号")
     private String chain_no;
+    @ApiModelProperty("核心企业id")
+    private int enterprise_id;
     @ApiModelProperty("流转网络id")
     private int network_id;
     @ApiModelProperty("银行")
@@ -50,4 +52,6 @@ public class ScfpChain {
     private int currentPage;
     @ApiModelProperty("每页条数")
     private int pageSize;
+    @ApiModelProperty("开单人信息")
+    private ScfpUser scfpUser;
 }

@@ -15,4 +15,5 @@ import lombok.NoArgsConstructor;
 public class PageInfomation {
     private int currentPage;
     private int pageSize;
+    private int total;
 }
