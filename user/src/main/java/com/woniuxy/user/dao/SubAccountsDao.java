@@ -1,6 +1,8 @@
 package com.woniuxy.user.dao;
 
+import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.ScfpUserRole;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -27,4 +29,10 @@ public interface SubAccountsDao {
     int update(ScfpUser user);
 
     List<ScfpUser> search(ScfpUser user);
+
+    void remove(ScfpUserRole userRole);
+
+    int userRole(ScfpUserRole userRole);
+
+    List<Integer> findRoleById(int user_id);
 }

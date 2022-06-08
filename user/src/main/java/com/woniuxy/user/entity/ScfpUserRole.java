@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @projectName: BackEnd
  * @package: com.woniuxy.user.entity
@@ -18,5 +20,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ScfpUserRole {
     int user_id;
-    int role_id;
+    List<Integer> role_id;
 }

@@ -2,6 +2,7 @@ package com.woniuxy.user.controller;
 
 import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.ScfpUserRole;
 import com.woniuxy.user.service.SubAccountsService;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,5 +69,20 @@ public class SubAccountsController {
     @PutMapping("/search")
     ResponseResult search(@RequestBody ScfpUser user) {
         return subAccountsService.search(user);
+    }
+    /**
+     * 表scfp_user_role
+     * 修改用户角色
+     */
+    @PostMapping("/userRole")
+    ResponseResult userRole(@RequestBody ScfpUserRole userRole){
+        return subAccountsService.userRole(userRole);
+    }
+    /**
+     * 查询用户角色
+     */
+    @GetMapping("/findRoleById/{user_id}")
+    ResponseResult findRoleById(@PathVariable("user_id") int user_id) {
+        return subAccountsService.findRoleById(user_id);
     }
 }
