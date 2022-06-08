@@ -10,7 +10,7 @@
     <delete id="delaccount">
         delete from scfp_enterprise_accout where id=#{id}
     </delete>
-    <select id="findbankaccount" resultType="com.woniuxy.commons.entity.ScfpEnterpriseAccount" parameterType="int">
-    SELECT sea.*,se.name FROM scfp_enterprise_accout sea LEFT JOIN scfp_enterprise se ON se.id = sea.enterprisid WHERE sea.enterprisid=#{id}
+    <select id="findbankaccount" resultType="com.woniuxy.commons.entity.DTO.EnterpriseAccountDTO" parameterType="int">
+    SELECT sea.*,se.name as ename FROM scfp_enterprise_accout sea LEFT JOIN scfp_enterprise se ON se.id = sea.enterprisid WHERE sea.enterprisid=#{id}
     </select>
 </mapper>

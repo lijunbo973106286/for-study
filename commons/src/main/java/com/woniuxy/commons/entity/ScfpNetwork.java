@@ -25,7 +25,7 @@ public class ScfpNetwork {
     @ApiModelProperty("融资机构（银行）")
     private int bank_id;
     @ApiModelProperty("链单状态")
-    private int status;
+    private String  status;
     @ApiModelProperty("链单名称")
     private String name;
 }

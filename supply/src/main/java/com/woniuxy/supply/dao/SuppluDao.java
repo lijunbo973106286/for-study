@@ -15,4 +15,6 @@ import java.util.List;
  */
 public interface SuppluDao {
     public List<SupplyDTO> findAllSupply();
+
+    List<SupplyDTO> findById(int coreId);
 }

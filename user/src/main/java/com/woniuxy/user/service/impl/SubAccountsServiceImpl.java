@@ -1,11 +1,10 @@
 package com.woniuxy.user.service.impl;
 
-import com.woniuxy.commons.util.ResStatus;
-import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.user.dao.SubAccountsDao;
-import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.*;
 import com.woniuxy.user.service.SubAccountsService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -56,5 +55,25 @@ public class SubAccountsServiceImpl implements SubAccountsService {
         return new ResponseResult(200, "查询成功",
                 subAccountsDao.search(user),
                 ResStatus.SUCCESS);
+    }
+
+    @Override
+    @Transactional
+    public ResponseResult userRole(ScfpUserRole userRole) {
+        if (userRole.getRole_id().size() > 0) {
+            subAccountsDao.remove(userRole);
+            return subAccountsDao.userRole(userRole) > 0 ? new ResponseResult(200, "角色修改成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "角色修改失败", null, ResStatus.FAIL);
+        } else {
+            subAccountsDao.remove(userRole);
+            return new ResponseResult(200, "角色已清空", null, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult findRoleById(int user_id) {
+        return new ResponseResult(200, "查询成功",
+                new ScfpUserRole(
+                        user_id, subAccountsDao.findRoleById(user_id)
+                ), ResStatus.SUCCESS);
     }
 }

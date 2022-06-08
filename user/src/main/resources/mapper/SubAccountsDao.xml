@@ -7,6 +7,12 @@
         values (null, #{uname}, #{password}, #{name}, #{identity}, #{phonenum}, #{email}, #{enterprise_id}, #{status},
                 #{role_id}, #{fid})
     </insert>
+    <insert id="userRole">
+            insert into scfp_user_role values
+            <foreach collection="role_id" close="" index="" item="item" separator="," open="">
+                (#{user_id},#{item})
+            </foreach>
+    </insert>
     <update id="statusChange">
         update scfp_user
         set status = #{status}
@@ -39,6 +45,9 @@
         delete
         from scfp_user
         where id = #{id}
+    </delete>
+    <delete id="remove">
+        delete from scfp_user_role where user_id = #{user_id}
     </delete>
     <select id="findByFid" resultType="com.woniuxy.user.entity.ScfpUser">
         select *
@@ -74,5 +83,8 @@
                 and role_id = #{role_id}
             </if>
         </where>
+    </select>
+    <select id="findRoleById" resultType="java.lang.Integer">
+        select role_id from scfp_user_role where user_id = #{user_id}
     </select>
 </mapper>

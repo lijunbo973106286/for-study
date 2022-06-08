@@ -13,4 +13,6 @@ import com.woniuxy.commons.entity.ResponseResult;
  */
 public interface SupplyService {
     ResponseResult findAllSupply(PageInfomation pageInfomation);
+
+    ResponseResult findById(int coreId);
 }

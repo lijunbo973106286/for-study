@@ -3,6 +3,7 @@ package com.woniuxy.loan.service.impl;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpLoan;
 import com.woniuxy.loan.dao.LoanDao;
+import com.woniuxy.loan.rabbitmq.producer.RepaymentProducer;
 import com.woniuxy.loan.service.LoanService;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class LoanServiceImpl implements LoanService {
 
     @Resource
     private LoanDao loanDao;
+
+    @Resource
+    private RepaymentProducer repaymentProducer;
 
     /** 兑付：
      *  1. 查询链单信息判断是否过期，余额是否充足
@@ -45,9 +49,10 @@ public class LoanServiceImpl implements LoanService {
             scfpLoan.setLoan_time(loan_time);
 
             //假设还款时间为2个月（是否需要定时任务？）
-            String repay_time = dateFormat.format(new Date(now.getTime() + 60*24*60*60*1000L));
+            String repay_time = dateFormat.format(new Date(now.getTime() + 50000));
             scfpLoan.setRepay_time(repay_time);
             scfpLoan.setPrincipal_status("未还款");
+            repaymentProducer.produce(50000,repay_time);
 
             //计算服务费，假设服务费为0.01%
             BigDecimal service = scfpLoan.getMoney().multiply(new BigDecimal("0.0001"));
@@ -140,9 +145,9 @@ public class LoanServiceImpl implements LoanService {
      *  5. 修改本金状态为逾期
      */
     @Override
-    public ResponseResult<Object> overdue(int id) {
+    public ResponseResult<Object> overdue(String repay_time) {
         try{
-            ScfpLoan scfpLoan = loanDao.findById(id);
+            ScfpLoan scfpLoan = loanDao.findByRepay_time(repay_time);
             System.out.println(scfpLoan);
             if("已还款".equals(scfpLoan.getPrincipal_status())){
                 return ResponseResult.SUCCESS;
