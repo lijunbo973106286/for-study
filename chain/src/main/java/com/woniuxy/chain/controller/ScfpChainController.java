@@ -53,4 +53,15 @@ public class ScfpChainController {
         return scfpChainService.findAll(scfpChain);
     }
 
+    /** 查找所有链单数量 */
+    @GetMapping("/findAllCount")
+    public ResponseResult<Object> findAllCount(){
+        return scfpChainService.findAllCount();
+    }
+    /** 查找各分类链单数量 */
+    @GetMapping("/findCount/{status}")
+    public ResponseResult<Object> findCount(@PathVariable("status") String status){
+        return scfpChainService.findCount(status);
+    }
+
 }
