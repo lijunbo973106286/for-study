@@ -20,7 +20,7 @@ public interface ScfpChainDao {
 
     List<ScfpChain> search(ScfpChain scfpChain);
 
-    List<ScfpChain> findAll();
+    List<ScfpChain> findAll(ScfpChain scfpChain);
 
     List<ScfpFund> findScfpFund(ScfpChain scfpChain);
 

@@ -4,9 +4,9 @@
 <mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
     <insert id="insert">
         insert into scfp_chain
-            (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, creator, create_time, updator, update_time)
+            (chain_no, enterprise_id, network_id, bank, fund_id, limit, money, surplus, file_id, deadline, status, creator, create_time, updator, update_time)
         values
-            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{creator}, #{create_time}, #{updator}, #{update_time})
+            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{limit}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{creator}, #{create_time}, #{updator}, #{update_time})
     </insert>
 
     <update id="update" parameterType="scfpChain">
@@ -26,6 +26,9 @@
             </if>
             <if test="fund_id != null and fund_id != ''">
                 fund_id = #{fund_id},
+            </if>
+            <if test="limit != null and limit != ''">
+                limit = #{limit}
             </if>
             <if test="money != null and money != ''">
                 money = #{money}
@@ -77,6 +80,9 @@
         <if test="fund_id != '' and fund_id != null">
              and fund_id =#{fund_id}
         </if>
+        <if test="limit != '' and limit != null">
+             and limit = #{limit}
+        </if>
         <if test="money != '' and money != null">
              and money = #{money}
         </if>
@@ -89,7 +95,7 @@
         <if test="status != '' and status != null">
              and status = #{status}
         </if>
-        <if test="creator != '' and creator != null">
+        <if test="creator == 0">
              and creator = (select id from scfp_user where name like concat('%',#{scfpUser.name},'%'))
         </if>
         <if test="create_time != '' and create_time != null">
@@ -101,7 +107,12 @@
         <if test="update_time != '' and update_time != null">
              and update_time = #{update_time}
         </if>
-        order by id desc
+        <if test="sortField != null and sortField != '' ">
+            order by ${sortField} ${sortType}
+        </if>
+        <if test="sortField == null or sortField == '' ">
+            order by id desc
+        </if>
     </select>
 
     <resultMap id="findUser" type="scfpChain">
@@ -111,6 +122,7 @@
         <result property="network_id" column="network_id"/>
         <result property="bank" column="bank"/>
         <result property="fund_id" column="fund_id"/>
+        <result property="limit" column="limit"/>
         <result property="money" column="money"/>
         <result property="surplus" column="surplus"/>
         <result property="file_id" column="file_id"/>
@@ -155,7 +167,14 @@
         select * from scfp_user where id = #{creator}
     </select>
     <select id="findAll" resultMap="findUser">
-        select * from scfp_chain order by id desc
+        select * from scfp_chain
+        <if test="sortField != null and sortField != '' ">
+            order by ${sortField} ${sortType}
+        </if>
+        <if test="sortField == null or sortField == '' ">
+            order by id desc
+        </if>
+
     </select>
     <select id="findScfpFund" resultType="com.woniuxy.commons.entity.ScfpFund">
         select * from scfp_fund where id=#{fund_id}
