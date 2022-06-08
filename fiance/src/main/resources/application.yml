@@ -21,5 +21,8 @@ management:
         include: '*'
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
+logging:
+  level:
+    com.woniuxy.fiance.mapper: debug
 
 
