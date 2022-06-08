@@ -1,6 +1,6 @@
 package com.woniuxy.user.controller;
 
-import com.woniuxy.commons.util.ResponseResult;
+import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpRole;
 import com.woniuxy.user.service.SubRolesService;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class SubRolesController {
     SubRolesService subRolesService;
 
     /**
-     * 子账号角色创建
+     * 角色创建
      */
     @PostMapping("/create")
     ResponseResult create(@RequestBody ScfpRole role) {
@@ -31,7 +31,7 @@ public class SubRolesController {
     }
 
     /**
-     * 子账户角色删除
+     * 角色删除
      */
     @DeleteMapping("/delete/{id}")
     ResponseResult delete(@PathVariable("id") int id) {
@@ -39,7 +39,7 @@ public class SubRolesController {
     }
 
     /**
-     * 子账户角色修改
+     * 角色修改
      */
     @PutMapping("/update")
     ResponseResult update(@RequestBody ScfpRole role) {
