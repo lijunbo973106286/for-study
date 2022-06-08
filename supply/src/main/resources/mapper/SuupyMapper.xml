@@ -27,4 +27,12 @@
                  left join scfp_user u on s.supply_id = u.enterprise_id
         where s.fid = #{eid}
     </select>
+    <select id="findById" resultMap="supplyList">
+        select e.id eid, e.name ename, u.name uname, phonenum, e.status estatus
+        from scfp_enterprise e
+                 left join scfp_user u on e.id = u.enterprise_id
+                 left join scfp_supply s on e.id = s.supply_id
+        where e.id=#{roleId}
+          and u.role_id = 1
+    </select>
 </mapper>

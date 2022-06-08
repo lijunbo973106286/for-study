@@ -64,12 +64,16 @@ public class NetworkServiceImpl implements NetworkService {
         if (i <= 0) {
             return new ResponseResult(500, "添加失败", null, ResStatus.FAIL);
         } else {
+            //添加流转网络包含的子企业
             List<Integer> eids = networkDTO.getEids();
             int nid = networkDTO.getId();
             for (int eid : eids
             ) {
                 networkDao.addNetworkEnterprise(nid, eid);
             }
+            //添加流转网络对应的核心企业，一个核心企业对应多个流转网络
+            int coreid = networkDTO.getCoreId();
+            networkDao.addNetworkCore(nid, coreid);
             return new ResponseResult(200, "添加成功", null, ResStatus.SUCCESS);
         }
     }
@@ -113,6 +117,22 @@ public class NetworkServiceImpl implements NetworkService {
             log.info("所有流转网络：{}", all);
             PageInfo<NetworkDTO> info = PageInfo.of(all);
             return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult updateStatus(NetworkDTO networkDTO) {
+        log.info("流转网络添加入参：{}", networkDTO);
+        if("1".equals(networkDTO.getStatus())){
+            networkDTO.setStatus("0");
+        }else{
+            networkDTO.setStatus("1");
+        }
+        int i = networkDao.updateStatus(networkDTO);
+        if (i <= 0) {
+            return new ResponseResult(500, "修改失败", null, ResStatus.FAIL);
+        } else {
+            return new ResponseResult(200, "修改成功", null, ResStatus.SUCCESS);
         }
     }
 

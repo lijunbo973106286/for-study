@@ -29,7 +29,7 @@ public class NetworkController {
      * @author qfx
      * @date 2022/6/7 19:41
      */
-    @GetMapping("/all")
+    @PostMapping("/all")
     public ResponseResult findAllNetwork(@RequestBody PageInfomation pageInfomation) {
         return networkService.findAllNetwork(pageInfomation);
     }
@@ -61,7 +61,7 @@ public class NetworkController {
     /**
      * @param networkDTO
      * @return ResponseResult
-     * @description 根据id修改某个流转网络
+     * @description 条件查询流转网络
      * @author qfx
      * @date 2022/6/7 19:42
      */
@@ -69,4 +69,17 @@ public class NetworkController {
     public ResponseResult findByCondition(@RequestBody NetworkDTO networkDTO) {
         return networkService.findByCondition(networkDTO);
     }
+
+    /**
+     * @param networkDTO
+     * @return ResponseResult
+     * @description 修改流转网络状态
+     * @author qfx
+     * @date 2022/6/7 19:42
+     */
+    @PostMapping("/updateStatus")
+    public ResponseResult updateStatus(@RequestBody NetworkDTO networkDTO) {
+        return networkService.updateStatus(networkDTO);
+    }
+
 }

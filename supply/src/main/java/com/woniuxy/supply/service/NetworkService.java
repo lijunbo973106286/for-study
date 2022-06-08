@@ -21,4 +21,7 @@ public interface NetworkService {
     ResponseResult updateNetwork(NetworkDTO networkDTO);
 
     ResponseResult findByCondition(NetworkDTO networkDTO);
+
+    ResponseResult updateStatus(NetworkDTO networkDTO);
+
 }

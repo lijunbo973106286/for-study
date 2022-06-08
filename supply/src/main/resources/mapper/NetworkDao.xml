@@ -29,11 +29,15 @@
         <if test="name != null and name !='' ">
             #{name},
         </if>
-        1)
+        "1")
     </insert>
     <insert id="addNetworkEnterprise">
         insert into scfp_network_enterprise
         values (#{nid}, #{eid})
+    </insert>
+    <insert id="addNetworkCore">
+        insert into scfp_network_coreenterprise
+        values (#{nid}, #{coreid})
     </insert>
     <update id="updateNetwork">
         update scfp_network
@@ -52,6 +56,11 @@
             </if>
         </trim>
     </update>
+    <update id="updateStatus">
+        update scfp_network
+        set status=#{status}
+        where id = #{id}
+    </update>
     <delete id="deleteNetworkEnterprise">
         delete
         from scfp_network_enterprise
@@ -61,6 +70,7 @@
         select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename
         from scfp_network n
                  left join scfp_enterprise e on n.bank_id = e.id
+        order by n.id desc
     </select>
     <select id="findByNid" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select *
@@ -80,7 +90,7 @@
             <if test="bank_id != null and bank_id !=''">
                 and bank_id = #{bank_id}
             </if>
-            <if test="status != null and status !=0">
+            <if test="status != null and status !=''">
                 and n.status = #{status}
             </if>
         </where>

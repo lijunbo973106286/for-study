@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.user.dao.MenuDao">
+
+    <select id="findAll" resultMap="menuList">
+        select *
+        from scfp_menu
+        where fid is null
+    </select>
+    <!-- 使用递归来进行菜单查询 -->
+    <resultMap id="menuList" type="com.woniuxy.commons.entity.ScfpMenu">
+        <id column="id" property="id"/>
+        <result column="menuname" property="menuname"/>
+        <result column="url" property="url"/>
+        <!-- 递归查询必然是一个 一对多的关系   -->
+        <collection property="menus" select="findChildren" column="id" autoMapping="true"/>
+    </resultMap>
+    <!--  根据resultmap的collection标签下的select属性，来决定该方法的执行。内部会持续递归下去！  -->
+    <select id="findChildren" resultMap="menuList">
+        select *
+        from scfp_menu
+        where fid = #{id}
+    </select>
+
+    <select id="findByRoleId" resultMap="menuList">
+        select *
+        from etms_menu
+        where id in (SELECT menuid from etms_role_menu where roleid = #{roleId})
+    </select>
+</mapper>

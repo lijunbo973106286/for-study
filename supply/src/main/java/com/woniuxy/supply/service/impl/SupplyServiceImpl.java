@@ -52,6 +52,17 @@ public class SupplyServiceImpl implements SupplyService {
         }
     }
 
+    @Override
+    public ResponseResult findById(int coreId) {
+        List<SupplyDTO> all = suppluDao.findById(coreId);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            log.info("核心企业对应的供应链：{}", all);
+            return new ResponseResult(200, "查询成功", all, ResStatus.SUCCESS);
+        }
+    }
+
     /**
      * @param list
      * @return int
