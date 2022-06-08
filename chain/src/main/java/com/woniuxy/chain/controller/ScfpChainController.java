@@ -49,8 +49,8 @@ public class ScfpChainController {
 
     /** 分页查询所有链单信息 */
     @PostMapping("/findAll")
-    public ResponseResult<Object> findAll(@RequestBody PageInfomation pageInfomation){
-        return scfpChainService.findAll(pageInfomation);
+    public ResponseResult<Object> findAll(@RequestBody ScfpChain scfpChain){
+        return scfpChainService.findAll(scfpChain);
     }
 
 }

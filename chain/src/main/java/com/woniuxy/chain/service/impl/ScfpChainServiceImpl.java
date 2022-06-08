@@ -47,11 +47,11 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     }
 
     @Override
-    public ResponseResult<Object> findAll(PageInfomation pageInfomation) {
-        int currentPage = pageInfomation.getCurrentPage();
-        int pageSize = pageInfomation.getPageSize();
+    public ResponseResult<Object> findAll(ScfpChain scfpChain) {
+        int currentPage = scfpChain.getCurrentPage();
+        int pageSize = scfpChain.getPageSize();
         PageHelper.startPage(currentPage, pageSize);
-        List<ScfpChain> all = scfpChainDao.findAll();
+        List<ScfpChain> all = scfpChainDao.findAll(scfpChain);
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
