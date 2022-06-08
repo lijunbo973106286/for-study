@@ -32,7 +32,7 @@
     </update>
 
 
-    <select id="findById" resultType="com.woniuxy.commons.entity.ScfpLoan">
-        select * from scfp_loan where id = #{id}
+    <select id="findByRepay_time" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select * from scfp_loan where repay_time = #{repay_time}
     </select>
 </mapper>

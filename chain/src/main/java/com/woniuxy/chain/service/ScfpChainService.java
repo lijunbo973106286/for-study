@@ -18,5 +18,5 @@ public interface ScfpChainService {
 
     ResponseResult<ScfpChain> search(ScfpChain scfpChain);
 
-    ResponseResult<Object> findAll(PageInfomation pageInfomation);
+    ResponseResult<Object> findAll(ScfpChain scfpChain);
 }

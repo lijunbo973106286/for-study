@@ -30,6 +30,8 @@ public class ScfpChain {
     private String bank;
     @ApiModelProperty("资金产品id")
     private int fund_id;
+    @ApiModelProperty("企业总额度")
+    private BigDecimal limit;
     @ApiModelProperty("融资总额度")
     private BigDecimal money;
     @ApiModelProperty("剩余额度")
@@ -60,4 +62,8 @@ public class ScfpChain {
     private ScfpFund scfpFund;
     @ApiModelProperty("银行信息")
     private ScfpEnterprise scfpEnterprise;
+    @ApiModelProperty("排序字段")
+    private String sortField;
+    @ApiModelProperty("排序方式")
+    private String sortType;
 }

@@ -8,5 +8,5 @@ public interface LoanDao {
 
     int update(ScfpLoan scfpLoan);
 
-    ScfpLoan findById(int id);
+    ScfpLoan findByRepay_time(String repay_time);
 }
