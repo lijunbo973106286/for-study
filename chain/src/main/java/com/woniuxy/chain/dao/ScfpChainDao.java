@@ -25,4 +25,5 @@ public interface ScfpChainDao {
     List<ScfpFund> findScfpFund(ScfpChain scfpChain);
 
     List<ScfpEnterprise> findScfpEnterprises(ScfpChain scfpChain);
+
 }

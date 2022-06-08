@@ -73,7 +73,6 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     @Override
     public ResponseResult search(ScfpChain scfpChain) {
         PageHelper.startPage(scfpChain.getCurrentPage(), scfpChain.getPageSize());
-        System.out.println("............" + scfpChain.getCreator());
         List<ScfpChain> all = scfpChainDao.search(scfpChain);
         PageInfo<ScfpChain> pageInfo = PageInfo.of(all);
         return new ResponseResult<>(200, "查询成功", pageInfo, ResStatus.SUCCESS);
