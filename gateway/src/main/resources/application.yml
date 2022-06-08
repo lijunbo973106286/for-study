@@ -6,9 +6,13 @@ spring:
     url: jdbc:mysql://192.168.8.142:3306/scfp
     username: root
     password: 123
+    maxActive: 500
+
   cloud:
     gateway:
       routes:
+        - id: fiance   #路由名
+          uri: lb://fiance   #lb:loadbalance   goods:微服务名
         - id: network   #路由名
           uri: lb://supply   #lb:loadbalance   goods:微服务名
           predicates: #谓词
