@@ -24,5 +24,6 @@
         <module>auth</module>
         <module>config-client</module>
         <module>loan</module>
+        <module>file</module>
     </modules>
 </project>

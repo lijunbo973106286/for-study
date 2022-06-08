@@ -42,9 +42,6 @@
     <update id="updateNetwork">
         update scfp_network
         <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
-            <if test="network_no != null and network_no !=''">
-                network_no=#{network_no},
-            </if>
             <if test="type != null and type !=''">
                 `type`=#{type},
             </if>
@@ -67,7 +64,7 @@
         where nid = #{nid}
     </delete>
     <select id="findAllNetwork" resultType="com.woniuxy.commons.entity.DTO.NetworkDTO">
-        select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename
+        select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename,bank_id
         from scfp_network n
                  left join scfp_enterprise e on n.bank_id = e.id
         order by n.id desc
@@ -94,5 +91,6 @@
                 and n.status = #{status}
             </if>
         </where>
+        order by n.id desc
     </select>
 </mapper>
