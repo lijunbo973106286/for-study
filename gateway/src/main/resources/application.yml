@@ -13,6 +13,8 @@ spring:
       routes:
         - id: fiance   #路由名
           uri: lb://fiance   #lb:loadbalance   goods:微服务名
+          predicates: #谓词
+            - Path=/fiance/**   #匹配的路径
         - id: network   #路由名
           uri: lb://supply   #lb:loadbalance   goods:微服务名
           predicates: #谓词
