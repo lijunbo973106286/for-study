@@ -23,14 +23,6 @@ spring:
           uri: lb://order-feign   #lb:loadbalance   goods:微服务名
           predicates: #谓词
             - Path=/fiance/**   #匹配的路径
-        - id: file   #路由名
-          uri: lb://file   #lb:loadbalance   file:微服务名
-          predicates: #谓词
-            - Path=/file/**   #匹配的路径
-        - id: fiance   #路由名
-          uri: lb://chain   #lb:loadbalance   chain:微服务名
-          predicates: #谓词
-            - Path=/chain/**   #匹配的路径
         # 放款路由
         - id: loan
           uri: lb://loan

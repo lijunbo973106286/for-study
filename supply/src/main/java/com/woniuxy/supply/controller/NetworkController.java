@@ -53,7 +53,7 @@ public class NetworkController {
      * @author qfx
      * @date 2022/6/7 19:42
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseResult updateNetwork(@RequestBody NetworkDTO networkDTO) {
         return networkService.updateNetwork(networkDTO);
     }
@@ -65,7 +65,7 @@ public class NetworkController {
      * @author qfx
      * @date 2022/6/7 19:42
      */
-    @GetMapping("/findBy")
+    @PostMapping("/findBy")
     public ResponseResult findByCondition(@RequestBody NetworkDTO networkDTO) {
         return networkService.findByCondition(networkDTO);
     }
