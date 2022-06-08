@@ -12,5 +12,5 @@ public interface LoanService {
 
     ResponseResult<Object> service(int id);
 
-    ResponseResult<Object> overdue(int id);
+    ResponseResult<Object> overdue(String repay_time);
 }

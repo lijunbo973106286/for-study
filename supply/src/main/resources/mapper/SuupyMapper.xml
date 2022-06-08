@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.supply.dao.SuppluDao">
+    <select id="findAllSupply" resultMap="supplyList">
+        select e.id eid, e.name ename, u.name uname, phonenum, e.status estatus
+        from scfp_enterprise e
+                 left join scfp_user u on e.id = u.enterprise_id
+                 left join scfp_supply s on e.id = s.supply_id
+        where e.role = 2
+          and u.role_id = 1
+          and s.fid is null
+    </select>
+    <!-- 使用递归来进行供应链查询 -->
+    <resultMap id="supplyList" type="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        <id column="eid" property="eid"/>
+        <result column="ename" property="ename"/>
+        <result column="uanme" property="uname"/>
+        <result column="phonenum" property="phonenum"/>
+        <result column="estatus" property="estatus"/>
+        <!-- 递归查询必然是一个 一对多的关系   -->
+        <collection property="enterprises" select="findChildren" column="eid" autoMapping="true"/>
+    </resultMap>
+    <select id="findChildren" resultMap="supplyList">
+        select s.supply_id eid, e.name ename, u.name uname, phonenum, e.status estatus
+        from scfp_supply s
+                 left join scfp_enterprise e on e.id = s.supply_id
+                 left join scfp_user u on s.supply_id = u.enterprise_id
+        where s.fid = #{eid}
+    </select>
+    <select id="findById" resultMap="supplyList">
+        select e.id eid, e.name ename, u.name uname, phonenum, e.status estatus
+        from scfp_enterprise e
+                 left join scfp_user u on e.id = u.enterprise_id
+                 left join scfp_supply s on e.id = s.supply_id
+        where e.id=#{roleId}
+          and u.role_id = 1
+    </select>
+</mapper>

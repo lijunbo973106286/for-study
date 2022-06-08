@@ -4,9 +4,11 @@ import com.woniuxy.chain.service.ScfpChainService;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpChain;
+import com.woniuxy.commons.util.ConvertTime;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * \* @author: ZJH
@@ -47,8 +49,19 @@ public class ScfpChainController {
 
     /** 分页查询所有链单信息 */
     @PostMapping("/findAll")
-    public ResponseResult<Object> findAll(@RequestBody PageInfomation pageInfomation){
-        return scfpChainService.findAll(pageInfomation);
+    public ResponseResult<Object> findAll(@RequestBody ScfpChain scfpChain){
+        return scfpChainService.findAll(scfpChain);
+    }
+
+    /** 查找所有链单数量 */
+    @GetMapping("/findAllCount")
+    public ResponseResult<Object> findAllCount(){
+        return scfpChainService.findAllCount();
+    }
+    /** 查找各分类链单数量 */
+    @GetMapping("/findCount/{status}")
+    public ResponseResult<Object> findCount(@PathVariable("status") String status){
+        return scfpChainService.findCount(status);
     }
 
 }

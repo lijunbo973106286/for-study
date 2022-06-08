@@ -25,13 +25,13 @@ public class SupplyDTO {
     @ApiModelProperty("企业编号")
     private int eid;
     @ApiModelProperty("企业名称")
-    private String  ename;
+    private String ename;
     @ApiModelProperty("管理员名称")
-    private String  uname;
+    private String uname;
     @ApiModelProperty("管理员电话")
-    private String  phonenum;
+    private String phonenum;
     @ApiModelProperty("企业状态")
-    private String  estatus;
+    private String estatus;
     @ApiModelProperty("子企业")
     private List<ScfpEnterprise> enterprises;
     @ApiModelProperty("层数")

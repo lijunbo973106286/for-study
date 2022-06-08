@@ -12,6 +12,7 @@ import java.util.List;
  * \* @Description：
  */
 public interface ScfpChainDao {
+
     int update(ScfpChain scfpChain);
 
     int insert(ScfpChain scfpChain);
@@ -20,9 +21,15 @@ public interface ScfpChainDao {
 
     List<ScfpChain> search(ScfpChain scfpChain);
 
-    List<ScfpChain> findAll();
+    List<ScfpChain> findAll(ScfpChain scfpChain);
 
     List<ScfpFund> findScfpFund(ScfpChain scfpChain);
 
     List<ScfpEnterprise> findScfpEnterprises(ScfpChain scfpChain);
+
+    List<ScfpChain> findAllExcel();
+
+    int findAllCount();
+
+    int findCount(String status);
 }

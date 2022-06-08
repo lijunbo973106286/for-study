@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.supply.dao.BankDao">
+
+    <select id="findAllBank" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select *
+        from scfp_enterprise
+        where role = 1
+    </select>
+</mapper>

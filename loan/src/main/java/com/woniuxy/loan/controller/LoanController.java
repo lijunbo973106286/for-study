@@ -24,7 +24,7 @@ public class LoanController {
 
     //兑付
     @PostMapping("/apply")
-    public ResponseResult<Object> applyLoan(@RequestBody ScfpLoan scfpLoan){
+    public ResponseResult<Object> applyLoan(@RequestBody ScfpLoan scfpLoan) {
         return loanService.applyLoan(scfpLoan);
     }
 
@@ -46,9 +46,4 @@ public class LoanController {
         return loanService.service(id);
     }
 
-    //逾期
-    @GetMapping("overdue/{id}")
-    public ResponseResult<Object> overdue(@PathVariable int id){
-        return loanService.overdue(id);
-    }
 }

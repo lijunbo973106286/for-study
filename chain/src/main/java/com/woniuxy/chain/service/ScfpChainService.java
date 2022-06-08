@@ -4,6 +4,8 @@ import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpChain;
 
+import java.util.List;
+
 /**
  * \* @author: ZJH
  * \* @DateTime: 2022-06-07 10:30
@@ -18,5 +20,11 @@ public interface ScfpChainService {
 
     ResponseResult<ScfpChain> search(ScfpChain scfpChain);
 
-    ResponseResult<Object> findAll(PageInfomation pageInfomation);
+    ResponseResult<Object> findAll(ScfpChain scfpChain);
+
+    List<ScfpChain> findAllExcel();
+
+    ResponseResult<Object> findCount(String status);
+
+    ResponseResult<Object> findAllCount();
 }

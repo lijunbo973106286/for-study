@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.woniuxy.supply.dao.NetworkDao">
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        insert into scfp_network(
+        <if test="network_no != null and network_no !=''">
+            network_no,
+        </if>
+        <if test="type != null and type !=''">
+            type,
+        </if>
+        <if test="bank_id != null ">
+            bank_id,
+        </if>
+        <if test="name != null and name !='' ">
+            name,
+        </if>
+        status)
+        values(
+        <if test="network_no != null and network_no !=''">
+            #{network_no},
+        </if>
+        <if test="type != null and type !=''">
+            #{type},
+        </if>
+        <if test="bank_id != null ">
+            #{bank_id},
+        </if>
+        <if test="name != null and name !='' ">
+            #{name},
+        </if>
+        "1")
+    </insert>
+    <insert id="addNetworkEnterprise">
+        insert into scfp_network_enterprise
+        values (#{nid}, #{eid})
+    </insert>
+    <insert id="addNetworkCore">
+        insert into scfp_network_coreenterprise
+        values (#{nid}, #{coreid})
+    </insert>
+    <update id="updateNetwork">
+        update scfp_network
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="network_no != null and network_no !=''">
+                network_no=#{network_no},
+            </if>
+            <if test="type != null and type !=''">
+                `type`=#{type},
+            </if>
+            <if test="bank_id != null ">
+                bank_id=#{bank_id},
+            </if>
+            <if test="name != null and name !='' ">
+                `name`=#{name},
+            </if>
+        </trim>
+    </update>
+    <update id="updateStatus">
+        update scfp_network
+        set status=#{status}
+        where id = #{id}
+    </update>
+    <delete id="deleteNetworkEnterprise">
+        delete
+        from scfp_network_enterprise
+        where nid = #{nid}
+    </delete>
+    <select id="findAllNetwork" resultType="com.woniuxy.commons.entity.DTO.NetworkDTO">
+        select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename
+        from scfp_network n
+                 left join scfp_enterprise e on n.bank_id = e.id
+        order by n.id desc
+    </select>
+    <select id="findByNid" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select *
+        from scfp_enterprise e
+                 RIGHT JOIN scfp_network_enterprise ne on e.id = ne.eid
+                 RIGHT JOIN scfp_network n on n.id = ne.nid
+        where n.id = #{nid}
+    </select>
+    <select id="findByCondition" resultType="com.woniuxy.commons.entity.DTO.NetworkDTO">
+        select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename
+        from scfp_network n
+        left join scfp_enterprise e on n.bank_id = e.id
+        <where>
+            <if test="name != null and name !=''">
+                n.name like concat('%',#{name},'%')
+            </if>
+            <if test="bank_id != null and bank_id !=''">
+                and bank_id = #{bank_id}
+            </if>
+            <if test="status != null and status !=''">
+                and n.status = #{status}
+            </if>
+        </where>
+    </select>
+</mapper>
