@@ -14,6 +14,11 @@ spring:
           uri: lb://order-feign   #lb:loadbalance   goods:微服务名
           predicates: #谓词
             - Path=/fiance/**   #匹配的路径
+        # 放款路由
+        - id: loan
+          uri: lb://loan
+          predicates:
+            - Path=/loan/**
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848

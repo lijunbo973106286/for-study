@@ -1,17 +1,21 @@
 package com.woniuxy.user.service;
 
-import com.woniuxy.commons.entity.ResponseResult;
+import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.ScfpRoleMenu;
 
 /**
- * @BelongsProject supply-chain-finance
- * @BelongsPackage com.woniuxy.commons.service
- * @Author qfx
- * @CreateTime 2022-06-08  09:41
- * @Description TODO
- * @Version 1.0
+ * @projectName: BackEnd
+ * @package: com.woniuxy.user.service
+ * @className: MenuService
+ * @author: SuYHo
+ * @description: TODO
+ * @date: 2022/6/8 11:55
+ * @version: 1.0
  */
 public interface MenuService {
-    public ResponseResult findAll();
+    ResponseResult findAll();
 
-    public ResponseResult findByRoleId(int roleId);
+    ResponseResult roleMenu(ScfpRoleMenu roleMenu);
+
+    ResponseResult findMenuById(int role_id);
 }

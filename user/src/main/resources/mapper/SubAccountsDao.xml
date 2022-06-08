@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woniuxy.user.dao.SubAccountDao">
+<mapper namespace="com.woniuxy.user.dao.SubAccountsDao">
     <insert id="add">
         insert into scfp_user
         values (null, #{uname}, #{password}, #{name}, #{identity}, #{phonenum}, #{email}, #{enterprise_id}, #{status},
                 #{role_id}, #{fid})
+    </insert>
+    <insert id="userRole">
+            insert into scfp_user_role values
+            <foreach collection="role_id" close="" index="" item="item" separator="," open="">
+                (#{user_id},#{item})
+            </foreach>
     </insert>
     <update id="statusChange">
         update scfp_user
@@ -39,6 +45,9 @@
         delete
         from scfp_user
         where id = #{id}
+    </delete>
+    <delete id="remove">
+        delete from scfp_user_role where user_id = #{user_id}
     </delete>
     <select id="findByFid" resultType="com.woniuxy.user.entity.ScfpUser">
         select *
@@ -74,5 +83,8 @@
                 and role_id = #{role_id}
             </if>
         </where>
+    </select>
+    <select id="findRoleById" resultType="java.lang.Integer">
+        select role_id from scfp_user_role where user_id = #{user_id}
     </select>
 </mapper>
