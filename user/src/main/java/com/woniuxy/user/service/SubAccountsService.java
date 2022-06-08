@@ -1,6 +1,6 @@
 package com.woniuxy.user.service;
 
-import com.woniuxy.commons.util.ResponseResult;
+import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
 
 /**

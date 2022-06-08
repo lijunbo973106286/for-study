@@ -1,8 +1,8 @@
 package com.woniuxy.user.service.impl;
 
-import com.woniuxy.commons.util.ResStatus;
-import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.user.dao.SubAccountsDao;
+import com.woniuxy.user.entity.ResStatus;
+import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
 import com.woniuxy.user.service.SubAccountsService;
 import org.springframework.stereotype.Service;

@@ -46,9 +46,4 @@ public class LoanController {
         return loanService.service(id);
     }
 
-    //逾期
-    @GetMapping("overdue/{id}")
-    public ResponseResult<Object> overdue(@PathVariable int id){
-        return loanService.overdue(id);
-    }
 }

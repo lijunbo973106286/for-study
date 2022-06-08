@@ -1,6 +1,6 @@
 package com.woniuxy.user.controller;
 
-import com.woniuxy.commons.util.ResponseResult;
+import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
 import com.woniuxy.user.service.SubAccountsService;
 import org.springframework.web.bind.annotation.*;
