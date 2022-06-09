@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author lijunbo
  * @date 2022/6/8 16:35
  */
-//@FeignClient(name = "file")
+@FeignClient(name = "file")
 public interface ScfpFileService {
     @PostMapping("/file/upload/{idnum}")
     public ResponseResult<ScfpFile> upload(MultipartFile file, @PathVariable("idnum") int idnum) throws IOException;
