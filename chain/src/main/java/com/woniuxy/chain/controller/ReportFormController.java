@@ -4,6 +4,7 @@ import com.woniuxy.chain.service.ScfpChainService;
 import com.woniuxy.commons.entity.ScfpChain;
 import com.woniuxy.commons.util.ExcelUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,13 +29,13 @@ public class ReportFormController {
      * 导出所有链单记录
      * @return
      */
-    @RequestMapping(value = "/export")
+    @RequestMapping(value = "/export/{eid}")
     @ResponseBody
-    public void export(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void export(@PathVariable("eid") int eid, HttpServletRequest request, HttpServletResponse response) throws Exception {
            //获取数据
-        List<ScfpChain> list = scfpChainService.findAllExcel();
+        List<ScfpChain> list = scfpChainService.findAllExcel(eid);
         //excel标题
-        String title[] = {"订单编号", "链单金额", "截止兑付时间", "开单人", "开单日"};
+        String title[] = {"订单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
         //excel文件名
         String fileName = "链单信息表" + ".xls";
         //sheet名
@@ -49,6 +50,7 @@ public class ReportFormController {
             content[i][2] = obj.getDeadline();
             content[i][3] = obj.getScfpUser().getName();
             content[i][4] = obj.getCreate_time();
+            content[i][5] = obj.getStatus_tab();
         }
         //创建HSSFWorkbook
         HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);

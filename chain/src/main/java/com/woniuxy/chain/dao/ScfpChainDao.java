@@ -27,7 +27,7 @@ public interface ScfpChainDao {
 
     List<ScfpEnterprise> findScfpEnterprises(ScfpChain scfpChain);
 
-    List<ScfpChain> findAllExcel();
+    List<ScfpChain> findAllExcel(int eid);
 
     int findAllCount(int eid);
 

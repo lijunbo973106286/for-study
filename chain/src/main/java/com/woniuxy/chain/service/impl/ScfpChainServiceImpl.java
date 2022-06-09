@@ -60,8 +60,8 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     }
 
     @Override
-    public List<ScfpChain> findAllExcel() {
-        return scfpChainDao.findAllExcel();
+    public List<ScfpChain> findAllExcel(int eid) {
+        return scfpChainDao.findAllExcel(eid);
     }
 
     @Override
