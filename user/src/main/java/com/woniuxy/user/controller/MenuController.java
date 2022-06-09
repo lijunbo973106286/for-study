@@ -26,9 +26,9 @@ public class MenuController {
     /**
      * 查询用户全部菜单
      */
-    @GetMapping("/findAll/{id}")
-    ResponseResult findAll(@PathVariable("id") int id) {
-        return menuService.findAll(id);
+    @GetMapping("/findAll")
+    ResponseResult findAll() {
+        return menuService.findAll();
     }
 
     /**
