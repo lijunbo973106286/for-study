@@ -4,15 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.chain.dao.ScfpChainDao;
 import com.woniuxy.chain.service.ScfpChainService;
+import com.woniuxy.commons.entity.*;
 import com.woniuxy.commons.entity.ResStatus;
-import com.woniuxy.commons.entity.PageInfomation;
-import com.woniuxy.commons.entity.ResStatus;
-import com.woniuxy.commons.entity.ResponseResult;
-import com.woniuxy.commons.entity.ScfpChain;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,13 +65,56 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     }
 
     @Override
-    public ResponseResult<Object> findCount(String status) {
-        return new ResponseResult<>(200, "执行成功", scfpChainDao.findCount(status), ResStatus.SUCCESS);
+    public ResponseResult<Object> findCount(ScfpChain scfpChain) {
+        return new ResponseResult<>(200, "执行成功", scfpChainDao.findCount(scfpChain), ResStatus.SUCCESS);
     }
 
     @Override
-    public ResponseResult<Object> findAllCount() {
-        return new ResponseResult<>(200, "执行成功", scfpChainDao.findAllCount(), ResStatus.SUCCESS);
+    public ResponseResult<Object> findAllCount(int eid) {
+        return new ResponseResult<>(200, "执行成功", scfpChainDao.findAllCount(eid), ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<Object> updateLoan(int chain_id) {
+        ScfpChain scfpChain = new ScfpChain();
+        scfpChain.setId(chain_id);
+        scfpChain.setStatus("19");
+        scfpChain.setSurplus(BigDecimal.valueOf(0.0001));
+        int i = scfpChainDao.update(scfpChain);
+        if (i > 0) {
+            return ResponseResult.SUCCESS;
+        } else {
+            return ResponseResult.FAIL;
+        }
+    }
+
+    @Override
+    public ResponseResult<Object> updateBatLoan(List<Integer> ids) {
+        ScfpChain scfpChain = new ScfpChain();
+        scfpChain.setStatus("19");
+        scfpChain.setSurplus(BigDecimal.valueOf(0.0001));
+        int count = 0;
+        for (int id : ids){
+            scfpChain.setId(id);
+            int i = scfpChainDao.update(scfpChain);
+            if (i > 0){
+                count++;
+            }
+        }
+        if (count == ids.size()){
+            return ResponseResult.SUCCESS;
+        } else {
+            return ResponseResult.FAIL;
+        }
+    }
+
+    @Override
+    public ResponseResult<Object> checkPayPass(ScfpEnterprise scfpEnterprise) {
+        if (scfpChainDao.checkPayPass(scfpEnterprise) != null) {
+            return ResponseResult.SUCCESS;
+        } else {
+            return ResponseResult.FAIL;
+        }
     }
 
     @Override

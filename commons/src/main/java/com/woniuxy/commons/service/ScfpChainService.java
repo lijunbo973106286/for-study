@@ -2,10 +2,12 @@ package com.woniuxy.commons.service;
 
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpChain;
+import com.woniuxy.commons.entity.ScfpEnterprise;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * \* @author: ZJH
@@ -42,6 +44,18 @@ public interface ScfpChainService {
     /** 查找各分类链单数量 */
     @GetMapping("/chain/findCount/{status}")
     public ResponseResult<Object> findCount(@PathVariable("status") String status);
+
+    /** 单个兑付处理 */
+    @PutMapping("/chain/updateLoan/{chain_id}")
+    public ResponseResult<Object> updateLoan(@PathVariable("chain_id") int chain_id);
+
+    /** 批处理兑付 */
+    @PutMapping("/chain/updateBatLoan")
+    public ResponseResult<Object> updateLoan(@RequestBody List<Integer> ids);
+
+    /** 检查交易密码 */
+    @PostMapping("/chain/checkPayPass")
+    public ResponseResult<Object> checkPayPass(@RequestBody ScfpEnterprise scfpEnterprise);
 
    /* @PostMapping("/upload/{idnum}")
     public ResponseResult<ScfpFile> upload(MultipartFile file, @PathVariable("idnum") int idnum) throws IOException {

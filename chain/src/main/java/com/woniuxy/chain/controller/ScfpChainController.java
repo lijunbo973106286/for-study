@@ -1,10 +1,7 @@
 package com.woniuxy.chain.controller;
 
 import com.woniuxy.chain.service.ScfpChainService;
-import com.woniuxy.commons.entity.PageInfomation;
-import com.woniuxy.commons.entity.ResponseResult;
-import com.woniuxy.commons.entity.ScfpChain;
-import com.woniuxy.commons.entity.ScfpFile;
+import com.woniuxy.commons.entity.*;
 import com.woniuxy.commons.service.ScfpFileService;
 import com.woniuxy.commons.util.ConvertTime;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * \* @author: ZJH
@@ -59,14 +57,32 @@ public class ScfpChainController {
     }
 
     /** 查找所有链单数量 */
-    @GetMapping("/findAllCount")
-    public ResponseResult<Object> findAllCount(){
-        return scfpChainService.findAllCount();
+    @GetMapping("/findAllCount/{eid}")
+    public ResponseResult<Object> findAllCount(@PathVariable("eid") int eid){
+        return scfpChainService.findAllCount(eid);
     }
     /** 查找各分类链单数量 */
-    @GetMapping("/findCount/{status}")
-    public ResponseResult<Object> findCount(@PathVariable("status") String status){
-        return scfpChainService.findCount(status);
+    @PostMapping("/findCount")
+    public ResponseResult<Object> findCount(@RequestBody ScfpChain scfpChain){
+        return scfpChainService.findCount(scfpChain);
+    }
+
+    /** 单个兑付处理 */
+    @PutMapping("/updateLoan/{chain_id}")
+    public ResponseResult<Object> updateLoan(@PathVariable("chain_id") int chain_id) {
+        return scfpChainService.updateLoan(chain_id);
+    }
+
+    /** 批处理兑付 */
+    @PutMapping("/updateBatLoan")
+    public ResponseResult<Object> updateLoan(@RequestBody List<Integer> ids) {
+        return scfpChainService.updateBatLoan(ids);
+    }
+
+    /** 检查交易密码 */
+    @PostMapping("/checkPayPass")
+    public ResponseResult<Object> checkPayPass(@RequestBody ScfpEnterprise scfpEnterprise) {
+        return scfpChainService.checkPayPass(scfpEnterprise);
     }
 
    /* @PostMapping("/upload/{idnum}")
