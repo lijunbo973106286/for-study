@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Mapper
 public interface MenuDao {
-    List<ScfpMenu> findAll(int id);
+    List<ScfpMenu> list(int id);
 
     List<ScfpMenu> findChild(int id);
 

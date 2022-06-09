@@ -21,7 +21,7 @@
         <collection property="menus" select="findChild" column="id" autoMapping="true"/>
     </resultMap>
     <!--    一级菜单-->
-    <select id="findAll" resultMap="MenuList">
+    <select id="list" resultMap="MenuList">
         select id, menuname, url, fid
         from scfp_menu
         where fid is null
@@ -42,7 +42,7 @@
                         left join scfp_user_role ru on rm.role_id = ru.role_id
               );
     </select>
-    <!--    查询全部查单 &#45;&#45; 完-->
+    <!--    查询用户全部查单 &#45;&#45; 完-->
 
 
     <select id="findMenuById" resultType="java.lang.Integer">
