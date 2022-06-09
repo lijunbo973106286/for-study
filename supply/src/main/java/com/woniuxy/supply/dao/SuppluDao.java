@@ -16,7 +16,9 @@ import java.util.List;
 public interface SuppluDao {
     public List<SupplyDTO> findAllSupply();
 
-    List<SupplyDTO> findById(int coreId);
+    List<SupplyDTO> findById(int eid);
 
     List<SupplyDTO> findByCondtion(SupplyDTO supplyDTO);
+
+    List<SupplyDTO> findByConditionAndEid(SupplyDTO supplyDTO);
 }

@@ -47,6 +47,19 @@ public class SupplyController {
         return supplyService.findById(coreId);
     }
 
+    @PostMapping("/findByEid")
+
+    /**
+     * @description 根据企业id分页查询供应链
+     * @author qfx
+     * @date 2022/6/9 14:50
+     * @param supplyDTO
+     * @return ResponseResult
+     */
+    public ResponseResult findByEid(@RequestBody SupplyDTO supplyDTO) {
+        return supplyService.findByEid(supplyDTO);
+    }
+
     /**
      * @param supplyDTO
      * @return ResponseResult
@@ -57,5 +70,17 @@ public class SupplyController {
     @PostMapping("/findBy")
     public ResponseResult findByCondition(@RequestBody SupplyDTO supplyDTO) {
         return supplyService.findByCondition(supplyDTO);
+    }
+
+    /**
+     * @param supplyDTO
+     * @return ResponseResult
+     * @description 根据id条件查询供应链
+     * @author qfx
+     * @date 2022/6/9 15:47
+     */
+    @PostMapping("/findByConditionAndEid")
+    public ResponseResult findByConditionAndEid(@RequestBody SupplyDTO supplyDTO) {
+        return supplyService.findByConditionAndEid(supplyDTO);
     }
 }

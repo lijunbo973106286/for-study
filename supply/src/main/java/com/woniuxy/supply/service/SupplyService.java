@@ -18,4 +18,8 @@ public interface SupplyService {
     ResponseResult findById(int coreId);
 
     ResponseResult findByCondition(SupplyDTO supplyDTO);
+
+    ResponseResult findByEid(SupplyDTO supplyDTO);
+
+    ResponseResult findByConditionAndEid(SupplyDTO supplyDTO);
 }

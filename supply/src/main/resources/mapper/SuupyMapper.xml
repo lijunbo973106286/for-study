@@ -33,7 +33,7 @@
         from scfp_enterprise e
                  left join scfp_user u on e.id = u.enterprise_id
                  left join scfp_supply s on e.id = s.supply_id
-        where e.id = #{roleId}
+        where e.id = #{eid}
           and u.role_id = 1
     </select>
     <select id="findByCondtion" resultMap="supplyList">
@@ -46,7 +46,26 @@
             and u.role_id = 1
             and s.fid is null
             <if test="ename != null and ename !=''">
-               and e.name like concat('%',#{ename},'%')
+                and e.name like concat('%',#{ename},'%')
+            </if>
+            <if test="phonenum != null and phonenum !=''">
+                and phonenum like concat('%',#{phonenum},'%')
+            </if>
+        </where>
+        order by e.id desc
+    </select>
+    <select id="findByConditionAndEid" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
+        from scfp_enterprise e
+        left join scfp_user u on e.id = u.enterprise_id
+        left join scfp_supply s on e.id = s.supply_id
+        <where>
+            e.id =#{eid}
+            and e.role = 2
+            and u.role_id = 1
+            and s.fid is null
+            <if test="ename != null and ename !=''">
+                and e.name like concat('%',#{ename},'%')
             </if>
             <if test="phonenum != null and phonenum !=''">
                 and phonenum like concat('%',#{phonenum},'%')

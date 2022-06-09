@@ -89,6 +89,37 @@ public class SupplyServiceImpl implements SupplyService {
         }
     }
 
+    @Override
+    public ResponseResult findByEid(SupplyDTO supplyDTO) {
+        int currentPage = supplyDTO.getCurrentPage();
+        int pageSize = supplyDTO.getPageSize();
+        PageHelper.startPage(currentPage, pageSize);
+        int eid = supplyDTO.getEid();
+        List<SupplyDTO> all = suppluDao.findById(eid);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            log.info("企业对应的供应链：{}", all);
+            PageInfo<SupplyDTO> info = PageInfo.of(all.get(0).getEnterprises());
+            return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult findByConditionAndEid(SupplyDTO supplyDTO) {
+        int currentPage = supplyDTO.getCurrentPage();
+        int pageSize = supplyDTO.getPageSize();
+        PageHelper.startPage(currentPage, pageSize);
+        List<SupplyDTO> all = suppluDao.findByConditionAndEid(supplyDTO);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            log.info("根据id条件查询供应链：{}", all);
+            PageInfo<SupplyDTO> info = PageInfo.of(all);
+            return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
+        }
+    }
+
     /**
      * @param
      * @return int
