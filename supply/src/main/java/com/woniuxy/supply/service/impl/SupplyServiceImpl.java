@@ -29,7 +29,6 @@ import java.util.List;
 public class SupplyServiceImpl implements SupplyService {
     @Resource
     SuppluDao suppluDao;
-    private PageInfo<SupplyDTO> info;
 
     @Override
     public ResponseResult findAllSupply(PageInfomation pageInfomation) {
@@ -46,6 +45,9 @@ public class SupplyServiceImpl implements SupplyService {
                 int num = recursiveMax(supplyDTO.getEnterprises());
                 supplyDTO.setTier(num);
                 log.info("层级：{}", num);
+                int num1 = getNum(supplyDTO);
+                log.info("下级客户数量：{}", num1);
+                supplyDTO.setNum(num1);
             }
             PageInfo<SupplyDTO> info = PageInfo.of(all);
             return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
@@ -61,6 +63,51 @@ public class SupplyServiceImpl implements SupplyService {
             log.info("核心企业对应的供应链：{}", all);
             return new ResponseResult(200, "查询成功", all, ResStatus.SUCCESS);
         }
+    }
+
+    @Override
+    public ResponseResult findByCondition(SupplyDTO supplyDTO) {
+        int currentPage = supplyDTO.getCurrentPage();
+        int pageSize = supplyDTO.getPageSize();
+        PageHelper.startPage(currentPage, pageSize);
+        List<SupplyDTO> all = suppluDao.findByCondtion(supplyDTO);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            log.info("条件查询供应链的核心企业：{}", all);
+            for (SupplyDTO supplyDTO_ : all
+            ) {
+                int num = recursiveMax(supplyDTO_.getEnterprises());
+                supplyDTO_.setTier(num);
+                log.info("层级：{}", num);
+                int num1 = getNum(supplyDTO_);
+                log.info("下级客户数量：{}", num1);
+                supplyDTO_.setNum(num1);
+            }
+            PageInfo<SupplyDTO> info = PageInfo.of(all);
+            return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
+        }
+    }
+
+    /**
+     * @param
+     * @return int
+     * @description 递归供应链企业数量
+     * @author qfx
+     * @date 2022/6/7 15:52
+     */
+    public int getNum(SupplyDTO supplyDTO) {
+        if (supplyDTO.getEnterprises() == null) {
+            return 0;
+        }
+        int num = 0;
+        List<SupplyDTO> enterprises = supplyDTO.getEnterprises();
+        num += enterprises.size();
+        for (SupplyDTO enterprise : enterprises
+        ) {
+            num += getNum(enterprise);
+        }
+        return num;
     }
 
     /**

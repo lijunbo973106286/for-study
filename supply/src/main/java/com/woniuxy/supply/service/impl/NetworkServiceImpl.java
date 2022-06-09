@@ -53,7 +53,7 @@ public class NetworkServiceImpl implements NetworkService {
                     for (ScfpEnterprise enterprise : enterprises
                     ) {
                         log.info("所有关联企业：{}", enterprise);
-                        if(enterprise!=null){
+                        if (enterprise != null) {
                             int eid = enterprise.getId();
                             eids.add(eid);
                         }
@@ -146,6 +146,17 @@ public class NetworkServiceImpl implements NetworkService {
             return new ResponseResult(500, "修改失败", null, ResStatus.FAIL);
         } else {
             return new ResponseResult(200, "修改成功", null, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult findByCoreId(int coreId) {
+        log.info("核心企业id：{}", coreId);
+        List<NetworkDTO> all = networkDao.findByCoreId(coreId);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            return new ResponseResult(200, "查询成功", all, ResStatus.SUCCESS);
         }
     }
 
