@@ -24,7 +24,7 @@ public class MenuController {
     MenuService menuService;
 
     /**
-     * 查询全部菜单
+     * 查询用户全部菜单
      */
     @GetMapping("/findAll")
     ResponseResult findAll() {

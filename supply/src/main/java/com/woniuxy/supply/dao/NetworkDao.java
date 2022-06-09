@@ -32,4 +32,6 @@ public interface NetworkDao {
     int updateStatus(NetworkDTO networkDTO);
 
     void addNetworkCore(@Param("nid")int nid,@Param("coreid")int coreid);
+
+    List<NetworkDTO> findByCoreId(int coreId);
 }

@@ -1,5 +1,6 @@
 package com.woniuxy.supply.service;
 
+import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 
@@ -15,4 +16,6 @@ public interface SupplyService {
     ResponseResult findAllSupply(PageInfomation pageInfomation);
 
     ResponseResult findById(int coreId);
+
+    ResponseResult findByCondition(SupplyDTO supplyDTO);
 }
