@@ -1,11 +1,10 @@
-package com.woniuxy.gateway;
+package com.woniuxy.file;
 
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GatewayApplicationTests {
+class FileApplicationTests {
 
     @Test
     void contextLoads() {

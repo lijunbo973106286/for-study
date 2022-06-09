@@ -153,8 +153,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
                 return false;
             }
         }
-        return true;
-
+        return false;
     }
 
     @Override

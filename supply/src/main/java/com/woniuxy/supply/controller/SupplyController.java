@@ -3,10 +3,8 @@ package com.woniuxy.supply.controller;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.supply.service.SupplyService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -31,9 +29,21 @@ public class SupplyController {
      * @author qfx
      * @date 2022/6/7 19:43
      */
-    @GetMapping("/all")
+    @PostMapping("/all")
     public ResponseResult findAllSupply(@RequestBody PageInfomation pageInfomation) {
         return supplyService.findAllSupply(pageInfomation);
+    }
+
+    /**
+     * @param
+     * @return ResponseResult
+     * @description 根据核心企业id查询供应链
+     * @author qfx
+     * @date 2022/6/7 19:43
+     */
+    @GetMapping("/findById/{coreId}")
+    public ResponseResult findById(@PathVariable("coreId") int coreId) {
+        return supplyService.findById(coreId);
     }
 
 }

@@ -4,9 +4,9 @@
 <mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
     <insert id="insert">
         insert into scfp_chain
-            (chain_no, enterprise_id, network_id, bank, fund_id, limit, money, surplus, file_id, deadline, status, creator, create_time, updator, update_time)
+            (chain_no, enterprise_id, network_id, bank, fund_id, limit, money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time)
         values
-            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{limit}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{creator}, #{create_time}, #{updator}, #{update_time})
+            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{limit}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
     </insert>
 
     <update id="update" parameterType="scfpChain">
@@ -44,6 +44,9 @@
             </if>
             <if test="status != null and status != ''">
                 status = #{status}
+            </if>
+            <if test="reason != null and reason != ''">
+                reason = #{reason}
             </if>
             <if test="creator != null and creator != ''">
                 creator = #{creator}
@@ -93,9 +96,12 @@
              and deadline between #{deadline} and #{deadlineMax}
         </if>
         <if test="status != '' and status != null">
-             and status = #{status}
+             and status = (select id from scfp_chain_status where status = #{status_tab})
         </if>
-        <if test="creator == 0">
+        <if test="reason != '' and reason != null">
+             and reason = #{reason}
+        </if>
+        <if test="creator != '' and creator != null">
              and creator = (select id from scfp_user where name like concat('%',#{scfpUser.name},'%'))
         </if>
         <if test="create_time != '' and create_time != null">
@@ -129,12 +135,23 @@
         <result property="deadline" column="deadline"/>
         <result property="deadlineMax" column="deadlineMax"/>
         <result property="status" column="status"/>
+        <result property="reason" column="reason"/>
         <result property="chain_no" column="chain_no"/>
         <result property="creator" column="creator"/>
         <result property="create_time" column="create_time"/>
         <result property="updator" column="updator"/>
         <result property="update_time" column="update_time"/>
         <association select="findUserInfo" property="scfpUser" column="creator" javaType="scfpUser">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="role_id" column="role_id"/>
+            <result property="identity" column="identity"/>
+            <result property="phonenum" column="phonenum"/>
+            <result property="email" column="email"/>
+            <result property="enterprise_id" column="enterprise_id"/>
+            <result property="status" column="status"/>
+        </association>
+        <association select="findUserInfo" property="scfpUserAppr" column="updator" javaType="scfpUser">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="role_id" column="role_id"/>
@@ -181,5 +198,15 @@
     </select>
     <select id="findScfpEnterprises" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where id=#{enterprise_id}
+    </select>
+    <select id="findAllExcel" resultMap="findUser">
+        select * from scfp_chain order by id desc
+    </select>
+    <select id="findCount" resultType="java.lang.Integer">
+        select count(*) from scfp_chain where status =
+                (select id from scfp_chain_status where status = #{status})
+    </select>
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*) from scfp_chain
     </select>
 </mapper>
