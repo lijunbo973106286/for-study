@@ -15,13 +15,8 @@ class UserApplicationTests {
     MenuDao menuDao;
 
     @Test
-    void contextLoads() {
-        List<ScfpMenu> all = menuDao.findAll();
-        all.forEach(System.out::println);
-    }
-    @Test
     void contextLoadsRole() {
-        List<ScfpMenu> byRoleId = menuDao.findByRoleId(1);
+        List<ScfpMenu> byRoleId = menuDao.findAll(20);
         byRoleId.forEach(System.out::println);
     }
 

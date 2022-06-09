@@ -26,9 +26,9 @@ public class MenuController {
     /**
      * 查询用户全部菜单
      */
-    @GetMapping("/findAll")
-    ResponseResult findAll() {
-        return menuService.findAll();
+    @GetMapping("/findAll/{id}")
+    ResponseResult findAll(@PathVariable("id") int id) {
+        return menuService.findAll(id);
     }
 
     /**
@@ -39,19 +39,11 @@ public class MenuController {
     ResponseResult roleMenu(@RequestBody ScfpRoleMenu roleMenu) {
         return menuService.roleMenu(roleMenu);
     }
-
     /**
      * 查询角色菜单
      */
     @GetMapping("/findMenuById/{role_id}")
     ResponseResult findMenuById(@PathVariable("role_id") int role_id) {
         return menuService.findMenuById(role_id);
-    }
-    /**
-     * 根据当前用户id查询他的角色菜单
-     */
-    @GetMapping("/findMenuResource")
-    ResponseResult findMenuResource(@PathVariable("id") int id){
-        return menuService.findMenuResource(id);
     }
 }

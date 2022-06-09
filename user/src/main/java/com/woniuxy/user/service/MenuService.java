@@ -13,11 +13,9 @@ import com.woniuxy.user.entity.ScfpRoleMenu;
  * @version: 1.0
  */
 public interface MenuService {
-    ResponseResult findAll();
+    ResponseResult findAll(int id);
 
     ResponseResult roleMenu(ScfpRoleMenu roleMenu);
 
     ResponseResult findMenuById(int role_id);
-
-    ResponseResult findMenuResource(int id);
 }

@@ -25,9 +25,9 @@ public class MenuServiceImpl implements MenuService {
     MenuDao menuDao;
 
     @Override
-    public ResponseResult findAll() {
+    public ResponseResult findAll(int id) {
         return new ResponseResult(200, "查询成功",
-                menuDao.findAll(), ResStatus.SUCCESS);
+                menuDao.findAll(id), ResStatus.SUCCESS);
     }
 
     @Override
@@ -48,11 +48,5 @@ public class MenuServiceImpl implements MenuService {
                 new ScfpRoleMenu(
                         role_id, menuDao.findMenuById(role_id)
                 ), ResStatus.SUCCESS);
-    }
-
-    @Override
-    public ResponseResult findMenuResource(int id) {
-        return new ResponseResult(200, "查询成功",
-                menuDao.findMenuResource(id), ResStatus.SUCCESS);
     }
 }

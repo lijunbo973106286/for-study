@@ -17,9 +17,9 @@ import java.util.List;
  */
 @Mapper
 public interface MenuDao {
-    List<ScfpMenu> findAll();
+    List<ScfpMenu> findAll(int id);
 
-    List<ScfpMenu> findChild(int id, int uid);
+    List<ScfpMenu> findChild(int id);
 
     int roleMenu(ScfpRoleMenu roleMenu);
 
@@ -27,7 +27,4 @@ public interface MenuDao {
 
     List<Integer> findMenuById(int role_id);
 
-    List<ScfpMenu> findMenuResource(int id);
-
-    List<ScfpMenu> findByRoleId(int role_id);
 }
