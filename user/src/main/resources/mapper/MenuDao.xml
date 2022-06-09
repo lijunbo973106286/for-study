@@ -20,10 +20,12 @@
         <collection property="menus" select="findChild" column="id" autoMapping="true"/>
     </resultMap>
     <!--    一级菜单-->
-    <select id="findAll" resultMap="MenuList">
-        select *
+    <select id="findAll" resultType="int">
+        select id
         from scfp_menu
-        where fid is null;
+        where id in (
+            select distinct menu_id from scfp_user_role u left join scfp_role_menu r on u.role_id = r.role_id where u.user_id = #{id}
+            );
     </select>
     <!--    子菜单-->
     <select id="findChild" resultMap="MenuList">

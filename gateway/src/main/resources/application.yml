@@ -13,6 +13,8 @@ spring:
       routes:
         - id: fiance   #路由名
           uri: lb://fiance   #lb:loadbalance   goods:微服务名
+          predicates: #谓词
+            - Path=/fiance/**   #匹配的路径
         - id: network   #路由名
           uri: lb://supply   #lb:loadbalance   goods:微服务名
           predicates: #谓词
@@ -26,6 +28,16 @@ spring:
           uri: lb://loan
           predicates:
             - Path=/loan/**
+        # 文件路由
+        - id: file
+          uri: lb://file
+          predicates:
+            - Path=/file/**
+        # 链单路由
+        - id: loan
+          uri: lb://chain
+          predicates:
+            - Path=/chain/**
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848

@@ -70,14 +70,16 @@ public class SubAccountsController {
     ResponseResult search(@RequestBody ScfpUser user) {
         return subAccountsService.search(user);
     }
+
     /**
      * 表scfp_user_role
      * 修改用户角色
      */
     @PostMapping("/userRole")
-    ResponseResult userRole(@RequestBody ScfpUserRole userRole){
+    ResponseResult userRole(@RequestBody ScfpUserRole userRole) {
         return subAccountsService.userRole(userRole);
     }
+
     /**
      * 查询用户角色
      */

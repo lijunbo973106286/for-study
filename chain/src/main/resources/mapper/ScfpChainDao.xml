@@ -151,6 +151,16 @@
             <result property="enterprise_id" column="enterprise_id"/>
             <result property="status" column="status"/>
         </association>
+        <association select="findUserInfo" property="scfpUserAppr" column="updator" javaType="scfpUser">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="role_id" column="role_id"/>
+            <result property="identity" column="identity"/>
+            <result property="phonenum" column="phonenum"/>
+            <result property="email" column="email"/>
+            <result property="enterprise_id" column="enterprise_id"/>
+            <result property="status" column="status"/>
+        </association>
         <association select="findScfpFund" property="scfpFund" column="fund_id" javaType="scfpFund">
             <id property="id" column="id"/>
             <result property="fund_name" column="fund_name"/>

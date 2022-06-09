@@ -24,11 +24,11 @@ public class MenuController {
     MenuService menuService;
 
     /**
-     * 查询全部菜单
+     * 查询用户全部菜单
      */
-    @GetMapping("/findAll")
-    ResponseResult findAll() {
-        return menuService.findAll();
+    @GetMapping("/findAll/{id}")
+    ResponseResult findAll(@PathVariable("id") int id) {
+        return menuService.findAll(id);
     }
 
     /**
