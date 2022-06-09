@@ -3,6 +3,7 @@ package com.woniuxy.chain.service;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpChain;
+import com.woniuxy.commons.entity.ScfpEnterprise;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface ScfpChainService {
     ResponseResult<Object> findCount(String status);
 
     ResponseResult<Object> findAllCount();
+
+    ResponseResult<ScfpEnterprise> getEnterprise(String bankName);
 }

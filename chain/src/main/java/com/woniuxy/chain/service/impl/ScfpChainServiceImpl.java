@@ -4,11 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.chain.dao.ScfpChainDao;
 import com.woniuxy.chain.service.ScfpChainService;
+import com.woniuxy.commons.entity.*;
 import com.woniuxy.commons.entity.ResStatus;
-import com.woniuxy.commons.entity.PageInfomation;
-import com.woniuxy.commons.entity.ResStatus;
-import com.woniuxy.commons.entity.ResponseResult;
-import com.woniuxy.commons.entity.ScfpChain;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -74,6 +71,12 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     @Override
     public ResponseResult<Object> findAllCount() {
         return new ResponseResult<>(200, "执行成功", scfpChainDao.findAllCount(), ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<ScfpEnterprise> getEnterprise(String bankName) {
+
+        return new ResponseResult<ScfpEnterprise>(200, "执行成功", scfpChainDao.getEnterprise(bankName), ResStatus.SUCCESS);
     }
 
     @Override

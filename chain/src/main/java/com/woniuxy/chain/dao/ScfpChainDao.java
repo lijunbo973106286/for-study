@@ -32,4 +32,6 @@ public interface ScfpChainDao {
     int findAllCount();
 
     int findCount(String status);
+
+    ScfpEnterprise getEnterprise(String bankName);
 }

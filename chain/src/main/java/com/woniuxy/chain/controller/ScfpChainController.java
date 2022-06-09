@@ -1,10 +1,7 @@
 package com.woniuxy.chain.controller;
 
 import com.woniuxy.chain.service.ScfpChainService;
-import com.woniuxy.commons.entity.PageInfomation;
-import com.woniuxy.commons.entity.ResponseResult;
-import com.woniuxy.commons.entity.ScfpChain;
-import com.woniuxy.commons.entity.ScfpFile;
+import com.woniuxy.commons.entity.*;
 import com.woniuxy.commons.service.ScfpFileService;
 import com.woniuxy.commons.util.ConvertTime;
 import org.springframework.web.bind.annotation.*;
@@ -68,9 +65,9 @@ public class ScfpChainController {
     public ResponseResult<Object> findCount(@PathVariable("status") String status){
         return scfpChainService.findCount(status);
     }
-
-   /* @PostMapping("/upload/{idnum}")
-    public ResponseResult<ScfpFile> upload(MultipartFile file, @PathVariable("idnum") int idnum) throws IOException {
-        return scfpFileService.upload(file,idnum);
-    }*/
+    /** 查找银行相关信息*/
+    @GetMapping("/getEnterprise/{bankName}")
+    public ResponseResult<ScfpEnterprise> getEnterprise(@PathVariable("bankName") String bankName){
+        return scfpChainService.getEnterprise(bankName);
+    }
 }
