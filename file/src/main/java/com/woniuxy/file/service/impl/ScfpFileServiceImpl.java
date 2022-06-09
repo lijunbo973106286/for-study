@@ -61,6 +61,7 @@ public class ScfpFileServiceImpl implements ScfpFileService {
         files.setFile_name(fileName);
         files.setFile_url(OSS_ADDRESS + fileName);
         Date date1=new Date();
+        System.out.println(date1);
         files.setCreate_time(date1);
         files.setChain_id(idnum);
         files.setFile_type(type);

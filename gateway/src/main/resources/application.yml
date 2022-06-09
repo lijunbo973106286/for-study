@@ -5,11 +5,19 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.8.142:3306/scfp
     username: root
-    password: 123
+    password: 1234
     maxActive: 500
+    dbcp2: # 进行数据库连接池的配置
+      min-idle: 5                                  # 数据库连接池的最小维持连接数
+      initial-size: 6                               # 初始化提供的连接数
+      max-total: 300                                # 最大的连接数
+      max-wait-millis: 60000                # 等待连接获取的最大超时时间
 
   cloud:
     gateway:
+      httpclient:
+        connect-timeout: 10000
+        response-timeout: 10s
       routes:
         - id: fiance   #路由名
           uri: lb://fiance   #lb:loadbalance   goods:微服务名
