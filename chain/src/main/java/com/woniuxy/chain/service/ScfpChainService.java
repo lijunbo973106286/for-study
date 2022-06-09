@@ -1,8 +1,8 @@
 package com.woniuxy.chain.service;
 
-import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpChain;
+import com.woniuxy.commons.entity.ScfpEnterprise;
 
 import java.util.List;
 
@@ -22,9 +22,17 @@ public interface ScfpChainService {
 
     ResponseResult<Object> findAll(ScfpChain scfpChain);
 
-    List<ScfpChain> findAllExcel();
+    List<ScfpChain> findAllExcel(int eid);
 
-    ResponseResult<Object> findCount(String status);
+    ResponseResult<Object> findCount(ScfpChain scfpChain);
 
-    ResponseResult<Object> findAllCount();
+    ResponseResult<Object> findAllCount(int eid);
+
+    ResponseResult<Object> updateLoan(int chain_id);
+
+    ResponseResult<Object> updateBatLoan(List<Integer> ids);
+
+    ResponseResult<Object> checkPayPass(ScfpEnterprise scfpEnterprise);
+
+    ResponseResult<ScfpEnterprise> getEnterprise(String bankName);
 }

@@ -17,4 +17,6 @@ public interface SuppluDao {
     public List<SupplyDTO> findAllSupply();
 
     List<SupplyDTO> findById(int coreId);
+
+    List<SupplyDTO> findByCondtion(SupplyDTO supplyDTO);
 }

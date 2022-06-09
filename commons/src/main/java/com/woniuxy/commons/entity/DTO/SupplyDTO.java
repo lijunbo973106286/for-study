@@ -27,14 +27,22 @@ public class SupplyDTO {
     @ApiModelProperty("企业名称")
     private String ename;
     @ApiModelProperty("管理员名称")
-    private String uname;
+    private String username;
     @ApiModelProperty("管理员电话")
     private String phonenum;
     @ApiModelProperty("企业状态")
     private String estatus;
     @ApiModelProperty("子企业")
-    private List<ScfpEnterprise> enterprises;
+    private List<SupplyDTO> enterprises;
     @ApiModelProperty("层数")
     private int tier;
+    @ApiModelProperty("下级客户数量")
+    private int num;
+    @ApiModelProperty("企业地址")
+    private String address;
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
 
 }
