@@ -47,4 +47,11 @@ public class MenuController {
     ResponseResult findMenuById(@PathVariable("role_id") int role_id) {
         return menuService.findMenuById(role_id);
     }
+    /**
+     * 根据当前用户id查询他的角色菜单
+     */
+    @GetMapping("/findMenuResource")
+    ResponseResult findMenuResource(@PathVariable("id") int id){
+        return menuService.findMenuResource(id);
+    }
 }

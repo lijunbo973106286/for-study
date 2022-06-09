@@ -49,4 +49,10 @@ public class MenuServiceImpl implements MenuService {
                         role_id, menuDao.findMenuById(role_id)
                 ), ResStatus.SUCCESS);
     }
+
+    @Override
+    public ResponseResult findMenuResource(int id) {
+        return new ResponseResult(200, "查询成功",
+                menuDao.findMenuResource(id), ResStatus.SUCCESS);
+    }
 }

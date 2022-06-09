@@ -18,4 +18,6 @@ public interface MenuService {
     ResponseResult roleMenu(ScfpRoleMenu roleMenu);
 
     ResponseResult findMenuById(int role_id);
+
+    ResponseResult findMenuResource(int id);
 }
