@@ -84,9 +84,9 @@ public class ScfpChainController {
     public ResponseResult<Object> checkPayPass(@RequestBody ScfpEnterprise scfpEnterprise) {
         return scfpChainService.checkPayPass(scfpEnterprise);
     }
-
-   /* @PostMapping("/upload/{idnum}")
-    public ResponseResult<ScfpFile> upload(MultipartFile file, @PathVariable("idnum") int idnum) throws IOException {
-        return scfpFileService.upload(file,idnum);
-    }*/
+    /** 查找银行相关信息*/
+    @GetMapping("/getEnterprise/{bankName}")
+    public ResponseResult<ScfpEnterprise> getEnterprise(@PathVariable("bankName") String bankName){
+        return scfpChainService.getEnterprise(bankName);
+    }
 }

@@ -24,4 +24,5 @@ public interface NetworkService {
 
     ResponseResult updateStatus(NetworkDTO networkDTO);
 
+    ResponseResult findByCoreId(int coreId);
 }

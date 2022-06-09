@@ -82,4 +82,9 @@ public class NetworkController {
         return networkService.updateStatus(networkDTO);
     }
 
+    @GetMapping("/findByCoreId/{coreId}")
+    public ResponseResult findByCoreId(@PathVariable("coreId") int coreId) {
+        return networkService.findByCoreId(coreId);
+    }
+
 }

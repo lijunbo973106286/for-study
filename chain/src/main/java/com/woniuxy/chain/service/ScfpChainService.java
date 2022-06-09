@@ -33,4 +33,7 @@ public interface ScfpChainService {
     ResponseResult<Object> updateBatLoan(List<Integer> ids);
 
     ResponseResult<Object> checkPayPass(ScfpEnterprise scfpEnterprise);
+    ResponseResult<Object> findAllCount();
+
+    ResponseResult<ScfpEnterprise> getEnterprise(String bankName);
 }

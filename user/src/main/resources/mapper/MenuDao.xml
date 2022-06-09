@@ -23,7 +23,7 @@
     <select id="findAll" resultMap="MenuList">
         select *
         from scfp_menu
-        where fid is null;
+        where fid is null
     </select>
     <!--    子菜单-->
     <select id="findChild" resultMap="MenuList">

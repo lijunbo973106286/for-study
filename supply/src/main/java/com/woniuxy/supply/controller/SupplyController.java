@@ -1,5 +1,6 @@
 package com.woniuxy.supply.controller;
 
+import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.supply.service.SupplyService;
@@ -46,4 +47,15 @@ public class SupplyController {
         return supplyService.findById(coreId);
     }
 
+    /**
+     * @param supplyDTO
+     * @return ResponseResult
+     * @description 条件查询供应链
+     * @author qfx
+     * @date 2022/6/9 12:03
+     */
+    @PostMapping("/findBy")
+    public ResponseResult findByCondition(@RequestBody SupplyDTO supplyDTO) {
+        return supplyService.findByCondition(supplyDTO);
+    }
 }

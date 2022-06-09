@@ -118,6 +118,12 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     }
 
     @Override
+    public ResponseResult<ScfpEnterprise> getEnterprise(String bankName) {
+
+        return new ResponseResult<ScfpEnterprise>(200, "执行成功", scfpChainDao.getEnterprise(bankName), ResStatus.SUCCESS);
+    }
+
+    @Override
     public ResponseResult<Object> delete(int id) {
         int i = scfpChainDao.delete(id);
         if (i > 0) {

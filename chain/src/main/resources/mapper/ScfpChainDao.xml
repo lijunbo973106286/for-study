@@ -212,4 +212,7 @@
     <select id="checkPayPass" resultType="scfpEnterprise">
         select * from scfp_enterprise where id = #{id} and pay_pass = #{pay_pass}
     </select>
+    <select id="getEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select * from scfp_enterprise where name= #{bankName}
+    </select>
 </mapper>
