@@ -28,6 +28,16 @@ spring:
           uri: lb://loan
           predicates:
             - Path=/loan/**
+        # 文件路由
+        - id: file
+          uri: lb://file
+          predicates:
+            - Path=/file/**
+        # 链单路由
+        - id: loan
+          uri: lb://chain
+          predicates:
+            - Path=/chain/**
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848
