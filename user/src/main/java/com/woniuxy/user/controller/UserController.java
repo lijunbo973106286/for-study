@@ -1,6 +1,8 @@
 package com.woniuxy.user.controller;
 
 import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.ScfpEnterprise;
+import com.woniuxy.user.entity.ScfpEnterpriseAccount;
 import com.woniuxy.user.entity.ScfpUser;
 import com.woniuxy.user.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +26,21 @@ import javax.annotation.Resource;
 public class UserController {
     @Resource
     UserService userService;
+
     /**
      * 创建角色账号
      */
-    @PostMapping("/register")
-    ResponseResult register(@RequestBody ScfpUser user){
-        return userService.register(user);
+    @PostMapping("/registerone")
+    ResponseResult registerone(@RequestBody ScfpUser user) {
+        return userService.registerone(user);
+    }
+
+    @PostMapping("/registertwo")
+    ResponseResult registertwo(@RequestBody ScfpEnterprise enterprise) {
+        return userService.registertwo(enterprise);
+    }
+    @PostMapping("/registerthree")
+    ResponseResult registerthree(@RequestBody ScfpEnterpriseAccount enterpriseAccount){
+        return userService.registerthree(enterpriseAccount);
     }
 }

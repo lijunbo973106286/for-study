@@ -1,6 +1,8 @@
 package com.woniuxy.user.service;
 
 import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.ScfpEnterprise;
+import com.woniuxy.user.entity.ScfpEnterpriseAccount;
 import com.woniuxy.user.entity.ScfpUser;
 
 /**
@@ -13,5 +15,9 @@ import com.woniuxy.user.entity.ScfpUser;
  * @version: 1.0
  */
 public interface UserService {
-    ResponseResult register(ScfpUser user);
+    ResponseResult registerone(ScfpUser user);
+
+    ResponseResult registertwo(ScfpEnterprise enterprise);
+
+    ResponseResult registerthree(ScfpEnterpriseAccount enterpriseAccount);
 }
