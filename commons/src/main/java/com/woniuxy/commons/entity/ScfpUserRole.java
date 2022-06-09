@@ -9,16 +9,16 @@ import java.util.List;
 /**
  * @projectName: BackEnd
  * @package: com.woniuxy.user.entity
- * @className: ScfpRoleMenu
+ * @className: ScfpUserRole
  * @author: SuYHo
  * @description: TODO
- * @date: 2022/6/8 10:45
+ * @date: 2022/6/8 10:46
  * @version: 1.0
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScfpRoleMenu {
-    int role_id;
-    List<Integer> menu_id;
+public class ScfpUserRole {
+    int user_id;
+    List<Integer> role_id;
 }

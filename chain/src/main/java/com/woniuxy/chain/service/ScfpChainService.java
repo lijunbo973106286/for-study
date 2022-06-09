@@ -22,7 +22,7 @@ public interface ScfpChainService {
 
     ResponseResult<Object> findAll(ScfpChain scfpChain);
 
-    List<ScfpChain> findAllExcel();
+    List<ScfpChain> findAllExcel(int eid);
 
     ResponseResult<Object> findCount(ScfpChain scfpChain);
 

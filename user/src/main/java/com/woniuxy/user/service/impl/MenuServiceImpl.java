@@ -25,9 +25,9 @@ public class MenuServiceImpl implements MenuService {
     MenuDao menuDao;
 
     @Override
-    public ResponseResult findAll() {
+    public ResponseResult list(int id) {
         return new ResponseResult(200, "查询成功",
-                menuDao.findAll(), ResStatus.SUCCESS);
+                menuDao.list(id), ResStatus.SUCCESS);
     }
 
     @Override

@@ -34,8 +34,6 @@ public class ScfpUser {
     private int enterprise_id;
     @ApiModelProperty("状态")
     private String status;
-    @ApiModelProperty("用户角色id")
-    private int role_id;
     @ApiModelProperty("管理员id")
     int fid;
 

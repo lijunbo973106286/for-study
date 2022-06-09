@@ -20,12 +20,8 @@ public class ScfpRole {
     private int id;
     @ApiModelProperty("角色名称")
     private String name;
-    @ApiModelProperty("角色描述")
-    private String description;
     @ApiModelProperty("角色状态")
     private String status;
-    @ApiModelProperty("当前页")
-    private int currentPage;
-    @ApiModelProperty("每页条数")
-    private int pageSize;
+    @ApiModelProperty("角色描述")
+    private String description;
 }
