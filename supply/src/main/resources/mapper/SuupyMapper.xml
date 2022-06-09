@@ -6,8 +6,9 @@
         from scfp_enterprise e
                  left join scfp_user u on e.id = u.enterprise_id
                  left join scfp_supply s on e.id = s.supply_id
+                 left join scfp_user_role ur on u.id = ur.user_id
         where e.role = 2
-          and u.role_id = 1
+          and ur.role_id = 1
           and s.fid is null
         order by e.id desc
     </select>
@@ -33,17 +34,19 @@
         from scfp_enterprise e
                  left join scfp_user u on e.id = u.enterprise_id
                  left join scfp_supply s on e.id = s.supply_id
+                 left join scfp_user_role ur on u.id = ur.user_id
         where e.id = #{eid}
-          and u.role_id = 1
+          and ur.role_id = 1
     </select>
     <select id="findByCondtion" resultMap="supplyList">
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
         from scfp_enterprise e
         left join scfp_user u on e.id = u.enterprise_id
         left join scfp_supply s on e.id = s.supply_id
+        left join scfp_user_role ur on u.id =ur.user_id
         <where>
             e.role = 2
-            and u.role_id = 1
+            and ur.role_id = 1
             and s.fid is null
             <if test="ename != null and ename !=''">
                 and e.name like concat('%',#{ename},'%')
@@ -54,16 +57,17 @@
         </where>
         order by e.id desc
     </select>
-    <select id="findByConditionAndEid" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+    <select id="findByConditionAndEid" resultMap="supplyList">
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
         from scfp_enterprise e
         left join scfp_user u on e.id = u.enterprise_id
         left join scfp_supply s on e.id = s.supply_id
+        left join scfp_user_role ur on u.id =ur.user_id
         <where>
             e.id =#{eid}
             and e.role = 2
-            and u.role_id = 1
-            and s.fid is null
+            and ur.role_id = 1
+            and s.fid=#{eid}
             <if test="ename != null and ename !=''">
                 and e.name like concat('%',#{ename},'%')
             </if>
