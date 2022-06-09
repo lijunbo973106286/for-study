@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @projectName: BackEnd
@@ -26,9 +25,9 @@ public class MenuServiceImpl implements MenuService {
     MenuDao menuDao;
 
     @Override
-    public ResponseResult findAll() {
+    public ResponseResult findAll(int id) {
         return new ResponseResult(200, "查询成功",
-                menuDao.findAll(), ResStatus.SUCCESS);
+                menuDao.findAll(id), ResStatus.SUCCESS);
     }
 
     @Override

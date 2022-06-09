@@ -28,4 +28,8 @@ public interface NetworkDao {
     int deleteNetworkEnterprise(int nid);
 
     List<NetworkDTO> findByCondition(NetworkDTO networkDTO);
+
+    int updateStatus(NetworkDTO networkDTO);
+
+    void addNetworkCore(@Param("nid")int nid,@Param("coreid")int coreid);
 }

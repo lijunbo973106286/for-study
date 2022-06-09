@@ -44,6 +44,8 @@ public class ScfpChain {
     private String deadlineMax;
     @ApiModelProperty("链单当前状态")
     private String status;
+    @ApiModelProperty("审核意见")
+    private String reason;
     @ApiModelProperty("创建人")
     private int creator;
     @ApiModelProperty("创建时间")
@@ -58,6 +60,8 @@ public class ScfpChain {
     private int pageSize;
     @ApiModelProperty("开单人信息")
     private ScfpUser scfpUser;
+    @ApiModelProperty("审核人信息")
+    private ScfpUser scfpUserAppr;
     @ApiModelProperty("资金产品信息")
     private ScfpFund scfpFund;
     @ApiModelProperty("银行信息")
@@ -66,4 +70,6 @@ public class ScfpChain {
     private String sortField;
     @ApiModelProperty("排序方式")
     private String sortType;
+    @ApiModelProperty("链单状态名")
+    private String status_tab;
 }

@@ -4,11 +4,15 @@ import com.woniuxy.chain.service.ScfpChainService;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpChain;
+import com.woniuxy.commons.entity.ScfpFile;
+import com.woniuxy.commons.service.ScfpFileService;
 import com.woniuxy.commons.util.ConvertTime;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.io.IOException;
 
 /**
  * \* @author: ZJH
@@ -21,7 +25,8 @@ public class ScfpChainController {
 
     @Resource
     ScfpChainService scfpChainService;
-
+    @Resource
+    ScfpFileService scfpFileService;
     /** 通过传入的chain对象插入scfp_chain表中，没有的信息默认为null或者0 */
     @PostMapping("/insert")
     public ResponseResult<Object> insert(@RequestBody ScfpChain scfpChain) {
@@ -53,4 +58,19 @@ public class ScfpChainController {
         return scfpChainService.findAll(scfpChain);
     }
 
+    /** 查找所有链单数量 */
+    @GetMapping("/findAllCount")
+    public ResponseResult<Object> findAllCount(){
+        return scfpChainService.findAllCount();
+    }
+    /** 查找各分类链单数量 */
+    @GetMapping("/findCount/{status}")
+    public ResponseResult<Object> findCount(@PathVariable("status") String status){
+        return scfpChainService.findCount(status);
+    }
+
+   /* @PostMapping("/upload/{idnum}")
+    public ResponseResult<ScfpFile> upload(MultipartFile file, @PathVariable("idnum") int idnum) throws IOException {
+        return scfpFileService.upload(file,idnum);
+    }*/
 }

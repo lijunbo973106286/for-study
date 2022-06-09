@@ -2,6 +2,7 @@ package com.woniuxy.user.service;
 
 import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.ScfpUserRole;
 
 /**
  * @projectName: BackEnd
@@ -24,4 +25,8 @@ public interface SubAccountsService {
     ResponseResult update(ScfpUser user);
 
     ResponseResult search(ScfpUser user);
+
+    ResponseResult userRole(ScfpUserRole userRole);
+
+    ResponseResult findRoleById(int user_id);
 }

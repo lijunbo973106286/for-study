@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +59,21 @@ public class ScfpChainServiceImpl implements ScfpChainService {
             PageInfo<ScfpChain> info = PageInfo.of(all);
             return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
         }
+    }
+
+    @Override
+    public List<ScfpChain> findAllExcel() {
+        return scfpChainDao.findAllExcel();
+    }
+
+    @Override
+    public ResponseResult<Object> findCount(String status) {
+        return new ResponseResult<>(200, "执行成功", scfpChainDao.findCount(status), ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<Object> findAllCount() {
+        return new ResponseResult<>(200, "执行成功", scfpChainDao.findAllCount(), ResStatus.SUCCESS);
     }
 
     @Override
