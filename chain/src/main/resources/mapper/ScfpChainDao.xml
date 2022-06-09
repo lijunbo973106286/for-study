@@ -28,37 +28,37 @@
                 fund_id = #{fund_id},
             </if>
             <if test="limit != null and limit != ''">
-                limit = #{limit}
+                limit = #{limit},
             </if>
             <if test="money != null and money != ''">
-                money = #{money}
+                money = #{money},
             </if>
             <if test="surplus != null and surplus != ''">
-                surplus = #{surplus}
+                surplus = #{surplus},
             </if>
             <if test="file_id != null and file_id != ''">
-                file_id = #{file_id}
+                file_id = #{file_id},
             </if>
             <if test="deadline != null and deadline != ''">
-                deadline = #{deadline}
+                deadline = #{deadline},
             </if>
             <if test="status != null and status != ''">
-                status = #{status}
+                status = #{status},
             </if>
             <if test="reason != null and reason != ''">
-                reason = #{reason}
+                reason = #{reason},
             </if>
             <if test="creator != null and creator != ''">
-                creator = #{creator}
+                creator = #{creator},
             </if>
             <if test="create_time != null and create_time != ''">
-                create_time = #{create_time}
+                create_time = #{create_time},
             </if>
             <if test="updator != null and updator != ''">
-                updator = #{updator}
+                updator = #{updator},
             </if>
             <if test="update_time != null and update_time != ''">
-                update_time = #{update_time}
+                update_time = #{update_time},
             </if>
         </set>
         where id = #{id}
@@ -203,10 +203,16 @@
         select * from scfp_chain order by id desc
     </select>
     <select id="findCount" resultType="java.lang.Integer">
-        select count(*) from scfp_chain where status =
+        select count(*) from scfp_chain where enterprise_id = #{enterprise_id} and status =
                 (select id from scfp_chain_status where status = #{status})
     </select>
     <select id="findAllCount" resultType="java.lang.Integer">
-        select count(*) from scfp_chain
+        select count(*) from scfp_chain where enterprise_id = #{eid}
+    </select>
+    <select id="checkPayPass" resultType="scfpEnterprise">
+        select * from scfp_enterprise where id = #{id} and pay_pass = #{pay_pass}
+    </select>
+    <select id="getEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select * from scfp_enterprise where name= #{bankName}
     </select>
 </mapper>

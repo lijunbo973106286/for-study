@@ -29,7 +29,11 @@ public interface ScfpChainDao {
 
     List<ScfpChain> findAllExcel();
 
-    int findAllCount();
+    int findAllCount(int eid);
 
-    int findCount(String status);
+    int findCount(ScfpChain scfpChain);
+
+    ScfpEnterprise checkPayPass(ScfpEnterprise scfpEnterprise);
+
+    ScfpEnterprise getEnterprise(String bankName);
 }

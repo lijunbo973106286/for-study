@@ -13,9 +13,10 @@ class UserApplicationTests {
 
     @Resource
     MenuDao menuDao;
+
     @Test
     void contextLoads() {
-        List<ScfpMenu> all = menuDao.findAll(10);
+        List<ScfpMenu> all = menuDao.findAll();
         all.forEach(System.out::println);
     }
 

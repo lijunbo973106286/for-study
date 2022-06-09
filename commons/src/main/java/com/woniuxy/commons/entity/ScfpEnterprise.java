@@ -22,6 +22,8 @@ public class ScfpEnterprise {
     private int id;
     @ApiModelProperty("企业名称")
     private String name;
+    @ApiModelProperty("支付密码")
+    private String pay_pass;
     @ApiModelProperty("企业社会信用代码")
     private String credit_code;
     @ApiModelProperty("企业法人")
