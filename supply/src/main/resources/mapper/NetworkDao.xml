@@ -64,7 +64,7 @@
         where nid = #{nid}
     </delete>
     <select id="findAllNetwork" resultType="com.woniuxy.commons.entity.DTO.NetworkDTO">
-        select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename,bank_id
+        select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename, bank_id
         from scfp_network n
                  left join scfp_enterprise e on n.bank_id = e.id
         order by n.id desc
@@ -92,5 +92,11 @@
             </if>
         </where>
         order by n.id desc
+    </select>
+    <select id="findByCoreId" resultType="com.woniuxy.commons.entity.DTO.NetworkDTO">
+        select *
+        from scfp_network n
+                 left join scfp_network_coreenterprise nc on n.id = nc.nid
+        where nc.eid = #{coreId}
     </select>
 </mapper>
