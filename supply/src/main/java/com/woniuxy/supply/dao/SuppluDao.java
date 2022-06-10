@@ -2,6 +2,7 @@ package com.woniuxy.supply.dao;
 
 import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,8 @@ public interface SuppluDao {
     List<SupplyDTO> findByCondtion(SupplyDTO supplyDTO);
 
     List<SupplyDTO> findByConditionAndEid(SupplyDTO supplyDTO);
+
+    List<SupplyDTO> findAllEnterprises(SupplyDTO supplyDTO);
+
+    int add(@Param("enterprises") List<SupplyDTO> enterprises, @Param("fid") int fid);
 }

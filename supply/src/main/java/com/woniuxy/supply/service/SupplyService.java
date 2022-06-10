@@ -22,4 +22,8 @@ public interface SupplyService {
     ResponseResult findByEid(SupplyDTO supplyDTO);
 
     ResponseResult findByConditionAndEid(SupplyDTO supplyDTO);
+
+    ResponseResult findAllEnterprises(SupplyDTO supplyDTO);
+
+    ResponseResult add(SupplyDTO supplyDTO);
 }
