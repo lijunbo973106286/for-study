@@ -1,9 +1,7 @@
 package com.woniuxy.user.service.impl;
 
 import com.woniuxy.user.dao.UserDao;
-import com.woniuxy.user.entity.ResStatus;
-import com.woniuxy.user.entity.ResponseResult;
-import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.*;
 import com.woniuxy.user.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +21,17 @@ public class UserServiceImpl implements UserService {
     @Resource
     UserDao userDao;
     @Override
-    public ResponseResult register(ScfpUser user) {
-        return userDao.register(user) > 0 ? new ResponseResult(200,"注册成功",null, ResStatus.SUCCESS):new ResponseResult(200,"注册失败",null, ResStatus.FAIL);
+    public ResponseResult registerone(ScfpUser user) {
+        return userDao.registerone(user) > 0 ? new ResponseResult(200,"注册成功",null, ResStatus.SUCCESS):new ResponseResult(200,"注册失败",null, ResStatus.FAIL);
+    }
+
+    @Override
+    public ResponseResult registertwo(ScfpEnterprise enterprise) {
+        return userDao.registertwo(enterprise) > 0 ? new ResponseResult(200,"注册成功",null, ResStatus.SUCCESS):new ResponseResult(200,"注册失败",null, ResStatus.FAIL);
+    }
+
+    @Override
+    public ResponseResult registerthree(ScfpEnterpriseAccount enterpriseAccount) {
+        return userDao.registerthree(enterpriseAccount) > 0 ? new ResponseResult(200,"注册成功",null, ResStatus.SUCCESS):new ResponseResult(200,"注册失败",null, ResStatus.FAIL);
     }
 }
