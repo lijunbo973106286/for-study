@@ -119,8 +119,12 @@ public class ScfpChainServiceImpl implements ScfpChainService {
 
     @Override
     public ResponseResult<ScfpEnterprise> getEnterprise(String bankName) {
-
         return new ResponseResult<ScfpEnterprise>(200, "执行成功", scfpChainDao.getEnterprise(bankName), ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<ScfpEnterprise> findAllLoan() {
+        return new ResponseResult<ScfpEnterprise>(200, "执行成功", scfpChainDao.findAllLoan(), ResStatus.SUCCESS);
     }
 
     @Override

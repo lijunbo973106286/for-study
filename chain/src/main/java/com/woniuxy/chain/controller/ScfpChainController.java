@@ -89,4 +89,10 @@ public class ScfpChainController {
     public ResponseResult<ScfpEnterprise> getEnterprise(@PathVariable("bankName") String bankName){
         return scfpChainService.getEnterprise(bankName);
     }
+
+    /** 一次查询未兑付及未兑付的链单信息 */
+    @GetMapping("/findAllLoan")
+    public ResponseResult<ScfpEnterprise> findAllLoan(){
+        return scfpChainService.findAllLoan();
+    }
 }
