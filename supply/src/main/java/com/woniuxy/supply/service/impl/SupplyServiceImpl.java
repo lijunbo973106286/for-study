@@ -9,6 +9,7 @@ import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.util.ConvertTime;
 import com.woniuxy.supply.dao.SuppluDao;
 import com.woniuxy.supply.service.SupplyService;
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -146,11 +147,22 @@ public class SupplyServiceImpl implements SupplyService {
             enterprise.setUpdate_time(sdf.format(new Date()));
         }
         log.info("添加入参：{}", supplyDTO);
-        int i = suppluDao.add(supplyDTO.getEnterprises(),supplyDTO.getFid());
+        int i = suppluDao.add(supplyDTO.getEnterprises(), supplyDTO.getFid());
         if (i <= 0) {
             return new ResponseResult(500, "邀请失败", null, ResStatus.FAIL);
         } else {
             return new ResponseResult(200, "邀请成功", null, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult delete(int fid, int eid) {
+        int i = suppluDao.delete(fid, eid);
+        log.info("删除入参：{}，{}", fid, eid);
+        if (i <= 0) {
+            return new ResponseResult(500, "移除失败", null, ResStatus.FAIL);
+        } else {
+            return new ResponseResult(200, "移除成功", null, ResStatus.SUCCESS);
         }
     }
 

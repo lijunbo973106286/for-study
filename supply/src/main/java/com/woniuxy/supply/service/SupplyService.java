@@ -26,4 +26,6 @@ public interface SupplyService {
     ResponseResult findAllEnterprises(SupplyDTO supplyDTO);
 
     ResponseResult add(SupplyDTO supplyDTO);
+
+    ResponseResult delete(int fid, int eid);
 }

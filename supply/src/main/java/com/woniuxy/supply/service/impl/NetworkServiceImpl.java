@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * @BelongsProject supply-chain-finance
@@ -80,7 +82,8 @@ public class NetworkServiceImpl implements NetworkService {
             //添加流转网络包含的子企业
             List<Integer> eids = networkDTO.getEids();
             int nid = networkDTO.getId();
-            for (int eid : eids
+            ArrayList<Integer> eids_ = new ArrayList<>(new TreeSet<Integer>(eids));
+            for (int eid : eids_
             ) {
                 networkDao.addNetworkEnterprise(nid, eid);
             }
@@ -102,7 +105,8 @@ public class NetworkServiceImpl implements NetworkService {
             List<Integer> eids = networkDTO.getEids();
             int nid = networkDTO.getId();
             networkDao.deleteNetworkEnterprise(nid);
-            for (int eid : eids
+            ArrayList<Integer> eids_ = new ArrayList<>(new TreeSet<Integer>(eids));
+            for (int eid : eids_
             ) {
                 networkDao.addNetworkEnterprise(nid, eid);
             }

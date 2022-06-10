@@ -98,5 +98,6 @@
         from scfp_network n
                  left join scfp_network_coreenterprise nc on n.id = nc.nid
         where nc.eid = #{coreId}
+          and n.status = "1"
     </select>
 </mapper>

@@ -8,6 +8,12 @@
             (#{supply.eid},#{fid},1,#{supply.update_time},1)
         </foreach>
     </insert>
+    <delete id="delete">
+        delete
+        from scfp_supply
+        where supply_id = #{eid}
+          and fid = #{fid}
+    </delete>
     <select id="findAllSupply" resultMap="supplyList">
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
         from scfp_enterprise e

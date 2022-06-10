@@ -4,7 +4,6 @@ import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.supply.service.SupplyService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -83,12 +82,13 @@ public class SupplyController {
     public ResponseResult findByConditionAndEid(@RequestBody SupplyDTO supplyDTO) {
         return supplyService.findByConditionAndEid(supplyDTO);
     }
+
     /**
+     * @param supplyDTO
+     * @return ResponseResult
      * @description 根据id查询所有非供应链上的企业
      * @author qfx
      * @date 2022/6/9 20:31
-     * @param supplyDTO
-     * @return ResponseResult
      */
     @PostMapping("/findAllEnterprises")
     public ResponseResult findAllEnterprises(@RequestBody SupplyDTO supplyDTO) {
@@ -96,14 +96,28 @@ public class SupplyController {
     }
 
     /**
+     * @param supplyDTO
+     * @return ResponseResult
      * @description 邀请企业加入供应链
      * @author qfx
      * @date 2022/6/10 10:22
-     * @param supplyDTO
-     * @return ResponseResult
      */
     @PostMapping("/add")
     public ResponseResult add(@RequestBody SupplyDTO supplyDTO) {
         return supplyService.add(supplyDTO);
+    }
+
+    /**
+     * @description 移除供应链上的企业
+     * @author qfx
+     * @date 2022/6/10 15:30
+     * @param fid
+     * @param eid
+     * @return ResponseResult
+     */
+
+    @DeleteMapping("/delete/{fid}/{eid}")
+    public ResponseResult delete(@PathVariable("fid") int fid, @PathVariable("eid") int eid) {
+        return supplyService.delete(fid, eid);
     }
 }
