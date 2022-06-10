@@ -15,4 +15,8 @@ public interface settleMapper {
     List<LoanDTO> unpaid(int id);
 
     List<LoanDTO> search(LoanDTO loanDTO);
+
+    String password(int id);
+
+    int upstatus(int id);
 }
