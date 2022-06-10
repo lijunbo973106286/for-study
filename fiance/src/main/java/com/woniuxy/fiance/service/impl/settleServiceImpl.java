@@ -62,4 +62,20 @@ public class settleServiceImpl implements settleService {
         }
         return responseResult.fail();
     }
+
+    @Override
+    public ResponseResult<LoanDTO> password(int id) {
+       String pass= settleMapper.password(id);
+
+        return responseResult.success(pass);
+    }
+
+    @Override
+    public ResponseResult<LoanDTO> upstatus(int id) {
+       int i= settleMapper.upstatus(id);
+        if (i!=0){
+            return responseResult.success(i);
+        }
+        return responseResult.fail();
+    }
 }

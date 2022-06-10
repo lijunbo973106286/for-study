@@ -35,4 +35,8 @@ public interface ScfpChainService {
     ResponseResult<Object> checkPayPass(ScfpEnterprise scfpEnterprise);
 
     ResponseResult<ScfpEnterprise> getEnterprise(String bankName);
+
+    ResponseResult<ScfpEnterprise> findAllLoan(ScfpChain scfpChain);
+
+    ResponseResult<Object> findLoanCount(ScfpChain scfpChain);
 }

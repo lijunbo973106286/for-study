@@ -1,6 +1,8 @@
 package com.woniuxy.user.dao;
 
 import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.ScfpEnterprise;
+import com.woniuxy.user.entity.ScfpEnterpriseAccount;
 import com.woniuxy.user.entity.ScfpUser;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,5 +17,9 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserDao {
-    int register(ScfpUser user);
+    int registerone(ScfpUser user);
+
+    int registertwo(ScfpEnterprise enterprise);
+
+    int registerthree(ScfpEnterpriseAccount enterpriseAccount);
 }

@@ -29,14 +29,24 @@ public class settlecontroller {
     //未支付的手续费
     @PostMapping("/unpaid/{currentPate}/{pageSize}/{id}")
     public ResponseResult unpaid(@PathVariable("currentPate")int currentPate, @PathVariable("pageSize")int pageSize, @PathVariable("id") int id){
-        System.out.println(id);
         return settleService.unpaid(currentPate,pageSize,id);
     }
     //条件查询
     @PostMapping("/search")
     public ResponseResult<LoanDTO> search(@RequestBody LoanDTO loanDTO){
-        System.out.println(loanDTO.getEndTime());
         return settleService.search(loanDTO);
     }
+    //密码
+    @PostMapping("/password/{id}")
+    public ResponseResult password(@PathVariable("id") int id){
+        return settleService.password(id);
+    }
+    //修改支付状态
+    @PostMapping("status/{id}/{service}")
+    public ResponseResult<LoanDTO> status(@PathVariable("id") int id,@PathVariable("service") String service){
+        return  settleService.upstatus(id);
+
+    }
+
 
 }

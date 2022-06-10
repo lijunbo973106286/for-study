@@ -11,4 +11,8 @@ public interface settleService {
     ResponseResult unpaid(int currentPate, int pageSize, int id);
 
     ResponseResult<LoanDTO> search(LoanDTO loanDTO);
+
+    ResponseResult<LoanDTO> password(int id);
+
+    ResponseResult<LoanDTO> upstatus(int id);
 }
