@@ -17,13 +17,14 @@ import java.util.List;
  */
 @Mapper
 public interface MenuDao {
-    List<ScfpMenu> findAll();
+    List<ScfpMenu> list(int id);
 
-    List<ScfpMenu> findChild(int id, int uid);
+    List<ScfpMenu> findChild(int id);
 
     int roleMenu(ScfpRoleMenu roleMenu);
 
     void delete(ScfpRoleMenu roleMenu);
 
     List<Integer> findMenuById(int role_id);
+
 }

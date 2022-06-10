@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.fiance.mapper.settleMapper">
+    <update id="upstatus">
+        update scfp_loan set service_status="已支付" where id=#{id}
+    </update>
     <select id="findsettle" resultType="com.woniuxy.commons.entity.DTO.LoanDTO">
-        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.enterprise_id=#{id}
+        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status,sl.enterprise_id,sl.money FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.enterprise_id=#{id}
     </select>
     <select id="Paid" resultType="com.woniuxy.commons.entity.DTO.LoanDTO">
-        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.`enterprise_id`=#{id} AND sl.`service_status`='已支付'
+        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status,sl.money FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.`enterprise_id`=#{id} AND sl.`service_status`='已支付'
     </select>
     <select id="unpaid" resultType="com.woniuxy.commons.entity.DTO.LoanDTO">
-        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.`enterprise_id`=#{id} AND sl.`service_status`='未支付'
+        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status,sl.money FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.`enterprise_id`=#{id} AND sl.`service_status`='未支付'
     </select>
     <select id="search" resultType="com.woniuxy.commons.entity.DTO.LoanDTO">
-        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.enterprise_id=#{id}
-            <if test="deadline!=null and deadline!=''">
-                AND sc.`deadline` <![CDATA[>]]>#{startTime} and sc.`deadline`<![CDATA[<]]>#{endTime}
-            </if>
+        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline deadline,sl.repay_time,sl.service_status,sl.money FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.enterprise_id=#{id}
+                AND sc.`deadline` > #{startTime} and sc.`deadline` &lt; #{endTime}
             <if test="service_status!=null and service_status!='' and service_status=='已支付'">
                 and sl.service_status='已支付'
             </if>
             <if test="service_status!=null and service_status!='' and service_status=='未支付'">
                 and sl.service_status='未支付'
             </if>
+    </select>
+    <select id="password" resultType="java.lang.String">
+        select pay_pass from scfp_enterprise where id=#{id}
     </select>
 </mapper>
