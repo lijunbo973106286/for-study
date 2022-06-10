@@ -1,6 +1,5 @@
 package com.woniuxy.user.dao;
 
-import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.user.entity.ScfpRole;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,7 +22,7 @@ public interface SubRolesDao {
 
     int update(ScfpRole role);
 
-    List<ScfpRole> findAll();
+    List<ScfpRole> subRoles(int id);
 
     int statusChange(int id, String status);
 }
