@@ -36,4 +36,6 @@ public interface ScfpChainDao {
     ScfpEnterprise checkPayPass(ScfpEnterprise scfpEnterprise);
 
     ScfpEnterprise getEnterprise(String bankName);
+
+    ScfpEnterprise findAllLoan();
 }

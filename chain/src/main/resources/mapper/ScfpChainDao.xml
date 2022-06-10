@@ -144,7 +144,6 @@
         <association select="findUserInfo" property="scfpUser" column="creator" javaType="scfpUser">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
-            <result property="role_id" column="role_id"/>
             <result property="identity" column="identity"/>
             <result property="phonenum" column="phonenum"/>
             <result property="email" column="email"/>
@@ -154,7 +153,6 @@
         <association select="findUserInfo" property="scfpUserAppr" column="updator" javaType="scfpUser">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
-            <result property="role_id" column="role_id"/>
             <result property="identity" column="identity"/>
             <result property="phonenum" column="phonenum"/>
             <result property="email" column="email"/>
@@ -210,10 +208,13 @@
     <select id="findAllCount" resultType="java.lang.Integer">
         select count(*) from scfp_chain where enterprise_id = #{eid}
     </select>
-    <select id="checkPayPass" resultType="scfpEnterprise">
+    <select id="checkPayPass" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where id = #{id} and pay_pass = #{pay_pass}
     </select>
     <select id="getEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where name= #{bankName}
+    </select>
+    <select id="findAllLoan" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select * from scfp_chain where status >= 18
     </select>
 </mapper>
