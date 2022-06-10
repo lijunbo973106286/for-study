@@ -21,6 +21,8 @@ public class ScfpMenu {
 
     @ApiModelProperty("菜单id")
     private int id;
+    @ApiModelProperty("图标")
+    String icon;
     @ApiModelProperty("菜单名称")
     private String menuname;
     @ApiModelProperty("菜单路径")

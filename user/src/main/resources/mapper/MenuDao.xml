@@ -22,7 +22,7 @@
     </resultMap>
     <!--    一级菜单-->
     <select id="list" resultMap="MenuList">
-        select id, menuname, url, fid
+        select id,icon, menuname, url, fid
         from scfp_menu
         where fid is null
           and id in
@@ -33,7 +33,7 @@
     </select>
     <!--    子菜单-->
     <select id="findChild" resultMap="MenuList">
-        select id, menuname, url, fid
+        select id,icon, menuname, url, fid
         from scfp_menu
         where fid = #{id}
           and id in
