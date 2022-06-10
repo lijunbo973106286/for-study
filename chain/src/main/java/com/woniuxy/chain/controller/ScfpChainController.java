@@ -91,8 +91,15 @@ public class ScfpChainController {
     }
 
     /** 一次查询未兑付及未兑付的链单信息 */
-    @GetMapping("/findAllLoan")
-    public ResponseResult<ScfpEnterprise> findAllLoan(){
-        return scfpChainService.findAllLoan();
+    @PostMapping("/findAllLoan")
+    public ResponseResult<ScfpEnterprise> findAllLoan(@RequestBody ScfpChain scfpChain){
+        return scfpChainService.findAllLoan(scfpChain);
     }
+
+    /** 查找所有未兑付和已兑付链单数量 */
+    @PostMapping("/findLoanCount")
+    public ResponseResult<Object> findLoanCount(@RequestBody ScfpChain scfpChain){
+        return scfpChainService.findLoanCount(scfpChain);
+    }
+
 }

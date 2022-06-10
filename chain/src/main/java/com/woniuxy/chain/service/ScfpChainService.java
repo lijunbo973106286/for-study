@@ -36,5 +36,7 @@ public interface ScfpChainService {
 
     ResponseResult<ScfpEnterprise> getEnterprise(String bankName);
 
-    ResponseResult<ScfpEnterprise> findAllLoan();
+    ResponseResult<ScfpEnterprise> findAllLoan(ScfpChain scfpChain);
+
+    ResponseResult<Object> findLoanCount(ScfpChain scfpChain);
 }

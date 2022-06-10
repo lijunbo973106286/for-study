@@ -37,5 +37,7 @@ public interface ScfpChainDao {
 
     ScfpEnterprise getEnterprise(String bankName);
 
-    ScfpEnterprise findAllLoan();
+    List<ScfpChain> findAllLoan(ScfpChain scfpChain);
+
+    int findLoanCount(ScfpChain scfpChain);
 }
