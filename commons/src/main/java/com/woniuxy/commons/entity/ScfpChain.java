@@ -43,7 +43,7 @@ public class ScfpChain {
     @ApiModelProperty("兑付日止")
     private String deadlineMax;
     @ApiModelProperty("链单当前状态")
-    private String status;
+    private int status;
     @ApiModelProperty("审核意见")
     private String reason;
     @ApiModelProperty("创建人")
