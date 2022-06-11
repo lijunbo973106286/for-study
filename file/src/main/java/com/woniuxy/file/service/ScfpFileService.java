@@ -12,7 +12,9 @@ import java.io.IOException;
  */
 public interface ScfpFileService {
 
-    ResponseResult<ScfpFile> upload(MultipartFile file,int idnum) throws IOException;
+    ResponseResult<ScfpFile> upload(MultipartFile file,int idnum,String type) throws IOException;
 
     ResponseResult<Object> delete(String file_name);
+
+    ResponseResult<ScfpFile> getPic(int chain_id);
 }

@@ -1,8 +1,10 @@
 package com.woniuxy.file.service.impl;
 
 import com.aliyun.oss.OSSClient;
+import com.github.pagehelper.PageInfo;
 import com.woniuxy.commons.entity.ResStatus;
 import com.woniuxy.commons.entity.ResponseResult;
+import com.woniuxy.commons.entity.ScfpChain;
 import com.woniuxy.commons.entity.ScfpFile;
 import com.woniuxy.file.dao.ScfpFileDao;
 import com.woniuxy.file.service.ScfpFileService;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -31,13 +34,13 @@ public class ScfpFileServiceImpl implements ScfpFileService {
     private static final String OSS_ADDRESS = "http://woniuxylijunbo.oss-cn-chengdu.aliyuncs.com/"; //服务器地址
 
     @Override
-    public ResponseResult<ScfpFile> upload(MultipartFile file,int idnum) throws IOException {
+    public ResponseResult<ScfpFile> upload(MultipartFile file,int idnum,String type) throws IOException {
         //获取文件名
         String fileName = file.getOriginalFilename();
         System.out.println(fileName);
-        String[] split = fileName.split("\\.");
+//        String[] split = fileName.split("\\.");
 //        System.out.println(split[1]);
-        String type=split[1];
+//        String type=split[1];
         //重新生成一个文件名（避免不同用户上传同名同类型的文件，造成文件覆盖）
         fileName = UUID.randomUUID().toString() +
                 fileName.substring(fileName.lastIndexOf("."));
@@ -83,5 +86,11 @@ public class ScfpFileServiceImpl implements ScfpFileService {
         }else {
         return ResponseResult.FAIL;
         }
+    }
+
+    @Override
+    public ResponseResult<ScfpFile> getPic(int chain_id) {
+        List<ScfpFile> data=scfpFileDao.getPic(chain_id);
+        return new ResponseResult(200, "查询成功", data, ResStatus.SUCCESS);
     }
 }

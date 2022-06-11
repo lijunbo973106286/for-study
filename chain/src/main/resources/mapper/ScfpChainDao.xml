@@ -6,7 +6,7 @@
         insert into scfp_chain
             (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time)
         values
-            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
+            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, 1, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
     </insert>
 
     <update id="update" parameterType="scfpChain">
@@ -150,6 +150,14 @@
             <result property="enterprise_id" column="enterprise_id"/>
             <result property="status" column="status"/>
         </association>
+        <association select="findNetworkInfo" property="scfpNetwork" column="network_id" javaType="scfpNetwork">
+            <id property="id" column="id"/>
+            <result property="network_no" column="network_no"/>
+            <result property="type" column="type"/>
+            <result property="bank_id" column="bank_id"/>
+            <result property="status" column="status"/>
+            <result property="name" column="name"/>
+        </association>
         <association select="findUserInfo" property="scfpUserAppr" column="updator" javaType="scfpUser">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
@@ -223,6 +231,9 @@
     <select id="getEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where name= #{bankName}
     </select>
+    <select id="findNetworkInfo" resultType="com.woniuxy.commons.entity.ScfpNetwork">
+        select * from scfp_network where id=#{network_id}
+    </select>
 
     <select id="findAllLoan" resultMap="findUser">
         select * from scfp_chain where status >= #{status} and enterprise_id = #{enterprise_id}
@@ -230,6 +241,12 @@
 
     <select id="findLoanCount" resultType="java.lang.Integer">
         select count(*) from scfp_chain where status >= #{status} and enterprise_id = #{enterprise_id}
+    </select>
+    <select id="findAllEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select  * from scfp_enterprise where role=1
+    </select>
+    <select id="findAllFund" resultType="com.woniuxy.commons.entity.ScfpFund">
+        select * from scfp_fund
     </select>
     <select id="findStatus" resultType="com.woniuxy.commons.entity.ScfpChainStatus">
         select status from scfp_chain_status where id = #{cs_id}

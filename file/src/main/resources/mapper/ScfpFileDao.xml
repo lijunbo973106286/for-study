@@ -10,4 +10,7 @@
     <delete id="delete">
         delete from scfp_file where file_name=#{file_name}
     </delete>
+    <select id="getPic" resultType="com.woniuxy.commons.entity.ScfpFile">
+        select  * from scfp_file where chain_id=#{chain_id}
+    </select>
 </mapper>
