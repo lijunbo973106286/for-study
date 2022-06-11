@@ -91,4 +91,7 @@
         from scfp_user_role
         where user_id = #{user_id}
     </select>
+    <select id="findUserById" resultType="com.woniuxy.user.entity.ScfpUser">
+        select *from scfp_user where id = #{id}
+    </select>
 </mapper>

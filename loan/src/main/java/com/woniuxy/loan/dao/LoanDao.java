@@ -12,5 +12,6 @@ public interface LoanDao {
 
     ScfpLoan findByRepay_time(String repay_time);
 
-    List<ScfpLoan> getAllByEnterpriseId(int id);
+
+    List<ScfpLoan> search(ScfpLoan scfpLoan);
 }

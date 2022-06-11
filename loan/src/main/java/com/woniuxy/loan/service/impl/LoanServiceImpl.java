@@ -1,5 +1,8 @@
 package com.woniuxy.loan.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpLoan;
 import com.woniuxy.commons.service.ScfpChainService;
@@ -54,11 +57,11 @@ public class LoanServiceImpl implements LoanService {
             String loan_time = dateFormat.format(now);
             scfpLoan.setLoan_time(loan_time);
 
-            //假设还款时间为2个月（是否需要定时任务？）
-            String repay_time = dateFormat.format(new Date(now.getTime() + 50000));
+            //假设还款时间为2个月
+            String repay_time = dateFormat.format(new Date(now.getTime() + 60 * 24 * 60 * 60 * 1000L));
             scfpLoan.setRepay_time(repay_time);
             scfpLoan.setPrincipal_status("未还款");
-            repaymentProducer.produce(50000,repay_time);
+            repaymentProducer.produce(60 * 24 * 60 * 60 * 1000L,repay_time);
 
             //计算服务费，假设服务费为0.01%
             BigDecimal service = scfpLoan.getMoney().multiply(new BigDecimal("0.0001"));
@@ -178,8 +181,10 @@ public class LoanServiceImpl implements LoanService {
      * 查询所有的兑付记录
      */
     @Override
-    public ResponseResult<Object> getAll(int id) {
-        List<ScfpLoan> list = loanDao.getAllByEnterpriseId(id);
+    public ResponseResult<Object> search(ScfpLoan scfpLoan) {
+        PageHelper.startPage(scfpLoan.getCurrentPage(), scfpLoan.getPageSize());
+        List<ScfpLoan> all = loanDao.search(scfpLoan);
+        PageInfo<ScfpLoan> list = new PageInfo<>(all);
         ResponseResult<Object> responseResult = new ResponseResult<>();
         responseResult.setCode(200);
         responseResult.setData(list);

@@ -63,6 +63,11 @@ spring:
           uri: lb://user
           predicates:
             - Path=/menu/**
+
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true # 服务名小写
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848
