@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth # 路由名，不重复即可
+          uri: lb://auth # lb: load balance 负载均衡 goods 微服务名字
+          predicates: # 断言 谓词
+            - Path=/user/** # 匹配路径
+    nacos:
+      discovery:
+        server-addr: 192.168.8.109:8848
+        username: nacos
+        password: nacos
+server:
+  port: 12306
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'    #暴露当前微服务的监控端口，让所有的ip地址都能监控到本微服务

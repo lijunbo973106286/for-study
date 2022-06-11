@@ -12,6 +12,15 @@ spring:
         server-addr: 192.168.8.142:8848
         username: nacos
         password: nacos
+  mvc:
+    format:
+      date: yyyy-MM-dd'T'HH:mm:ss
+
+  jackson:
+    date-format:
+      - yyyy-MM-dd'T'HH:mm:ss
+      - yyyy-MM-dd
+    time-zone: GMT+8
 server:
   port: 5858
 management:
