@@ -6,7 +6,7 @@
         insert into scfp_chain
             (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time)
         values
-            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
+            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, 1, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
     </insert>
 
     <update id="update" parameterType="scfpChain">
