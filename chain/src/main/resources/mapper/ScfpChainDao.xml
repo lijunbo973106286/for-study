@@ -4,9 +4,9 @@
 <mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
     <insert id="insert">
         insert into scfp_chain
-            (chain_no, enterprise_id, network_id, bank, fund_id, 'limit', money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time)
+            (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time)
         values
-            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{limit}, #{money}, #{surplus}, #{file_id}, #{deadline}, 1, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
+            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
     </insert>
 
     <update id="update" parameterType="scfpChain">
@@ -26,9 +26,6 @@
             </if>
             <if test="fund_id != null and fund_id != ''">
                 fund_id = #{fund_id},
-            </if>
-            <if test="limit != null and limit != ''">
-                limit = #{limit},
             </if>
             <if test="money != null and money != ''">
                 money = #{money},
@@ -85,9 +82,6 @@
         <if test="fund_id != '' and fund_id != null">
              and fund_id =#{fund_id}
         </if>
-        <if test="limit != '' and limit != null">
-             and limit = #{limit}
-        </if>
         <if test="money != '' and money != null">
              and money = #{money}
         </if>
@@ -135,7 +129,6 @@
         <result property="network_id" column="network_id"/>
         <result property="bank" column="bank"/>
         <result property="fund_id" column="fund_id"/>
-        <result property="limit" column="limit"/>
         <result property="money" column="money"/>
         <result property="surplus" column="surplus"/>
         <result property="file_id" column="file_id"/>

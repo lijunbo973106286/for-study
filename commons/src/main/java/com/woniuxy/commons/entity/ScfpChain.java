@@ -30,8 +30,6 @@ public class ScfpChain {
     private String bank;
     @ApiModelProperty("资金产品id")
     private int fund_id;
-    @ApiModelProperty("企业总额度")
-    private BigDecimal limit;
     @ApiModelProperty("融资总额度")
     private BigDecimal money;
     @ApiModelProperty("剩余额度")
