@@ -7,6 +7,8 @@ spring:
     username: root
     password: 123
   cloud:
+    inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848

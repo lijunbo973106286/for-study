@@ -108,16 +108,53 @@ public class SupplyController {
     }
 
     /**
-     * @description 移除供应链上的企业
-     * @author qfx
-     * @date 2022/6/10 15:30
      * @param fid
      * @param eid
      * @return ResponseResult
+     * @description 移除供应链上的企业
+     * @author qfx
+     * @date 2022/6/10 15:30
      */
-
     @DeleteMapping("/delete/{fid}/{eid}")
     public ResponseResult delete(@PathVariable("fid") int fid, @PathVariable("eid") int eid) {
         return supplyService.delete(fid, eid);
     }
+
+    /**
+     * @return ResponseResult
+     * @description 查询当前登录企业的所有邀请
+     * @author qfx
+     * @date 2022/6/11 11:57
+     */
+    @PostMapping("/findAllInvite")
+    public ResponseResult findAllInvite(@RequestBody SupplyDTO supplyDTO) {
+        return supplyService.findAllInvite(supplyDTO);
+    }
+
+    /**
+     * @param fid
+     * @param eid
+     * @return ResponseResult
+     * @description 同意邀请
+     * @author qfx
+     * @date 2022/6/11 16:25
+     */
+    @GetMapping("/aggre/{fid}/{eid}")
+    public ResponseResult aggre(@PathVariable("fid") int fid, @PathVariable("eid") int eid) {
+        return supplyService.aggre(fid, eid);
+    }
+
+    /**
+     * @param fid
+     * @param eid
+     * @return ResponseResult
+     * @description 拒绝邀请
+     * @author qfx
+     * @date 2022/6/11 16:40
+     */
+    @DeleteMapping("/refuse/{fid}/{eid}")
+    public ResponseResult refuse(@PathVariable("fid") int fid, @PathVariable("eid") int eid) {
+        return supplyService.refuse(fid, eid);
+    }
+
 }
