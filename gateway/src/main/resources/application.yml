@@ -14,6 +14,8 @@ spring:
       max-wait-millis: 60000                # 等待连接获取的最大超时时间
 
   cloud:
+    inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
     gateway:
       httpclient:
         connect-timeout: 10000
@@ -59,10 +61,6 @@ spring:
           uri: lb://user
           predicates:
             - Path=/menu/**
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true # 服务名小写
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848
