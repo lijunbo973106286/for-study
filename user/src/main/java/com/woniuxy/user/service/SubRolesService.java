@@ -19,7 +19,7 @@ public interface SubRolesService {
 
     ResponseResult update(ScfpRole role);
 
-    ResponseResult findAll();
+    ResponseResult subRoles(int id);
 
     ResponseResult statusChange(int id, String status);
 }

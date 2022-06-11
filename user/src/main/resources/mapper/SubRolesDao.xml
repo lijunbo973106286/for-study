@@ -31,8 +31,16 @@
         from scfp_user_role
         where id = #{id}
     </delete>
-    <select id="findAll" resultType="com.woniuxy.user.entity.ScfpRole">
-        select *
-        from scfp_user_role
+    <select id="subRoles" resultType="com.woniuxy.user.entity.ScfpRole">
+        select id, name, type, status, description
+        from scfp_role
+        where type in (select r.type
+                       from scfp_role r
+                                left join scfp_user_role ur on r.id = ur.role_id
+                       where ur.user_id = #{id})
+          and id not in (select r.id
+                         from scfp_role r
+                                  left join scfp_user_role ur on r.id = ur.role_id
+                         where ur.user_id = #{id})
     </select>
 </mapper>

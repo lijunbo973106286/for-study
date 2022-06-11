@@ -82,6 +82,13 @@ public class NetworkController {
         return networkService.updateStatus(networkDTO);
     }
 
+    /**
+     * @description 查询当前登录企业可用的流转网络
+     * @author qfx
+     * @date 2022/6/10 15:28
+     * @param coreId
+     * @return ResponseResult
+     */
     @GetMapping("/findByCoreId/{coreId}")
     public ResponseResult findByCoreId(@PathVariable("coreId") int coreId) {
         return networkService.findByCoreId(coreId);
