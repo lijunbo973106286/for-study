@@ -99,7 +99,7 @@
         </if>
         <if test="status != '' and status != null">
              <if test="status > -1">
-                 and status = #{status}
+                 and status >= #{status}
              </if>
              <if test="status == -1">
                  and status = (select id from scfp_chain_status where status = #{status_tab})
@@ -221,6 +221,7 @@
         select sc.*, scs.status as status_tab from scfp_chain sc, scfp_chain_status scs
             where enterprise_id = #{eid} and sc.status = scs.id order by id desc
     </select>
+
     <select id="findCount" resultType="java.lang.Integer">
         select count(*) from scfp_chain where enterprise_id = #{enterprise_id} and status =
                 (select id from scfp_chain_status where status = #{status_tab})
@@ -253,6 +254,9 @@
     </select>
     <select id="findAllFund" resultType="com.woniuxy.commons.entity.ScfpFund">
         select * from scfp_fund
+    </select>
+    <select id="findStatus" resultType="com.woniuxy.commons.entity.ScfpChainStatus">
+        select status from scfp_chain_status where id = #{cs_id}
     </select>
 
 </mapper>

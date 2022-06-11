@@ -1,6 +1,7 @@
 package com.woniuxy.chain.dao;
 
 import com.woniuxy.commons.entity.ScfpChain;
+import com.woniuxy.commons.entity.ScfpChainStatus;
 import com.woniuxy.commons.entity.ScfpEnterprise;
 import com.woniuxy.commons.entity.ScfpFund;
 
@@ -44,4 +45,6 @@ public interface ScfpChainDao {
     List<ScfpEnterprise> findAllEnterprise();
 
     List<ScfpFund> findAllFund();
+
+    ScfpChainStatus findStatus(int cs_id);
 }

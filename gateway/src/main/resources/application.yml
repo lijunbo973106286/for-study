@@ -14,23 +14,32 @@ spring:
       max-wait-millis: 60000                # 等待连接获取的最大超时时间
 
   cloud:
+    inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
     gateway:
       httpclient:
         connect-timeout: 10000
         response-timeout: 10s
       routes:
-        - id: fiance   #路由名
-          uri: lb://fiance   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/fiance/**   #匹配的路径
-        - id: network   #路由名
-          uri: lb://supply   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/network/**   #匹配的路径
-        - id: order   #路由名
-          uri: lb://order-feign   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/fiance/**   #匹配的路径
+        - id: fiance
+          uri: lb://fiance
+          predicates:
+            - Path=/fiance/**
+        # 流转网络路由
+        - id: network
+          uri: lb://supply
+          predicates:
+            - Path=/network/**
+        # 供应链路由
+        - id: supply
+          uri: lb://supply
+          predicates:
+            - Path=/supply/**
+        # 资金方路由
+        - id: bank
+          uri: lb://supply
+          predicates:
+            - Path=/bank/**
         # 放款路由
         - id: loan
           uri: lb://loan
@@ -43,11 +52,13 @@ spring:
             - Path=/file/**
         # 链单路由
         - id: chain
-          uri: http://192.168.8.122:6666
+#          uri: http://192.168.8.122:6666
+          uri: lb://chain
           predicates:
             - Path=/chain/**
         # 账户管理
         - id: user
+#          uri: http://192.168.8.104:9898/
           uri: lb://user
           predicates:
             - Path=/menu/**
@@ -56,6 +67,7 @@ spring:
         server-addr: 192.168.8.142:8848
         username: nacos
         password: nacos
+
 server:
   port: 8888
 management:

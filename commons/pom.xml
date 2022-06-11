@@ -66,6 +66,12 @@
             <artifactId>poi</artifactId>
             <version>3.14</version>
         </dependency>
+        <!-- 解析前端的JSON数据 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.70</version>
+        </dependency>
 
     </dependencies>
     <parent>

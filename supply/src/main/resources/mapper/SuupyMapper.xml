@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.supply.dao.SuppluDao">
+    <insert id="add">
+        INSERT INTO scfp_supply
+        VALUES
+        <foreach collection="enterprises" item="supply" separator="," index="index">
+            (#{supply.eid},#{fid},1,#{supply.update_time},1)
+        </foreach>
+    </insert>
+    <delete id="delete">
+        delete
+        from scfp_supply
+        where supply_id = #{eid}
+          and fid = #{fid}
+    </delete>
     <select id="findAllSupply" resultMap="supplyList">
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
         from scfp_enterprise e
                  left join scfp_user u on e.id = u.enterprise_id
                  left join scfp_supply s on e.id = s.supply_id
+                 left join scfp_user_role ur on u.id = ur.user_id
         where e.role = 2
-          and u.role_id = 1
+          and ur.role_id between 1 and 5
           and s.fid is null
+          and s.status = 1
         order by e.id desc
     </select>
     <!-- 使用递归来进行供应链查询 -->
@@ -27,31 +42,75 @@
                  left join scfp_enterprise e on e.id = s.supply_id
                  left join scfp_user u on s.supply_id = u.enterprise_id
         where s.fid = #{eid}
+          and s.status = 1
     </select>
     <select id="findById" resultMap="supplyList">
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
         from scfp_enterprise e
                  left join scfp_user u on e.id = u.enterprise_id
                  left join scfp_supply s on e.id = s.supply_id
-        where e.id = #{roleId}
-          and u.role_id = 1
+                 left join scfp_user_role ur on u.id = ur.user_id
+        where e.id = #{eid}
+          and ur.role_id between 1 and 5
+          and s.status = 1
+        order by e.id desc
     </select>
     <select id="findByCondtion" resultMap="supplyList">
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
         from scfp_enterprise e
         left join scfp_user u on e.id = u.enterprise_id
         left join scfp_supply s on e.id = s.supply_id
+        left join scfp_user_role ur on u.id =ur.user_id
         <where>
             e.role = 2
-            and u.role_id = 1
+            and ur.role_id between 1 and 5
             and s.fid is null
+            and s.status=1
             <if test="ename != null and ename !=''">
-               and e.name like concat('%',#{ename},'%')
+                and e.name like concat('%',#{ename},'%')
             </if>
             <if test="phonenum != null and phonenum !=''">
                 and phonenum like concat('%',#{phonenum},'%')
             </if>
         </where>
+        order by e.id desc
+    </select>
+    <select id="findByConditionAndEid" resultMap="supplyList">
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
+        from scfp_enterprise e
+        left join scfp_user u on e.id = u.enterprise_id
+        left join scfp_supply s on e.id = s.supply_id
+        left join scfp_user_role ur on u.id =ur.user_id
+        <where>
+            s.fid = #{eid}
+            and ur.role_id between 1 and 5
+            and s.status=1
+            <if test="ename != null and ename !=''">
+                and u.name like concat('%',#{ename},'%')
+            </if>
+            <if test="phonenum != null and phonenum !=''">
+                and phonenum like concat('%',#{phonenum},'%')
+            </if>
+        </where>
+        order by e.id desc
+    </select>
+    <select id="findAllEnterprises" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
+        from scfp_enterprise e
+                 left join scfp_user u on e.id = u.enterprise_id
+                 left join scfp_supply s on e.id = s.supply_id
+                 left join scfp_user_role ur on u.id = ur.user_id
+        where e.id not in (
+            select e.id eid
+            from scfp_enterprise e
+                     left join scfp_user u on e.id = u.enterprise_id
+                     left join scfp_supply s on e.id = s.supply_id
+                     left join scfp_user_role ur on u.id = ur.user_id
+            where s.fid = #{eid}
+              and ur.role_id between 1 and 5
+        )
+          and ur.role_id between 1 and 5
+          and e.role = 3
         order by e.id desc
     </select>
 </mapper>
