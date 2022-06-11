@@ -35,4 +35,6 @@ public interface SubAccountsDao {
     int userRole(ScfpUserRole userRole);
 
     List<Integer> findRoleById(int user_id);
+
+    ScfpUser findUserById(int id);
 }

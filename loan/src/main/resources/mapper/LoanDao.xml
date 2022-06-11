@@ -52,10 +52,24 @@
             <result property="name" column="name"/>
         </association>
     </resultMap>
-    <select id="getAllByEnterpriseId" resultMap="getAllLoanByEnterpriseId">
-        select l.*,c.chain_no,e.name
-        from scfp_loan l left join scfp_chain c on l.chain_id = c.id
-                        left join scfp_enterprise e on l.enterprise_id = e.id
-        where l.id = (select enterprise_id from scfp_user where id = #{id})
+    <select id="search" resultMap="getAllLoanByEnterpriseId">
+        select l.*,c.chain_no,e.name from scfp_loan l left join scfp_chain c on l.chain_id = c.id
+                                                      left join scfp_enterprise e on l.enterprise_id = e.id
+        where l.enterprise_id = #{enterprise_id}
+            <if test="chain_id">
+                and chain_id = #{chain_id}
+            </if>
+            <if test="principal_status=='未还款'">
+                and (
+                     principal_status = '未还款' or
+                     service_status = '未支付' or
+                     interest_status = '未支付'
+                    )
+            </if>
+            <if test="principal_status=='已还款'">
+                and principal_status = '已还款'
+                and service_status = '已支付'
+                and interest_status = '已支付'
+            </if>
     </select>
 </mapper>

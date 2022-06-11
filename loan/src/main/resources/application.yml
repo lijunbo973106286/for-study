@@ -12,6 +12,8 @@ spring:
         server-addr: 192.168.8.142:8848
         username: nacos
         password: nacos
+    inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
+     ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Wi-Fi Direct Virtual Adapter #3'
   rabbitmq:
     host: 192.168.8.107
     port: 5672    # java程序访问时用到的端口
@@ -32,6 +34,8 @@ management:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.woniuxy.commons.entity
+
+
 
 
 

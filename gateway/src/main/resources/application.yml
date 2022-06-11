@@ -55,19 +55,20 @@ spring:
             - Path=/chain/**
         # 账户管理
         - id: user
-#          uri: http://192.168.8.104:9898/
           uri: lb://user
           predicates:
-            - Path=/menu/**
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true # 服务名小写
+            - Path=/subAccounts/**,/menu/**
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true # 服务名小写
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848
         username: nacos
         password: nacos
+    inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Wi-Fi Direct Virtual Adapter #3'
 
 server:
   port: 8888

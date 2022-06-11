@@ -47,9 +47,9 @@ public class LoanController {
     }
 
     //查询某用户公司的所有兑付记录
-    @GetMapping("/getAll/{id}")
-    public ResponseResult<Object> getAll(@PathVariable("id") int id){
-        return loanService.getAll(id);
+    @PostMapping("/search")
+    public ResponseResult<Object> search(@RequestBody ScfpLoan scfpLoan){
+        return loanService.search(scfpLoan);
     }
 
 }
