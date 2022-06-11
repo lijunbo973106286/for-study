@@ -28,4 +28,10 @@ public interface SupplyService {
     ResponseResult add(SupplyDTO supplyDTO);
 
     ResponseResult delete(int fid, int eid);
+
+    ResponseResult findAllInvite(SupplyDTO supplyDTO);
+
+    ResponseResult aggre(int fid, int eid);
+
+    ResponseResult refuse(int fid, int eid);
 }

@@ -3,11 +3,21 @@
 <mapper namespace="com.woniuxy.supply.dao.SuppluDao">
     <insert id="add">
         INSERT INTO scfp_supply
-        VALUES
-        <foreach collection="enterprises" item="supply" separator="," index="index">
-            (#{supply.eid},#{fid},1,#{supply.update_time},1)
-        </foreach>
+        VALUES (#{eid}, #{fid}, 1, #{update_time}, 0)
     </insert>
+    <update id="update">
+        update scfp_supply
+        set count=#{count},
+            update_time = #{update_time}
+        where supply_id = #{eid}
+          and fid = #{fid}
+    </update>
+    <update id="updateStatus">
+        update scfp_supply
+        set status=1
+        where supply_id = #{eid}
+          and fid = #{fid}
+    </update>
     <delete id="delete">
         delete
         from scfp_supply
@@ -111,6 +121,32 @@
         )
           and ur.role_id between 1 and 5
           and e.role = 3
-        order by e.id desc
+        union all
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
+        from scfp_enterprise e
+                 left join scfp_user u on e.id = u.enterprise_id
+                 left join scfp_supply s on e.id = s.supply_id
+                 left join scfp_user_role ur on u.id = ur.user_id
+        where s.fid = #{eid}
+          and s.status = 0
+          and ur.role_id between 1 and 5
+        order by eid desc
+    </select>
+    <select id="findAllInvite" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address, s.*
+        from scfp_enterprise e
+                 left join scfp_user u on e.id = u.enterprise_id
+                 left join scfp_supply s on e.id = s.fid
+                 left join scfp_user_role ur on u.id = ur.user_id
+        where s.supply_id = #{eid}
+          and ur.role_id between 1 and 5
+          and s.status = 0
+        order by s.update_time desc
+    </select>
+    <select id="exist" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select *
+        from scfp_supply
+        where supply_id = #{eid}
+          and fid = #{fid}
     </select>
 </mapper>
