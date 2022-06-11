@@ -78,7 +78,7 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     public ResponseResult<Object> updateLoan(int chain_id) {
         ScfpChain scfpChain = new ScfpChain();
         scfpChain.setId(chain_id);
-        scfpChain.setStatus("19");
+        scfpChain.setStatus(19);
         scfpChain.setSurplus(BigDecimal.valueOf(0.0001));
         int i = scfpChainDao.update(scfpChain);
         if (i > 0) {
@@ -91,7 +91,7 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     @Override
     public ResponseResult<Object> updateBatLoan(List<Integer> ids) {
         ScfpChain scfpChain = new ScfpChain();
-        scfpChain.setStatus("19");
+        scfpChain.setStatus(19);
         scfpChain.setSurplus(BigDecimal.valueOf(0.0001));
         int count = 0;
         for (int id : ids){
@@ -119,8 +119,26 @@ public class ScfpChainServiceImpl implements ScfpChainService {
 
     @Override
     public ResponseResult<ScfpEnterprise> getEnterprise(String bankName) {
-
         return new ResponseResult<ScfpEnterprise>(200, "执行成功", scfpChainDao.getEnterprise(bankName), ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<ScfpEnterprise> findAllLoan(ScfpChain scfpChain) {
+        int currentPage = scfpChain.getCurrentPage();
+        int pageSize = scfpChain.getPageSize();
+        PageHelper.startPage(currentPage, pageSize);
+        List<ScfpChain> all = scfpChainDao.findAllLoan(scfpChain);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            PageInfo<ScfpChain> info = PageInfo.of(all);
+            return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult<Object> findLoanCount(ScfpChain scfpChain) {
+        return new ResponseResult<>(200, "执行成功", scfpChainDao.findLoanCount(scfpChain), ResStatus.SUCCESS);
     }
 
     @Override

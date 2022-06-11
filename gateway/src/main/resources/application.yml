@@ -46,12 +46,11 @@ spring:
           uri: lb://chain
           predicates:
             - Path=/chain/**
-        # 链单路由
+        # 账户管理
         - id: user
           uri: lb://user
           predicates:
             - Path=/menu/**
-
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848
