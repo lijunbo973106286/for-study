@@ -43,7 +43,7 @@ spring:
             - Path=/file/**
         # 链单路由
         - id: chain
-          uri: lb://chain
+          uri: http://192.168.8.122:6666
           predicates:
             - Path=/chain/**
         # 账户管理

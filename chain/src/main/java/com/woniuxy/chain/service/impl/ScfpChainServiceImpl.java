@@ -51,6 +51,7 @@ public class ScfpChainServiceImpl implements ScfpChainService {
         int pageSize = scfpChain.getPageSize();
         PageHelper.startPage(currentPage, pageSize);
         List<ScfpChain> all = scfpChainDao.findAll(scfpChain);
+        System.out.println(all.get(0).getScfpNetwork());
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
@@ -139,6 +140,20 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     @Override
     public ResponseResult<Object> findLoanCount(ScfpChain scfpChain) {
         return new ResponseResult<>(200, "执行成功", scfpChainDao.findLoanCount(scfpChain), ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<ScfpEnterprise> findAllEnterprise() {
+        List<ScfpEnterprise> all=scfpChainDao.findAllEnterprise();
+
+        return new ResponseResult(200, "执行成功", all, ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<ScfpFund> findAllFund() {
+        List<ScfpFund> all=scfpChainDao.findAllFund();
+
+        return new ResponseResult(200, "执行成功", all, ResStatus.SUCCESS);
     }
 
     @Override
