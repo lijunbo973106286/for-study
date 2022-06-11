@@ -25,7 +25,15 @@ public interface SuppluDao {
 
     List<SupplyDTO> findAllEnterprises(SupplyDTO supplyDTO);
 
-    int add(@Param("enterprises") List<SupplyDTO> enterprises, @Param("fid") int fid);
+    int add(SupplyDTO supplyDTO);
 
-    int delete(@Param("fid") int fid,@Param("eid") int eid);
+    int delete(@Param("fid") int fid, @Param("eid") int eid);
+
+    List<SupplyDTO> findAllInvite(int eid);
+
+    SupplyDTO exist(SupplyDTO enterprise);
+
+    int update(SupplyDTO enterprise);
+
+    int updateStatus(@Param("fid") int fid, @Param("eid") int eid);
 }

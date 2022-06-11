@@ -35,7 +35,6 @@ public class SupplyDTO {
     @ApiModelProperty("企业状态")
     private String estatus;
     @ApiModelProperty("子企业")
-    @ToString.Exclude
     private List<SupplyDTO> enterprises;
     @ApiModelProperty("层数")
     private int tier;
