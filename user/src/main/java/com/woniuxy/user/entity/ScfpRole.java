@@ -20,6 +20,8 @@ public class ScfpRole {
     private int id;
     @ApiModelProperty("角色名称")
     private String name;
+    @ApiModelProperty("角色公司类型")
+    int type;
     @ApiModelProperty("角色状态")
     private String status;
     @ApiModelProperty("角色描述")

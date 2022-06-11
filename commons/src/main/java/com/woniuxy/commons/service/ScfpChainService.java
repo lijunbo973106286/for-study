@@ -57,8 +57,15 @@ public interface ScfpChainService {
     @PostMapping("/chain/checkPayPass")
     public ResponseResult<Object> checkPayPass(@RequestBody ScfpEnterprise scfpEnterprise);
 
-   /* @PostMapping("/upload/{idnum}")
-    public ResponseResult<ScfpFile> upload(MultipartFile file, @PathVariable("idnum") int idnum) throws IOException {
-        return scfpFileService.upload(file,idnum);
-    }*/
+    /** 查找银行相关信息*/
+    @GetMapping("/getEnterprise/{bankName}")
+    public ResponseResult<ScfpEnterprise> getEnterprise(@PathVariable("bankName") String bankName);
+
+    /** 一次查询未兑付及未兑付的链单信息 */
+    @PostMapping("/findAllLoan")
+    public ResponseResult<ScfpEnterprise> findAllLoan(@RequestBody ScfpChain scfpChain);
+
+    /** 查找所有未兑付和已兑付链单数量 */
+    @PostMapping("/findLoanCount")
+    public ResponseResult<Object> findLoanCount(@RequestBody ScfpChain scfpChain);
 }
