@@ -1,13 +1,15 @@
 package com.woniuxy.chain.controller;
 
+import com.woniuxy.chain.dao.ScfpChainDao;
 import com.woniuxy.chain.service.ScfpChainService;
 import com.woniuxy.commons.entity.ScfpChain;
 import com.woniuxy.commons.util.ExcelUtil;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,17 +27,27 @@ import java.util.List;
 public class ReportFormController {
     @Resource
     private ScfpChainService scfpChainService;
+    @Resource
+    private ScfpChainDao scfpChainDao;
     /**
      * 导出所有链单记录
      * @return
      */
-    @RequestMapping(value = "/export/{eid}")
+    @RequestMapping(value = "/export")
+    //@RequestMapping(value = "/export/{eid}")
     @ResponseBody
-    public void export(@PathVariable("eid") int eid, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void export(@RequestBody ScfpChain scfpChain, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    //public void export(@PathVariable("eid") int eid, HttpServletRequest request, HttpServletResponse response) throws Exception {
            //获取数据
-        List<ScfpChain> list = scfpChainService.findAllExcel(eid);
+        System.out.println(scfpChain);
+
+/*        //List<ScfpChain> list = scfpChainService.findAllExcel(eid);
+        List<ScfpChain> list = scfpChainDao.search(scfpChain);
+
         //excel标题
-        String title[] = {"订单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
+        //String title[] = {"订单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
+        String title[] = {"订单编号", "链单金额", "截止兑付时间", "开单人", "开单日"};
+
         //excel文件名
         String fileName = "链单信息表" + ".xls";
         //sheet名
@@ -50,7 +62,7 @@ public class ReportFormController {
             content[i][2] = obj.getDeadline();
             content[i][3] = obj.getScfpUser().getName();
             content[i][4] = obj.getCreate_time();
-            content[i][5] = obj.getStatus_tab();
+            //content[i][5] = obj.getStatus_tab();
         }
         //创建HSSFWorkbook
         HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
@@ -63,13 +75,13 @@ public class ReportFormController {
             os.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
     //发送响应流方法
     public void setResponseHeader(HttpServletResponse response, String fileName) {
         try {
             try {
-                fileName = new String(fileName.getBytes(),"UTF-8");
+                fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
