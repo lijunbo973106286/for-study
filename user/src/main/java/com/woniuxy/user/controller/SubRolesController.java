@@ -47,10 +47,11 @@ public class SubRolesController {
     }
 
     /**
-     * 查询全部角色
+     * 查询全部子角色
      */
-    ResponseResult findAll() {
-        return subRolesService.findAll();
+    @GetMapping("/subRoles/{id}")
+    ResponseResult subRoles(@PathVariable("id") int id) {
+        return subRolesService.subRoles(id);
     }
 
     /**

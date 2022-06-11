@@ -39,6 +39,7 @@ public class MenuController {
     ResponseResult roleMenu(@RequestBody ScfpRoleMenu roleMenu) {
         return menuService.roleMenu(roleMenu);
     }
+
     /**
      * 查询角色菜单
      */

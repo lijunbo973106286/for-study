@@ -39,9 +39,9 @@ public class SubRolesServiceImpl implements SubRolesService {
     }
 
     @Override
-    public ResponseResult findAll() {
+    public ResponseResult subRoles(int id) {
         return new ResponseResult(200, "查询成功",
-                subRolesDao.findAll(),
+                subRolesDao.subRoles(id),
                 ResStatus.SUCCESS);
     }
 
