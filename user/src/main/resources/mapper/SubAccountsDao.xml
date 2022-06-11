@@ -41,6 +41,9 @@
             </if>
         </trim>
     </update>
+    <update id="revisePwd">
+        update scfp_user set password = #{password} where id = #{id}
+    </update>
     <delete id="delete">
         delete
         from scfp_user
@@ -93,5 +96,8 @@
     </select>
     <select id="findUserById" resultType="com.woniuxy.user.entity.ScfpUser">
         select *from scfp_user where id = #{id}
+    </select>
+    <select id="userData" resultType="com.woniuxy.user.entity.ScfpUser">
+        select * from scfp_user where id = #{id}
     </select>
 </mapper>

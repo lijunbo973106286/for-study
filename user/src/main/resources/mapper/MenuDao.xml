@@ -42,12 +42,15 @@
                         left join scfp_user_role ru on rm.role_id = ru.role_id
               );
     </select>
-    <!--    查询用户全部查单 &#45;&#45; 完-->
-
-
-    <select id="findMenuById" resultType="java.lang.Integer">
-        select menu_id
-        from scfp_role_menu
-        where role_id = #{role_id}
+    <!--    查询角色全部查单 &#45;&#45; 完-->
+    <select id="findMenuById" resultMap="MenuList">
+        select id, icon, menuname, url, fid
+        from scfp_menu
+        where fid is null
+          and id in
+              (select distinct menu_id
+               from scfp_role_menu rm
+                        left join scfp_user_role ru on rm.role_id = ru.role_id
+               where rm.role_id = #{id})
     </select>
 </mapper>

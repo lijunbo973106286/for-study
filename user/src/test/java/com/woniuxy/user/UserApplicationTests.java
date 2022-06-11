@@ -14,18 +14,8 @@ import java.util.List;
 
 @SpringBootTest
 class UserApplicationTests {
-
-    @Resource
-    MenuDao menuDao;
     @Resource
     SubRolesDao rolesDao;
-
-    @Test
-    void contextLoadsRole() {
-        List<ScfpMenu> byRoleId = menuDao.list(2);
-        byRoleId.forEach(System.out::println);
-    }
-
     @Test
     void contextLoads() {
         for (ScfpRole subRole : rolesDao.subRoles(78)) {
@@ -33,5 +23,4 @@ class UserApplicationTests {
         }
 
     }
-
 }

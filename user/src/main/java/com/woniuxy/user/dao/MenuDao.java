@@ -25,6 +25,6 @@ public interface MenuDao {
 
     void delete(ScfpRoleMenu roleMenu);
 
-    List<Integer> findMenuById(int role_id);
+    List<ScfpMenu> findMenuById(int role_id);
 
 }
