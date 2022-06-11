@@ -18,13 +18,20 @@ import java.io.IOException;
 public class ScfpFileController {
     @Resource
     ScfpFileService scfpFileService;
-    @PostMapping("/upload/{idnum}")
-    public ResponseResult<ScfpFile> upload(MultipartFile file, @PathVariable("idnum") int idnum) throws IOException {
-            return scfpFileService.upload(file,idnum);
+    @PostMapping("/upload/{idnum}/{type}")
+    public ResponseResult<ScfpFile> upload(MultipartFile file, @PathVariable("idnum") int idnum,@PathVariable("type") String type) throws IOException {
+            return scfpFileService.upload(file,idnum,type);
     }
 
     @DeleteMapping("/delete/{file_name}")
     public ResponseResult<Object> delete(@PathVariable("file_name") String file_name){
         return scfpFileService.delete(file_name);
     }
+
+    @GetMapping("/getPic/{chain_id}")
+    public ResponseResult<ScfpFile> getPic(@PathVariable("chain_id") int chain_id){
+        return scfpFileService.getPic(chain_id);
+    }
+
+
  }

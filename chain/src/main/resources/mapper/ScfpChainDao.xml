@@ -151,6 +151,14 @@
             <result property="enterprise_id" column="enterprise_id"/>
             <result property="status" column="status"/>
         </association>
+        <association select="findNetworkInfo" property="scfpNetwork" column="network_id" javaType="scfpNetwork">
+            <id property="id" column="id"/>
+            <result property="network_no" column="network_no"/>
+            <result property="type" column="type"/>
+            <result property="bank_id" column="bank_id"/>
+            <result property="status" column="status"/>
+            <result property="name" column="name"/>
+        </association>
         <association select="findUserInfo" property="scfpUserAppr" column="updator" javaType="scfpUser">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
@@ -210,10 +218,13 @@
     <select id="findAllCount" resultType="java.lang.Integer">
         select count(*) from scfp_chain where enterprise_id = #{eid}
     </select>
-    <select id="checkPayPass" resultType="scfpEnterprise">
+    <select id="checkPayPass" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where id = #{id} and pay_pass = #{pay_pass}
     </select>
     <select id="getEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where name= #{bankName}
+    </select>
+    <select id="findNetworkInfo" resultType="com.woniuxy.commons.entity.ScfpNetwork">
+        select * from scfp_network where id=#{network_id}
     </select>
 </mapper>

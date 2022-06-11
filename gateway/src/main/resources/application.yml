@@ -42,7 +42,7 @@ spring:
           predicates:
             - Path=/file/**
         # 链单路由
-        - id: loan
+        - id: chain
           uri: lb://chain
           predicates:
             - Path=/chain/**
