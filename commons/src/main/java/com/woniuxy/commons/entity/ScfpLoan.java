@@ -22,8 +22,12 @@ public class ScfpLoan {
     private int id;
     @ApiModelProperty("链单id")
     private int chain_id;
+    @ApiModelProperty("链单对象")
+    private ScfpChain scfpChain;
     @ApiModelProperty("企业id")
     private int enterprise_id;
+    @ApiModelProperty("企业对象")
+    private ScfpEnterprise scfpEnterprise;
     @ApiModelProperty("放款金额")
     private BigDecimal money;
     @ApiModelProperty("放款时间")

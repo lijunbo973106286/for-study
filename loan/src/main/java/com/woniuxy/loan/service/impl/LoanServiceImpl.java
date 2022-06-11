@@ -2,6 +2,7 @@ package com.woniuxy.loan.service.impl;
 
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpLoan;
+import com.woniuxy.commons.service.ScfpChainService;
 import com.woniuxy.loan.dao.LoanDao;
 import com.woniuxy.loan.rabbitmq.producer.RepaymentProducer;
 import com.woniuxy.loan.service.LoanService;
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @program: supply-chain-finance
@@ -26,6 +28,10 @@ public class LoanServiceImpl implements LoanService {
 
     @Resource
     private RepaymentProducer repaymentProducer;
+
+    @Resource
+    private ScfpChainService scfpChainService;
+
 
     /** 兑付：
      *  1. 查询链单信息判断是否过期，余额是否充足
@@ -165,5 +171,19 @@ public class LoanServiceImpl implements LoanService {
             e.printStackTrace();
             return ResponseResult.FAIL;
         }
+    }
+
+
+    /**
+     * 查询所有的兑付记录
+     */
+    @Override
+    public ResponseResult<Object> getAll(int id) {
+        List<ScfpLoan> list = loanDao.getAllByEnterpriseId(id);
+        ResponseResult<Object> responseResult = new ResponseResult<>();
+        responseResult.setCode(200);
+        responseResult.setData(list);
+        responseResult.setMessage("查询成功");
+        return responseResult;
     }
 }

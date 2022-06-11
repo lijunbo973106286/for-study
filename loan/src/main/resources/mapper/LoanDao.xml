@@ -35,4 +35,27 @@
     <select id="findByRepay_time" resultType="com.woniuxy.commons.entity.ScfpLoan">
         select * from scfp_loan where repay_time = #{repay_time}
     </select>
+    <resultMap id="getAllLoanByEnterpriseId" type="com.woniuxy.commons.entity.ScfpLoan">
+        <id property="id" column="id" />
+        <result property="interest" column="interest"/>
+        <result property="interest_status" column="interest_status"/>
+        <result property="service" column="service"/>
+        <result property="service_status" column="service_status"/>
+        <result property="money" column="money"/>
+        <result property="principal_status" column="principal_status"/>
+        <result property="loan_time" column="loan_time"/>
+        <result property="repay_time" column="repay_time"/>
+        <association property="scfpChain" javaType="com.woniuxy.commons.entity.ScfpChain">
+            <result property="chain_no" column="chain_no"/>
+        </association>
+        <association property="scfpEnterprise" javaType="com.woniuxy.commons.entity.ScfpEnterprise">
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+    <select id="getAllByEnterpriseId" resultMap="getAllLoanByEnterpriseId">
+        select l.*,c.chain_no,e.name
+        from scfp_loan l left join scfp_chain c on l.chain_id = c.id
+                        left join scfp_enterprise e on l.enterprise_id = e.id
+        where l.id = (select enterprise_id from scfp_user where id = #{id})
+    </select>
 </mapper>
