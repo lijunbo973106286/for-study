@@ -88,11 +88,4 @@ public class SubAccountsController {
         return subAccountsService.findRoleById(user_id);
     }
 
-    /**
-     * 通过用户id查询用户信息
-     */
-    @GetMapping("/findUserById/{id}")
-    ResponseResult<Object> findUserById(@PathVariable("id") int id) {
-        return subAccountsService.findUserById(id);
-    }
 }
