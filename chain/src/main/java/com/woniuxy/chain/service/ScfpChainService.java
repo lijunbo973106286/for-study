@@ -39,4 +39,6 @@ public interface ScfpChainService {
     ResponseResult<ScfpEnterprise> findAllLoan(ScfpChain scfpChain);
 
     ResponseResult<Object> findLoanCount(ScfpChain scfpChain);
+
+    ResponseResult<Object> findStatus(int cs_id);
 }
