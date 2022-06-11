@@ -46,4 +46,10 @@ public class LoanController {
         return loanService.service(id);
     }
 
+    //查询某用户公司的所有兑付记录
+    @GetMapping("/getAll/{id}")
+    public ResponseResult<Object> getAll(@PathVariable int id){
+        return loanService.getAll(id);
+    }
+
 }
