@@ -30,5 +30,4 @@ public interface SubAccountsService {
 
     ResponseResult findRoleById(int user_id);
 
-    ResponseResult<Object> findUserById(int id);
 }

@@ -77,9 +77,4 @@ public class SubAccountsServiceImpl implements SubAccountsService {
                 ), ResStatus.SUCCESS);
     }
 
-    @Override
-    public ResponseResult<Object> findUserById(int id) {
-        ScfpUser user = subAccountsDao.findUserById(id);
-        return new ResponseResult<>(200,"查询成功",user,ResStatus.SUCCESS);
-    }
 }
