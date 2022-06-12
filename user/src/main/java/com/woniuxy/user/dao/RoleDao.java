@@ -15,14 +15,13 @@ import java.util.List;
  * @version: 1.0
  */
 @Mapper
-public interface SubRolesDao {
-    int create(ScfpRole role);
+public interface RoleDao {
 
-    int delete(int id);
+    int newrole(ScfpRole role);
 
-    int update(ScfpRole role);
+    int delrole(int id);
 
-    List<ScfpRole> subRoles(int id);
+    int modrole(ScfpRole role);
 
-    int statusChange(int id, String status);
+    List<ScfpRole> qryrole(int id);
 }

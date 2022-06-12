@@ -1,10 +1,11 @@
 package com.woniuxy.user.controller;
 
-import com.woniuxy.user.entity.ResStatus;
 import com.woniuxy.user.entity.ResponseResult;
-import com.woniuxy.user.entity.ScfpRoleMenu;
 import com.woniuxy.user.service.MenuService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
@@ -24,27 +25,23 @@ public class MenuController {
     MenuService menuService;
 
     /**
-     * 查询用户全部菜单
+     * 获取全部菜单
+     *
+     * @return
      */
-    @GetMapping("/list/{id}")
-    ResponseResult list(@PathVariable("id") int id) {
-        return menuService.list(id);
+    @GetMapping("/all")
+    ResponseResult all() {
+        return menuService.all();
     }
 
     /**
-     * 表scfp_role_meanu
-     * 角色菜单修改
+     * 查询该管理员拥有的菜单
+     *
+     * @param id
+     * @return
      */
-    @PostMapping("/roleMenu")
-    ResponseResult roleMenu(@RequestBody ScfpRoleMenu roleMenu) {
-        return menuService.roleMenu(roleMenu);
-    }
-
-    /**
-     * 查询角色菜单
-     */
-    @GetMapping("/findMenuById/{role_id}")
-    ResponseResult findMenuById(@PathVariable("role_id") int role_id) {
-        return menuService.findMenuById(role_id);
+    @GetMapping("/getList/{id}")
+    ResponseResult getList(@PathVariable("id") int id) {
+        return menuService.getList(id);
     }
 }

@@ -1,7 +1,6 @@
 package com.woniuxy.user.dao;
 
 import com.woniuxy.user.entity.ScfpMenu;
-import com.woniuxy.user.entity.ScfpRoleMenu;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,14 +16,10 @@ import java.util.List;
  */
 @Mapper
 public interface MenuDao {
-    List<ScfpMenu> list(int id);
+
+    List<ScfpMenu> getList(int id);
 
     List<ScfpMenu> findChild(int id);
 
-    int roleMenu(ScfpRoleMenu roleMenu);
-
-    void delete(ScfpRoleMenu roleMenu);
-
-    List<ScfpMenu> findMenuById(int role_id);
-
+    List<ScfpMenu> all();
 }

@@ -3,10 +3,8 @@ package com.woniuxy.user.service.impl;
 import com.woniuxy.user.dao.MenuDao;
 import com.woniuxy.user.entity.ResStatus;
 import com.woniuxy.user.entity.ResponseResult;
-import com.woniuxy.user.entity.ScfpRoleMenu;
 import com.woniuxy.user.service.MenuService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -25,28 +23,14 @@ public class MenuServiceImpl implements MenuService {
     MenuDao menuDao;
 
     @Override
-    public ResponseResult list(int id) {
+    public ResponseResult getList(int id) {
         return new ResponseResult(200, "查询成功",
-                menuDao.list(id), ResStatus.SUCCESS);
+                menuDao.getList(id), ResStatus.SUCCESS);
     }
 
     @Override
-    @Transactional
-    public ResponseResult roleMenu(ScfpRoleMenu roleMenu) {
-        if (roleMenu.getMenu_id().size() > 0) {
-            menuDao.delete(roleMenu);
-            return menuDao.roleMenu(roleMenu) > 0 ? new ResponseResult(200, "权限修改成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "权限修改失败", null, ResStatus.FAIL);
-        } else {
-            menuDao.delete(roleMenu);
-            return new ResponseResult(200, "权限已清空", null, ResStatus.SUCCESS);
-        }
-    }
-
-    @Override
-    public ResponseResult findMenuById(int role_id) {
+    public ResponseResult all() {
         return new ResponseResult(200, "查询成功",
-                new ScfpRoleMenu(
-                        role_id, menuDao.findMenuById(role_id)
-                ), ResStatus.SUCCESS);
+                menuDao.all(), ResStatus.SUCCESS);
     }
 }
