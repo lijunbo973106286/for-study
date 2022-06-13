@@ -19,7 +19,7 @@ public interface ScfpChainService {
 
     ResponseResult<Object> delete(int id);
 
-    ResponseResult<ScfpChain> search(ScfpChain scfpChain);
+    ResponseResult<Object> search(ScfpChain scfpChain);
 
     ResponseResult<Object> findAll(ScfpChain scfpChain);
 

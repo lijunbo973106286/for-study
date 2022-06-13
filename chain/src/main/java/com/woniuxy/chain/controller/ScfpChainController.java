@@ -47,7 +47,7 @@ public class ScfpChainController {
 
     /** 通过scfpchain对象动态查询ScfpChain对象*/
     @PostMapping("/search")
-    public ResponseResult<ScfpChain> search(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<Object> search(@RequestBody ScfpChain scfpChain){
         return scfpChainService.search(scfpChain);
     }
 

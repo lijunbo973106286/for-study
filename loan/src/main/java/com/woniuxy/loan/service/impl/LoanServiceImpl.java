@@ -1,14 +1,17 @@
 package com.woniuxy.loan.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.woniuxy.commons.entity.ResStatus;
 import com.woniuxy.commons.entity.ResponseResult;
+import com.woniuxy.commons.entity.ScfpChain;
 import com.woniuxy.commons.entity.ScfpLoan;
 import com.woniuxy.commons.service.ScfpChainService;
 import com.woniuxy.loan.dao.LoanDao;
 import com.woniuxy.loan.rabbitmq.producer.RepaymentProducer;
 import com.woniuxy.loan.service.LoanService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,6 +28,8 @@ import java.util.List;
  **/
 @Service
 public class LoanServiceImpl implements LoanService {
+
+    private static final Log log = LogFactory.getLog(LoanServiceImpl.class);
 
     @Resource
     private LoanDao loanDao;
@@ -44,16 +49,33 @@ public class LoanServiceImpl implements LoanService {
      */
     @Override
     public ResponseResult<Object> applyLoan(ScfpLoan scfpLoan) {
+        Date now = new Date();
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try {
+            log.info("收到的链单id为："+scfpLoan.getChain_id());
+            if (scfpLoan.getChain_id() == 0){
+                return new ResponseResult<>(500, "链单信息错误", null, ResStatus.FAIL);
+            }
+            ScfpChain scfpChain = new ScfpChain();
+            scfpChain.setId(scfpLoan.getChain_id());
             //调用链单微服务接口查询对应链单信息
-
+            ResponseResult<ScfpChain> search = scfpChainService.search(scfpChain);
+            ScfpChain chain = search.getData();
+            log.info("查询到的链单信息为："+chain);
             //链单是否过期，过期返回false
-
+            Date old = dateFormat.parse(chain.getDeadline());
+            if (old.getTime()<now.getTime()){
+                return new ResponseResult<>(500, "链单已过期", null, ResStatus.FAIL);
+            }
             //链单余额是否充足，不够返回false
+            if (chain.getSurplus().compareTo(new BigDecimal(0))<1) {
+                return new ResponseResult<>(500, "链单余额不足", null, ResStatus.FAIL);
+            }
+            //赋值
+            scfpLoan.setEnterprise_id(chain.getEnterprise_id());
+            scfpLoan.setMoney(chain.getSurplus());
 
             //获取当前时间
-            Date now = new Date();
-            SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             String loan_time = dateFormat.format(now);
             scfpLoan.setLoan_time(loan_time);
 
@@ -73,10 +95,14 @@ public class LoanServiceImpl implements LoanService {
             scfpLoan.setInterest(interest);
             scfpLoan.setInterest_status("未支付");
 
+            //调用链单微服务，修改余额
+            ResponseResult<Object> result = scfpChainService.updateLoan(chain.getId());
+            if (result.getCode() != 200) {
+                return ResponseResult.FAIL;
+            }
+
             //调用dao接口添加放款信息
             int num = loanDao.add(scfpLoan);
-
-            //调用链单微服务，修改余额
 
             if (num>0){
                 return ResponseResult.SUCCESS;

@@ -16,7 +16,7 @@ spring:
 
   cloud:
     inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
-      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Wi-Fi Direct Virtual Adapter #3'
     gateway:
       httpclient:
         connect-timeout: 10000
