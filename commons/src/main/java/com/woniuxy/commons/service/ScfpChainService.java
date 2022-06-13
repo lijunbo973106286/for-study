@@ -88,8 +88,4 @@ public interface ScfpChainService {
     @GetMapping("/chain/findStatus/{status}")
     public ResponseResult<Object> findStatus(@PathVariable int status);
 
-
-    @PostMapping(value = "/chain/export")
-    @ResponseBody
-    public void export(HttpServletRequest request, HttpServletResponse response);
 }

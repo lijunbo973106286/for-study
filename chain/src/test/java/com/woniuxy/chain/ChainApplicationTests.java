@@ -17,6 +17,10 @@ class ChainApplicationTests {
     ScfpChainService service;
     @Test
     void contextLoads() {
+        ScfpChain scfpChain = new ScfpChain();
+        scfpChain.setId(1);
+        ResponseResult<Object> result = service.findById(scfpChain);
+        System.out.println(result);
     }
 
 }

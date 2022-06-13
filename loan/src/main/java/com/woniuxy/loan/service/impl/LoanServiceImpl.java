@@ -59,8 +59,8 @@ public class LoanServiceImpl implements LoanService {
             ScfpChain scfpChain = new ScfpChain();
             scfpChain.setId(scfpLoan.getChain_id());
             //调用链单微服务接口查询对应链单信息
-            ResponseResult<ScfpChain> search = scfpChainService.search(scfpChain);
-            ScfpChain chain = search.getData();
+            ResponseResult<Object> search = scfpChainService.findById(scfpChain);
+            ScfpChain chain = (ScfpChain) search.getData();
             log.info("查询到的链单信息为："+chain);
             //链单是否过期，过期返回false
             Date old = dateFormat.parse(chain.getDeadline());
