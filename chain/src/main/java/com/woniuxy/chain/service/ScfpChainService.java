@@ -46,4 +46,6 @@ public interface ScfpChainService {
     ResponseResult<ScfpFund> findAllFund();
 
     ResponseResult<Object> findStatus(int cs_id);
+
+    ResponseResult<Object> findById(ScfpChain scfpChain);
 }

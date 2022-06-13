@@ -158,7 +158,7 @@
             <result property="status" column="status"/>
             <result property="name" column="name"/>
         </association>
-        <association select="findUserInfo" property="scfpUserAppr" column="updator" javaType="scfpUser">
+        <association select="findApprUserInfo" property="scfpUserAppr" column="updator" javaType="scfpUser">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="identity" column="identity"/>
@@ -189,6 +189,9 @@
 
     <select id="findUserInfo" resultType="scfpUser">
         select * from scfp_user where id = #{creator}
+    </select>
+    <select id="findApprUserInfo" resultType="scfpUser">
+        select * from scfp_user where id = #{updator}
     </select>
 
     <select id="findAll" resultMap="findUser">
@@ -250,6 +253,9 @@
     </select>
     <select id="findStatus" resultType="com.woniuxy.commons.entity.ScfpChainStatus">
         select status from scfp_chain_status where id = #{cs_id}
+    </select>
+    <select id="findById" resultMap="findUser">
+        select * from scfp_chain where id = #{id}
     </select>
 
 </mapper>

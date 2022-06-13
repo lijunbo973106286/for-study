@@ -47,4 +47,6 @@ public interface ScfpChainDao {
     List<ScfpFund> findAllFund();
 
     ScfpChainStatus findStatus(int cs_id);
+
+    ScfpChain findById(ScfpChain scfpChain);
 }
