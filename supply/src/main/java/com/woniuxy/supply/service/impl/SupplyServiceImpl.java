@@ -2,6 +2,7 @@ package com.woniuxy.supply.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sun.org.apache.xerces.internal.xs.LSInputList;
 import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResStatus;
@@ -28,6 +29,8 @@ import java.util.*;
 public class SupplyServiceImpl implements SupplyService {
     @Resource
     SuppluDao suppluDao;
+
+    ArrayList<SupplyDTO> supplyDTOS = new ArrayList<>();
 
     @Override
     public ResponseResult findAllSupply(PageInfomation pageInfomation) {
@@ -123,7 +126,20 @@ public class SupplyServiceImpl implements SupplyService {
     @Override
     public ResponseResult findAllEnterprises(SupplyDTO supplyDTO) {
         log.info("条件：{}", supplyDTO);
-        List<SupplyDTO> all = suppluDao.findAllEnterprises(supplyDTO);
+        List<SupplyDTO> list = suppluDao.findById(supplyDTO.getEid());
+        List<SupplyDTO> list1 = suppluDao.findByFid(supplyDTO.getEid());
+        List<SupplyDTO> list_ = getSupplyDTO(list);
+        System.out.println("__________________");
+        System.out.println(distinct(list_));
+
+        List<SupplyDTO> list3 = getSupplyDTO(list1);
+        System.out.println("__________________");
+        System.out.println(distinct(list3));
+        if (list3 != null) {
+            list_.addAll(list3);
+        }
+        List<SupplyDTO> all = suppluDao.findAllEnterprises();
+        all.removeAll(distinct(list_));
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
@@ -245,6 +261,30 @@ public class SupplyServiceImpl implements SupplyService {
     }
 
     /**
+     * @param supplyDTOList
+     * @return List<SupplyDTO>
+     * @description 递归查询供应链上的所有企业
+     * @author qfx
+     * @date 2022/6/13 19:26
+     */
+    public List<SupplyDTO> getSupplyDTO(List<SupplyDTO> supplyDTOList) {
+        if (supplyDTOList.isEmpty()) {
+            return null;
+        } else {
+            for (SupplyDTO s1 : supplyDTOList
+            ) {
+                supplyDTOS.add(s1);
+                if (s1.getEnterprises() == null) {
+                    return null;
+                } else {
+                    getSupplyDTO(s1.getEnterprises());
+                }
+            }
+        }
+        return supplyDTOS;
+    }
+
+    /**
      * @param
      * @return int
      * @description 递归供应链企业数量
@@ -290,6 +330,25 @@ public class SupplyServiceImpl implements SupplyService {
         } else {
             return 1;
         }
+    }
+
+    /**
+     * @param list
+     * @return List<SupplyDTO>
+     * @description 去重
+     * @author qfx
+     * @date 2022/6/13 19:41
+     */
+
+    public List<SupplyDTO> distinct(List<SupplyDTO> list) {
+        final boolean sta = null != list && list.size() > 0;
+        List doubleList = new ArrayList();
+        if (sta) {
+            Set set = new HashSet();
+            set.addAll(list);
+            doubleList.addAll(set);
+        }
+        return doubleList;
     }
 
 }
