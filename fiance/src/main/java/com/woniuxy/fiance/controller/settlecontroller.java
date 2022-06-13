@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.woniuxy.commons.entity.DTO.LoanDTO;
 import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.fiance.service.settleService;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -47,6 +48,11 @@ public class settlecontroller {
         return  settleService.upstatus(id);
 
     }
-
+    //平台按时发平台服务费
+//    @Scheduled(fixedRate=3000)
+    @Scheduled(cron = "0/3 * * * * ? ")
+    public void addservice(){
+        settleService.addservice();
+    }
 
 }

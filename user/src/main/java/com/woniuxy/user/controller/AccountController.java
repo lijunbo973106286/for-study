@@ -51,7 +51,9 @@ public class AccountController {
      * @param user
      * @return
      */
+    @PutMapping("/modsub")
     ResponseResult modsub(@RequestBody ScfpUser user) {
+        System.out.println(user);
         return accountService.modsub(user);
     }
 
@@ -62,7 +64,7 @@ public class AccountController {
      * @param
      * @return
      */
-    @PutMapping("/grysub")
+    @PutMapping("qrysub")
     ResponseResult qrysub(@RequestBody ScfpUser user) {
         return accountService.qrysub(user);
     }

@@ -251,5 +251,8 @@
     <select id="findStatus" resultType="com.woniuxy.commons.entity.ScfpChainStatus">
         select status from scfp_chain_status where id = #{cs_id}
     </select>
+    <select id="findById" resultMap="findUser">
+        select * from scfp_chain where id = #{id}
+    </select>
 
 </mapper>
