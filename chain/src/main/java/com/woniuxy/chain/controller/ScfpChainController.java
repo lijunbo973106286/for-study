@@ -131,7 +131,7 @@ public class ScfpChainController {
 
     /** 根据状态查找状态名 */
     @GetMapping("/findStatus/{status}")
-    public ResponseResult<Object> findStatus(@PathVariable int status){
+    public ResponseResult<Object> findStatus(@PathVariable("status") int status){
         return scfpChainService.findStatus(status);
     }
 
