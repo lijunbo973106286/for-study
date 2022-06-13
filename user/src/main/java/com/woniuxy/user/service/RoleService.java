@@ -12,14 +12,14 @@ import com.woniuxy.user.entity.ScfpRole;
  * @date: 2022/6/7 20:45
  * @version: 1.0
  */
-public interface SubRolesService {
-    ResponseResult create(ScfpRole role);
+public interface RoleService {
 
-    ResponseResult delete(int id);
+    ResponseResult newrole(ScfpRole role);
 
-    ResponseResult update(ScfpRole role);
+    ResponseResult delrole(int id);
 
-    ResponseResult subRoles(int id);
+    ResponseResult modrole(ScfpRole role);
 
-    ResponseResult statusChange(int id, String status);
+    ResponseResult qryrole(int id);
 }
+

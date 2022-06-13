@@ -42,5 +42,9 @@ public interface ScfpChainDao {
 
     int findLoanCount(ScfpChain scfpChain);
 
+    List<ScfpEnterprise> findAllEnterprise();
+
+    List<ScfpFund> findAllFund();
+
     ScfpChainStatus findStatus(int cs_id);
 }

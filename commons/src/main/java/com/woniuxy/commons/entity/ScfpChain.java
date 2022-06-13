@@ -70,4 +70,6 @@ public class ScfpChain {
     private String sortType;
     @ApiModelProperty("链单状态名")
     private String status_tab;
+    @ApiModelProperty("网络流转信息")
+    private ScfpNetwork scfpNetwork;
 }

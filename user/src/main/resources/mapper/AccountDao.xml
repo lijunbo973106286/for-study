@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woniuxy.user.dao.SubAccountsDao">
-    <insert id="add">
+<mapper namespace="com.woniuxy.user.dao.AccountDao">
+
+    <insert id="newsub">
         insert into scfp_user
         values (null, #{uname}, #{password}, #{name}, #{identity}, #{phonenum}, #{email}, #{enterprise_id}, #{status},
-                #{role_id}, #{fid})
+                #{fid})
     </insert>
-    <insert id="userRole">
-        insert into scfp_user_role values
-        <foreach collection="role_id" close="" index="" item="item" separator="," open="">
-            (#{user_id},#{item})
-        </foreach>
-    </insert>
-    <update id="statusChange">
-        update scfp_user
-        set status = #{status}
-        where id = #{id}
-    </update>
-    <update id="update">
+    <update id="modsub">
         update scfp_user
         <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
             <if test="uname!='' and uname != null">
@@ -39,33 +29,24 @@
             <if test="identity!='' and identity != null">
                 `identity` = #{identity}
             </if>
+            <if test="status!='' and status != null">
+                `status` = #{status}
+            </if>
         </trim>
     </update>
-    <delete id="delete">
+    <delete id="delsub">
         delete
         from scfp_user
-        where id = #{id}
+        left join scfp_user_role on scfp_user.id = scfp_user_role.user_id
+        where scfp_user.id = #{id}
     </delete>
-    <delete id="remove">
-        delete
-        from scfp_user_role
-        where user_id = #{user_id}
-    </delete>
-    <select id="findByFid" resultType="com.woniuxy.user.entity.ScfpUser">
-        select *
-        from scfp_user
-        where fid = #{fid}
-    </select>
-    <select id="search" resultType="com.woniuxy.user.entity.ScfpUser">
+    <select id="qrysub" resultType="com.woniuxy.user.entity.ScfpUser">
         select * from scfp_user
         <where>
             fid = #{fid}
             <if test="uname!='' and uname != null">
                 and uname = #{uname}
             </if>
-            <!--            <if test="password!='' and password != null">-->
-            <!--              and  password = #{password}-->
-            <!--            </if>-->
             <if test="name!='' and name != null">
                 and `name` = #{name}
             </if>
@@ -81,17 +62,6 @@
             <if test="status != '' and status != null">
                 and status = #{status}
             </if>
-            <if test="role_id != '' and role_id != null">
-                and role_id = #{role_id}
-            </if>
         </where>
-    </select>
-    <select id="findRoleById" resultType="java.lang.Integer">
-        select role_id
-        from scfp_user_role
-        where user_id = #{user_id}
-    </select>
-    <select id="findUserById" resultType="com.woniuxy.user.entity.ScfpUser">
-        select *from scfp_user where id = #{id}
     </select>
 </mapper>
