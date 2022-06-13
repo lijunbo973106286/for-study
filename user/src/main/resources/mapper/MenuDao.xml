@@ -10,14 +10,10 @@
         <collection property="menus" select="findChild" column="id" autoMapping="true"/>
     </resultMap>
     <!--    查询一级菜单-->
-    <select id="getList" resultMap="MenuList">
+    <select id="all" resultMap="MenuList">
         select id, menuname, icon, url
         from scfp_menu
         where fid is null
-          and id in (select distinct rm.menu_id
-                     from scfp_role_menu rm
-                              left join scfp_user_role ur on rm.role_id = ur.role_id
-                     where ur.user_id = #{id})
     </select>
     <!--    查询子菜单-->
     <select id="findChild" resultMap="MenuList">
@@ -25,9 +21,31 @@
         from scfp_menu
         where fid = #{id}
     </select>
-    <select id="all" resultMap="MenuList">
-        select id, menuname, icon, url
+
+
+    <resultMap id="MenuUL" type="com.woniuxy.user.entity.ScfpMenu">
+        <id column="id" property="id"/>
+        <result property="menuname" column="menuname"/>
+        <result property="icon" column="icon"/>
+        <result property="url" column="url"/>
+        <collection property="menus" select="getChild" column="{fid = id,user_id = user_id}" autoMapping="true"/>
+    </resultMap>
+    <select id="getList" resultMap="MenuUL">
+        select id, menuname, icon, url, #{id} user_id
         from scfp_menu
         where fid is null
+          and id in (select distinct menu_id
+                     from scfp_role_menu rm
+                              left join scfp_user_role ur on rm.role_id = ur.role_id
+                     where ur.user_id = #{id})
+    </select>
+    <select id="getChild" resultMap="MenuUL">
+        select id, menuname, icon, url, #{user_id} user_id
+        from scfp_menu
+        where fid = #{fid}
+          and id in (select distinct menu_id
+                     from scfp_role_menu rm
+                              left join scfp_user_role ur on rm.role_id = ur.role_id
+                     where ur.user_id = #{user_id})
     </select>
 </mapper>

@@ -18,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class ScfpMenu {
-
     @ApiModelProperty("菜单id")
     private int id;
     @ApiModelProperty("图标")

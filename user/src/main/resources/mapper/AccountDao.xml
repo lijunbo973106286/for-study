@@ -12,32 +12,32 @@
         update scfp_user
         <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
             <if test="uname!='' and uname != null">
-                uname = #{uname}
+                uname = #{uname},
             </if>
             <if test="password!='' and password != null">
-                password = #{password}
+                password = #{password},
             </if>
             <if test="name!='' and name != null">
-                `name` = #{name}
-            </if>
-            <if test="phonenum!='' and phonenum != null">
-                phonenum = #{phonenum}
-            </if>
-            <if test="email!='' and email != null">
-                email = #{email}
+                `name` = #{name},
             </if>
             <if test="identity!='' and identity != null">
-                `identity` = #{identity}
+                `identity` = #{identity},
+            </if>
+            <if test="phonenum!='' and phonenum != null">
+                phonenum = #{phonenum},
+            </if>
+            <if test="email!='' and email != null">
+                email = #{email},
             </if>
             <if test="status!='' and status != null">
-                `status` = #{status}
+                `status` = #{status},
             </if>
         </trim>
     </update>
     <delete id="delsub">
         delete
-        from scfp_user
-        left join scfp_user_role on scfp_user.id = scfp_user_role.user_id
+        from scfp_user left join scfp_user_role
+        on scfp_user.id = scfp_user_role.user_id
         where scfp_user.id = #{id}
     </delete>
     <select id="qrysub" resultType="com.woniuxy.user.entity.ScfpUser">
@@ -63,5 +63,15 @@
                 and status = #{status}
             </if>
         </where>
+    </select>
+    <select id="login" resultType="com.woniuxy.user.entity.ScfpUser">
+        select u.id, u.uname, u.name, u.identity, u.phonenum, u.email, u.enterprise_id, u.fid
+        from scfp_user u left join scfp_user_role ur
+        on u.id = ur.user_id
+            left join scfp_role r on ur.role_id = r.id
+        where u.uname = #{uname}
+          and u.password = #{password}
+          and u.status = '启用'
+          and r.status = '启用'
     </select>
 </mapper>
