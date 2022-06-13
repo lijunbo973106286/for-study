@@ -19,4 +19,6 @@ public interface settleMapper {
     String password(int id);
 
     int upstatus(int id);
+
+    int addservice();
 }

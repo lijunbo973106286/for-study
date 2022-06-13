@@ -22,15 +22,19 @@ spring:
         - id: fiance   #路由名
           uri: lb://fiance   #lb:loadbalance   goods:微服务名
           predicates: #谓词
-            - Path=/fiance/**   #匹配的路径
+            - Path=/fiance/**   #匹配的路径|
+        - id: fiance   #路由名
+          uri: lb://fiance   #lb:loadbalance   goods:微服务名
+          predicates: #谓词
+            - Path=/settle/**   #匹配的路径|
+        - id: user   #路由名
+          uri: lb://user   #lb:loadbalance   goods:微服务名
+          predicates: #谓词
+            - Path=/menu/**   #匹配的路径
         - id: network   #路由名
           uri: lb://supply   #lb:loadbalance   goods:微服务名
           predicates: #谓词
             - Path=/network/**   #匹配的路径
-        - id: order   #路由名
-          uri: lb://order-feign   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/fiance/**   #匹配的路径
         # 放款路由
         - id: loan
           uri: lb://loan

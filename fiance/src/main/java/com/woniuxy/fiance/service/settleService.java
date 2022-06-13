@@ -15,4 +15,6 @@ public interface settleService {
     ResponseResult<LoanDTO> password(int id);
 
     ResponseResult<LoanDTO> upstatus(int id);
+
+    void addservice();
 }
