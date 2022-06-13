@@ -125,13 +125,13 @@ public class ScfpChainController {
 
     /** 根据链单id查询链单详细信息 */
     @PostMapping("/findById")
-    public ResponseResult<Object> findById(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<ScfpChain> findById(@RequestBody ScfpChain scfpChain){
         return scfpChainService.findById(scfpChain);
     }
 
     /** 根据状态查找状态名 */
     @GetMapping("/findStatus/{status}")
-    public ResponseResult<Object> findStatus(@PathVariable int status){
+    public ResponseResult<Object> findStatus(@PathVariable("status") int status){
         return scfpChainService.findStatus(status);
     }
 
