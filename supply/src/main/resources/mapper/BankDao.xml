@@ -7,4 +7,10 @@
         from scfp_enterprise
         where role = 1
     </select>
+    <select id="allAmount" resultType="com.woniuxy.commons.entity.ScfpAmount">
+        select a.*, e.name bname
+        from scfp_amount a
+                 left join scfp_enterprise e on a.bank_id = e.id
+        where eid = #{eid}
+    </select>
 </mapper>

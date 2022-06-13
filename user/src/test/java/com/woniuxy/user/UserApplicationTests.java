@@ -13,9 +13,7 @@ class UserApplicationTests {
     RoleDao rolesDao;
     @Test
     void contextLoads() {
-        for (ScfpRole subRole : rolesDao.subRoles(78)) {
-            System.out.println(subRole);
-        }
+
 
     }
 }

@@ -1,5 +1,6 @@
 package com.woniuxy.commons.entity.DTO;
 
+import com.sun.org.apache.xpath.internal.operations.Equals;
 import com.woniuxy.commons.entity.ScfpEnterprise;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

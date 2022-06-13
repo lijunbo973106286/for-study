@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @BelongsProject supply-chain-finance
@@ -148,6 +145,27 @@ public class SupplyServiceImpl implements SupplyService {
             log.info("添加入参：{}", enterprise);
             SupplyDTO supplyDTO1 = suppluDao.exist(enterprise);
             if (supplyDTO1 == null) {
+//                List<SupplyDTO> list = suppluDao.findFid(enterprise);
+//                if (!list.isEmpty()) {
+//                    for (SupplyDTO s : list
+//                    ) {
+//                        if (s.getFid() == enterprise.getEid()) {
+//                            return new ResponseResult(500, "不能邀请上游企业", null, ResStatus.SUCCESS);
+//                        } else {
+//                            SupplyDTO supplyDTO2 = new SupplyDTO();
+//                            supplyDTO2.setEid(s.getFid());
+//                            List<SupplyDTO> list_ = suppluDao.findFid(supplyDTO2);
+//                            if (!list_.isEmpty()) {
+//                                for (SupplyDTO s_ : list
+//                                ) {
+//                                    if (s_.getFid() == enterprise.getEid()) {
+//                                        return new ResponseResult(500, "不能邀请上游企业", null, ResStatus.SUCCESS);
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
                 i += suppluDao.add(enterprise);
             } else {
                 int count = supplyDTO1.getCount();
@@ -209,6 +227,20 @@ public class SupplyServiceImpl implements SupplyService {
             return new ResponseResult(500, "移除失败", null, ResStatus.FAIL);
         } else {
             return new ResponseResult(200, "移除成功", null, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult findByInvite(SupplyDTO supplyDTO) {
+        int currentPage = supplyDTO.getCurrentPage();
+        int pageSize = supplyDTO.getPageSize();
+        PageHelper.startPage(currentPage, pageSize);
+        List<SupplyDTO> all = suppluDao.findByInvite(supplyDTO);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            PageInfo<SupplyDTO> info = PageInfo.of(all);
+            return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
         }
     }
 

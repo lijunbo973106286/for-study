@@ -132,6 +132,18 @@ public class SupplyController {
     }
 
     /**
+     * @param supplyDTO
+     * @return ResponseResult
+     * @description 条件查询邀请
+     * @author qfx
+     * @date 2022/6/13 15:29
+     */
+    @PostMapping("/findByInvite")
+    public ResponseResult findByInvite(@RequestBody SupplyDTO supplyDTO) {
+        return supplyService.findByInvite(supplyDTO);
+    }
+
+    /**
      * @param fid
      * @param eid
      * @return ResponseResult
