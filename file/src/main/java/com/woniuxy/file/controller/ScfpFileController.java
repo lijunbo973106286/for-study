@@ -27,6 +27,10 @@ public class ScfpFileController {
     public ResponseResult<Object> delete(@PathVariable("file_name") String file_name){
         return scfpFileService.delete(file_name);
     }
+    @DeleteMapping("/deletePic/{chain_id}")
+    public ResponseResult<Object> deletePic(@PathVariable("chain_id") int chain_id){
+        return scfpFileService.deletePic(chain_id);
+    }
 
     @GetMapping("/getPic/{chain_id}")
     public ResponseResult<ScfpFile> getPic(@PathVariable("chain_id") int chain_id){
