@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.fiance.mapper.settleMapper">
     <insert id="addservice">
-        insert into
-
+        insert into scfp_service (month,money,plan_time) values (#{month},200,#{plan_time})
     </insert>
     <update id="upstatus">
         update scfp_loan set service_status="已支付" where id=#{id}
