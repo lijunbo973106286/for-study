@@ -125,7 +125,7 @@ public class ScfpChainController {
 
     /** 根据链单id查询链单详细信息 */
     @PostMapping("/findById")
-    public ResponseResult<Object> findById(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<ScfpChain> findById(@RequestBody ScfpChain scfpChain){
         return scfpChainService.findById(scfpChain);
     }
 

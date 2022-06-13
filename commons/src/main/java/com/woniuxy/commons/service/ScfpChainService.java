@@ -74,22 +74,8 @@ public interface ScfpChainService {
     @PostMapping("/chain/findLoanCount")
     public ResponseResult<Object> findLoanCount(@RequestBody ScfpChain scfpChain);
 
-    @GetMapping("/chain/findAllBank")
-    public ResponseResult<ScfpEnterprise> findAll();
-
-    @GetMapping("/chain/findAllFund")
-    public ResponseResult<ScfpFund> findAllFund();
-
     /** 根据链单id查询链单详细信息 */
     @PostMapping("/chain/findById")
-    public ResponseResult<Object> findById(@RequestBody ScfpChain scfpChain);
+    public ResponseResult<ScfpChain> findById(@RequestBody ScfpChain scfpChain);
 
-    /** 根据状态查找状态名 */
-    @GetMapping("/chain/findStatus/{status}")
-    public ResponseResult<Object> findStatus(@PathVariable int status);
-
-
-    @PostMapping(value = "/chain/export")
-    @ResponseBody
-    public void export(HttpServletRequest request, HttpServletResponse response);
 }
