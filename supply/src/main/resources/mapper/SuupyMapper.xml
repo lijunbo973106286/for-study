@@ -121,7 +121,7 @@
         )
           and ur.role_id between 1 and 5
           and e.role = 3
-        union all
+        union
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
         from scfp_enterprise e
                  left join scfp_user u on e.id = u.enterprise_id
@@ -148,5 +148,31 @@
         from scfp_supply
         where supply_id = #{eid}
           and fid = #{fid}
+    </select>
+    <select id="findFid" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select fid
+        from scfp_supply
+        where supply_id = #{eid}
+    </select>
+    <select id="findByInvite" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address, s.*
+        from scfp_enterprise e
+        left join scfp_user u on e.id = u.enterprise_id
+        left join scfp_supply s on e.id = s.fid
+        left join scfp_user_role ur on u.id = ur.user_id
+        <where>s.supply_id = #{eid}
+            and ur.role_id between 1 and 5
+            and s.status = 0
+            <if test="ename != null and ename !=''">
+                and e.name like concat('%',#{ename},'%')
+            </if>
+            <if test="username != null and username !=''">
+                and u.name like concat('%',#{username},'%')
+            </if>
+            <if test="phonenum != null and phonenum !=''">
+                and phonenum like concat('%',#{phonenum},'%')
+            </if>
+        </where>
+        order by s.update_time desc
     </select>
 </mapper>

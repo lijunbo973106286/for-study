@@ -36,4 +36,8 @@ public interface SuppluDao {
     int update(SupplyDTO enterprise);
 
     int updateStatus(@Param("fid") int fid, @Param("eid") int eid);
+
+    List<SupplyDTO> findFid(SupplyDTO enterprise);
+
+    List<SupplyDTO> findByInvite(SupplyDTO supplyDTO);
 }
