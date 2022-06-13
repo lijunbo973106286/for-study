@@ -6,7 +6,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,5 +46,11 @@ public class SupplyDTO {
     private int currentPage;
     @ApiModelProperty("每页条数")
     private int pageSize;
+    @ApiModelProperty("邀请次数")
+    private int count;
+    @ApiModelProperty("最近邀请时间")
+    private String update_time;
+    @ApiModelProperty("当前企业id")
+    private int fid;
 
 }

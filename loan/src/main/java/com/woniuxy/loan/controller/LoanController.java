@@ -30,20 +30,26 @@ public class LoanController {
 
     //还款
     @GetMapping("/repayment/{id}")
-    public ResponseResult<Object> repayment(@PathVariable int id){
+    public ResponseResult<Object> repayment(@PathVariable("id") int id){
         return loanService.repayment(id);
     }
 
     //支付利息
     @GetMapping("/interest_payment/{id}")
-    public ResponseResult<Object> interest(@PathVariable int id){
+    public ResponseResult<Object> interest(@PathVariable("id") int id){
         return loanService.interest(id);
     }
 
     //支付手续费
     @GetMapping("/service_payment/{id}")
-    public ResponseResult<Object> service(@PathVariable int id){
+    public ResponseResult<Object> service(@PathVariable("id") int id){
         return loanService.service(id);
+    }
+
+    //查询某用户公司的所有兑付记录
+    @PostMapping("/search")
+    public ResponseResult<Object> search(@RequestBody ScfpLoan scfpLoan){
+        return loanService.search(scfpLoan);
     }
 
 }

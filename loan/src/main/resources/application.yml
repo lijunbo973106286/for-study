@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user
+    name: loan
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.8.142:3306/scfp
@@ -12,8 +12,10 @@ spring:
         server-addr: 192.168.8.142:8848
         username: nacos
         password: nacos
+    inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
+     ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Wi-Fi Direct Virtual Adapter #3'
   rabbitmq:
-    host: 192.168.8.112
+    host: 192.168.8.107
     port: 5672    # java程序访问时用到的端口
     username: admin   #账号
     password: admin   #密码
@@ -23,7 +25,7 @@ spring:
     template:
       mandatory: true  #启用强制信息，必须确认，消息无法达到队列时将消息返回给生产者，否则丢弃消息
 server:
-  port: 9898
+  port: 8989
 management:
   endpoints:
     web:
@@ -32,6 +34,8 @@ management:
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.woniuxy.commons.entity
+
+
 
 
 

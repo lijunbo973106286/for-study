@@ -4,9 +4,9 @@
 <mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
     <insert id="insert">
         insert into scfp_chain
-            (chain_no, enterprise_id, network_id, bank, fund_id, limit, money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time)
+            (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time)
         values
-            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{limit}, #{money}, #{surplus}, #{file_id}, #{deadline}, #{status}, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
+            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, 1, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
     </insert>
 
     <update id="update" parameterType="scfpChain">
@@ -26,9 +26,6 @@
             </if>
             <if test="fund_id != null and fund_id != ''">
                 fund_id = #{fund_id},
-            </if>
-            <if test="limit != null and limit != ''">
-                limit = #{limit},
             </if>
             <if test="money != null and money != ''">
                 money = #{money},
@@ -63,9 +60,11 @@
         </set>
         where id = #{id}
     </update>
+
     <delete id="delete">
         update scfp_chain set status=1 where id=#{id}
     </delete>
+
     <select id="search" resultMap="findUser">
         select * from scfp_chain where 1=1
         <if test="id != '' and id != null">
@@ -83,9 +82,6 @@
         <if test="fund_id != '' and fund_id != null">
              and fund_id =#{fund_id}
         </if>
-        <if test="limit != '' and limit != null">
-             and limit = #{limit}
-        </if>
         <if test="money != '' and money != null">
              and money = #{money}
         </if>
@@ -96,7 +92,12 @@
              and deadline between #{deadline} and #{deadlineMax}
         </if>
         <if test="status != '' and status != null">
-             and status = (select id from scfp_chain_status where status = #{status_tab})
+             <if test="status > -1">
+                 and status >= #{status}
+             </if>
+             <if test="status == -1">
+                 and status = (select id from scfp_chain_status where status = #{status_tab})
+             </if>
         </if>
         <if test="reason != '' and reason != null">
              and reason = #{reason}
@@ -128,7 +129,6 @@
         <result property="network_id" column="network_id"/>
         <result property="bank" column="bank"/>
         <result property="fund_id" column="fund_id"/>
-        <result property="limit" column="limit"/>
         <result property="money" column="money"/>
         <result property="surplus" column="surplus"/>
         <result property="file_id" column="file_id"/>
@@ -149,6 +149,14 @@
             <result property="email" column="email"/>
             <result property="enterprise_id" column="enterprise_id"/>
             <result property="status" column="status"/>
+        </association>
+        <association select="findNetworkInfo" property="scfpNetwork" column="network_id" javaType="scfpNetwork">
+            <id property="id" column="id"/>
+            <result property="network_no" column="network_no"/>
+            <result property="type" column="type"/>
+            <result property="bank_id" column="bank_id"/>
+            <result property="status" column="status"/>
+            <result property="name" column="name"/>
         </association>
         <association select="findUserInfo" property="scfpUserAppr" column="updator" javaType="scfpUser">
             <id property="id" column="id"/>
@@ -178,9 +186,11 @@
             <result property="status" column="status"/>
         </association>
     </resultMap>
+
     <select id="findUserInfo" resultType="scfpUser">
         select * from scfp_user where id = #{creator}
     </select>
+
     <select id="findAll" resultMap="findUser">
         select * from scfp_chain
         <if test="sortField != null and sortField != '' ">
@@ -191,30 +201,55 @@
         </if>
 
     </select>
+
     <select id="findScfpFund" resultType="com.woniuxy.commons.entity.ScfpFund">
         select * from scfp_fund where id=#{fund_id}
     </select>
+
     <select id="findScfpEnterprises" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where id=#{enterprise_id}
     </select>
+
     <select id="findAllExcel" resultMap="findUser">
         select sc.*, scs.status as status_tab from scfp_chain sc, scfp_chain_status scs
             where enterprise_id = #{eid} and sc.status = scs.id order by id desc
     </select>
+
     <select id="findCount" resultType="java.lang.Integer">
         select count(*) from scfp_chain where enterprise_id = #{enterprise_id} and status =
-                (select id from scfp_chain_status where status = #{status})
+                (select id from scfp_chain_status where status = #{status_tab})
     </select>
+
     <select id="findAllCount" resultType="java.lang.Integer">
         select count(*) from scfp_chain where enterprise_id = #{eid}
     </select>
+
     <select id="checkPayPass" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where id = #{id} and pay_pass = #{pay_pass}
     </select>
+
     <select id="getEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where name= #{bankName}
     </select>
-    <select id="findAllLoan" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
-        select * from scfp_chain where status >= 18
+    <select id="findNetworkInfo" resultType="com.woniuxy.commons.entity.ScfpNetwork">
+        select * from scfp_network where id=#{network_id}
     </select>
+
+    <select id="findAllLoan" resultMap="findUser">
+        select * from scfp_chain where status >= #{status} and enterprise_id = #{enterprise_id}
+    </select>
+
+    <select id="findLoanCount" resultType="java.lang.Integer">
+        select count(*) from scfp_chain where status >= #{status} and enterprise_id = #{enterprise_id}
+    </select>
+    <select id="findAllEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select  * from scfp_enterprise where role=1
+    </select>
+    <select id="findAllFund" resultType="com.woniuxy.commons.entity.ScfpFund">
+        select * from scfp_fund
+    </select>
+    <select id="findStatus" resultType="com.woniuxy.commons.entity.ScfpChainStatus">
+        select status from scfp_chain_status where id = #{cs_id}
+    </select>
+
 </mapper>

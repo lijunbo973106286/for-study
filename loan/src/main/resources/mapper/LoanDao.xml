@@ -35,4 +35,41 @@
     <select id="findByRepay_time" resultType="com.woniuxy.commons.entity.ScfpLoan">
         select * from scfp_loan where repay_time = #{repay_time}
     </select>
+    <resultMap id="getAllLoanByEnterpriseId" type="com.woniuxy.commons.entity.ScfpLoan">
+        <id property="id" column="id" />
+        <result property="interest" column="interest"/>
+        <result property="interest_status" column="interest_status"/>
+        <result property="service" column="service"/>
+        <result property="service_status" column="service_status"/>
+        <result property="money" column="money"/>
+        <result property="principal_status" column="principal_status"/>
+        <result property="loan_time" column="loan_time"/>
+        <result property="repay_time" column="repay_time"/>
+        <association property="scfpChain" javaType="com.woniuxy.commons.entity.ScfpChain">
+            <result property="chain_no" column="chain_no"/>
+        </association>
+        <association property="scfpEnterprise" javaType="com.woniuxy.commons.entity.ScfpEnterprise">
+            <result property="name" column="name"/>
+        </association>
+    </resultMap>
+    <select id="search" resultMap="getAllLoanByEnterpriseId">
+        select l.*,c.chain_no,e.name from scfp_loan l left join scfp_chain c on l.chain_id = c.id
+                                                      left join scfp_enterprise e on l.enterprise_id = e.id
+        where l.enterprise_id = #{enterprise_id}
+            <if test="chain_id">
+                and chain_id = #{chain_id}
+            </if>
+            <if test="principal_status=='待结清'">
+                and (
+                     principal_status = '未还款' or
+                     service_status = '未支付' or
+                     interest_status = '未支付'
+                    )
+            </if>
+            <if test="principal_status=='已结清'">
+                and principal_status = '已还款'
+                and service_status = '已支付'
+                and interest_status = '已支付'
+            </if>
+    </select>
 </mapper>

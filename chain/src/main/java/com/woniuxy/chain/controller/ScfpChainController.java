@@ -28,6 +28,7 @@ public class ScfpChainController {
     /** 通过传入的chain对象插入scfp_chain表中，没有的信息默认为null或者0 */
     @PostMapping("/insert")
     public ResponseResult<Object> insert(@RequestBody ScfpChain scfpChain) {
+        System.out.println(scfpChain);
         return scfpChainService.insert(scfpChain);
     }
 
@@ -91,8 +92,23 @@ public class ScfpChainController {
     }
 
     /** 一次查询未兑付及未兑付的链单信息 */
-    @GetMapping("/findAllLoan")
-    public ResponseResult<ScfpEnterprise> findAllLoan(){
-        return scfpChainService.findAllLoan();
+    @PostMapping("/findAllLoan")
+    public ResponseResult<ScfpEnterprise> findAllLoan(@RequestBody ScfpChain scfpChain){
+        return scfpChainService.findAllLoan(scfpChain);
+    }
+
+    /** 查找所有未兑付和已兑付链单数量 */
+    @PostMapping("/findLoanCount")
+    public ResponseResult<Object> findLoanCount(@RequestBody ScfpChain scfpChain){
+        return scfpChainService.findLoanCount(scfpChain);
+    }
+
+    @GetMapping("/findAllBank")
+    public ResponseResult<ScfpEnterprise> findAll(){
+        return scfpChainService.findAllEnterprise();
+    }
+    @GetMapping("/findAllFund")
+    public ResponseResult<ScfpFund> findAllFund(){
+        return scfpChainService.findAllFund();
     }
 }

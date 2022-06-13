@@ -30,8 +30,6 @@ public class ScfpChain {
     private String bank;
     @ApiModelProperty("资金产品id")
     private int fund_id;
-    @ApiModelProperty("企业总额度")
-    private BigDecimal limit;
     @ApiModelProperty("融资总额度")
     private BigDecimal money;
     @ApiModelProperty("剩余额度")
@@ -43,7 +41,7 @@ public class ScfpChain {
     @ApiModelProperty("兑付日止")
     private String deadlineMax;
     @ApiModelProperty("链单当前状态")
-    private String status;
+    private int status;
     @ApiModelProperty("审核意见")
     private String reason;
     @ApiModelProperty("创建人")
@@ -72,4 +70,6 @@ public class ScfpChain {
     private String sortType;
     @ApiModelProperty("链单状态名")
     private String status_tab;
+    @ApiModelProperty("网络流转信息")
+    private ScfpNetwork scfpNetwork;
 }

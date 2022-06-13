@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.user.dao.RoleDao">
+
+    <insert id="newrole">
+        insert into scfp_role
+        values ((null, #{name}, #{type} #{description}, #{status})
+    </insert>
+    <update id="modrole">
+        update scfp_role
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="name!='' and name != null">
+                `name` = #{name}
+            </if>
+            <if test="description!='' and description != null">
+                description = #{description}
+            </if>
+            <if test="status!='' and status != null">
+                status = #{status}
+            </if>
+        </trim>
+    </update>
+    <delete id="delrole">
+        delete
+        from scfp_role
+        where id = #{id} union
+        delete
+        from scfp_user_role
+        where role_id = #{id} union
+        delete
+        from scfp_role_menu
+        where role_id = #{id}
+    </delete>
+    <select id="qryrole" resultType="com.woniuxy.user.entity.ScfpRole">
+        select id, name, type, status, description
+        from scfp_role
+        where type in (select r.type
+                       from scfp_role r
+                                left join scfp_user_role ur on r.id = ur.role_id
+                       where ur.user_id = #{id})
+          and id not in (select r.id
+                         from scfp_role r
+                                  left join scfp_user_role ur on r.id = ur.role_id
+                         where ur.user_id = #{id})
+    </select>
+</mapper>
