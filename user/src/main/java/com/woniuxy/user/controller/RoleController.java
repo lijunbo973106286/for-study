@@ -1,6 +1,7 @@
 package com.woniuxy.user.controller;
 
 import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.RoleDTO;
 import com.woniuxy.user.entity.ScfpRole;
 import com.woniuxy.user.service.RoleService;
 import org.springframework.web.bind.annotation.*;
@@ -62,7 +63,7 @@ public class RoleController {
      * @return
      */
     @PutMapping("/qryrole")
-    ResponseResult qryrole(@RequestBody ScfpRole role) {
+    ResponseResult qryrole(@RequestBody RoleDTO role) {
         return roleService.qryrole(role);
     }
 }
