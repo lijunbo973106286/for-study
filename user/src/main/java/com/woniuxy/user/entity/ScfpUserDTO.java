@@ -9,16 +9,15 @@ import java.util.List;
 /**
  * @projectName: BackEnd
  * @package: com.woniuxy.user.entity
- * @className: ScfpUserRole
+ * @className: ScfpUserDTO
  * @author: SuYHo
  * @description: TODO
- * @date: 2022/6/8 10:46
+ * @date: 2022/6/13 18:17
  * @version: 1.0
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScfpUserRole {
-    int user_id;
-    int role_id;
+public class ScfpUserDTO extends ScfpUser{
+    List<ScfpUserRole> role_ids;
 }

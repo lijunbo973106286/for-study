@@ -39,8 +39,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public ResponseResult qryrole(int id) {
+    public ResponseResult qryrole(ScfpRole role) {
         return new ResponseResult(200, "查询成功",
-                roleDao.qryrole(id), ResStatus.SUCCESS);
+                roleDao.qryrole(role), ResStatus.SUCCESS);
     }
 }

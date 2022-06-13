@@ -53,7 +53,6 @@ public class AccountController {
      */
     @PutMapping("/modsub")
     ResponseResult modsub(@RequestBody ScfpUser user) {
-        System.out.println(user);
         return accountService.modsub(user);
     }
 

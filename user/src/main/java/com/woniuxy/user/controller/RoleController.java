@@ -61,8 +61,8 @@ public class RoleController {
      * @param id
      * @return
      */
-    @GetMapping("/qryrole/{id}")
-    ResponseResult qryrole(@PathVariable int id) {
-        return roleService.qryrole(id);
+    @PutMapping("/qryrole")
+    ResponseResult qryrole(@RequestBody ScfpRole role) {
+        return roleService.qryrole(role);
     }
 }

@@ -23,7 +23,7 @@ public interface AccountDao {
 
     int modsub(ScfpUser user);
 
-    List<ScfpUser> qrysub(ScfpUser id);
+    List<ScfpUser> qrysub(ScfpUser user);
 
     ScfpUser login(ScfpUser user);
 }
