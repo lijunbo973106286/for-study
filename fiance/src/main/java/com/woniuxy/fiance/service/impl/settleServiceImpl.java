@@ -5,12 +5,15 @@ import com.github.pagehelper.PageInfo;
 import com.woniuxy.commons.entity.DTO.EnterpriseAccountDTO;
 import com.woniuxy.commons.entity.DTO.LoanDTO;
 import com.woniuxy.commons.entity.ScfpLoan;
+import com.woniuxy.commons.util.ConvertTime;
 import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.fiance.mapper.settleMapper;
 import com.woniuxy.fiance.service.settleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 @Service
 public class settleServiceImpl implements settleService {
@@ -77,5 +80,16 @@ public class settleServiceImpl implements settleService {
             return responseResult.success(i);
         }
         return responseResult.fail();
+    }
+
+    @Override
+    public void addservice() {
+        //获取当前时间
+        Date date = new Date();
+        System.out.println(date);
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+        String format = dateFormat.format(date);
+
+//        int i= settleMapper.addservice();
     }
 }

@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.fiance.mapper.fianceMapper" >
     <insert id="addaccount">
-        insert into scfp_enterprise_accout values (#{id},#{bank},#{name},#{num},#{type},#{address},#{file_id},#{status},#{enterprisid})
+        insert into scfp_enterprise_account values (#{id},#{bank},#{name},#{num},#{type},#{address},#{file_id},#{status},#{enterprisid})
     </insert>
     <update id="modifyaccount">
-         update scfp_enterprise_accout set bank=#{bank},name=#{name},num=#{num},type=#{type},address=#{address},file_id=#{file_id},status=#{status},enterprisid=#{enterprisid} where id = #{id}
+         update scfp_enterprise_account set bank=#{bank},name=#{name},num=#{num},type=#{type},address=#{address},file_id=#{file_id},status=#{status},enterprisid=#{enterprisid} where id = #{id}
     </update>
     <delete id="delaccount">
-        delete from scfp_enterprise_accout where id=#{id}
+        delete from scfp_enterprise_account where id=#{id}
     </delete>
     <select id="findbankaccount" resultType="com.woniuxy.commons.entity.DTO.EnterpriseAccountDTO" parameterType="int">
-    SELECT sea.*,se.name as ename FROM scfp_enterprise_accout sea LEFT JOIN scfp_enterprise se ON se.id = sea.enterprisid WHERE sea.enterprisid=#{id} order by sea.id
+    SELECT sea.*,se.name as ename FROM scfp_enterprise_account sea LEFT JOIN scfp_enterprise se ON se.id = sea.enterprisid WHERE sea.enterprisid=#{id} order by sea.id
     </select>
 </mapper>
