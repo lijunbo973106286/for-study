@@ -44,4 +44,9 @@ public class AccountServiceImpl implements AccountService {
         return new ResponseResult(200, "查询成功",
                 accountDao.qrysub(user), ResStatus.SUCCESS);
     }
+
+    @Override
+    public ScfpUser login(ScfpUser user) {
+        return accountDao.login(user);
+    }
 }
