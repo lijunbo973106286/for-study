@@ -24,4 +24,6 @@ public interface AccountDao {
     int modsub(ScfpUser user);
 
     List<ScfpUser> qrysub(ScfpUser id);
+
+    ScfpUser login(ScfpUser user);
 }

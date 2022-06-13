@@ -21,4 +21,6 @@ public interface AccountService {
     ResponseResult modsub(ScfpUser user);
 
     ResponseResult qrysub(ScfpUser user);
+
+    ScfpUser login(ScfpUser user);
 }

@@ -25,27 +25,18 @@ import java.util.concurrent.TimeUnit;
 public class AuthController {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
-
-    /**
-     * @param user
-     * @param response
-     * @return ResponseResult<Object>
-     * @description:登录
-     * @author qfx
-     * @date 2022/5/19 11:11
-     */
-
-    @PostMapping("/login")
+@Resource
+@PostMapping("/login")
     public ResponseResult<Object> login(@RequestBody User user, HttpServletResponse response) {
         //根据用户名去数据库查找密码
         //认证成功，生成token
-        String token = JWTUtil.generateToken(user.getUsername());
+        String token = JWTUtil.generateToken(user.getUname());
         //生成refreshtoken
         String refreshToken = UUID.randomUUID().toString();
         //封装数据
         Map<String, Object> values = new HashMap<>();
         values.put("token", token);
-        values.put("username", user.getUsername());
+        values.put("uname", user.getUname());
         //token放到redis
         redisTemplate.opsForHash().putAll(refreshToken, values);
         //将token放到响应头，返回前端
