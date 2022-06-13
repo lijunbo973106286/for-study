@@ -1,12 +1,17 @@
 package com.woniuxy.commons.service;
 
-import com.woniuxy.commons.entity.ResponseResult;
-import com.woniuxy.commons.entity.ScfpChain;
-import com.woniuxy.commons.entity.ScfpEnterprise;
+import com.alibaba.fastjson.JSON;
+import com.woniuxy.commons.entity.*;
+import com.woniuxy.commons.util.ExcelUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,14 +63,33 @@ public interface ScfpChainService {
     public ResponseResult<Object> checkPayPass(@RequestBody ScfpEnterprise scfpEnterprise);
 
     /** 查找银行相关信息*/
-    @GetMapping("/getEnterprise/{bankName}")
+    @GetMapping("/chain/getEnterprise/{bankName}")
     public ResponseResult<ScfpEnterprise> getEnterprise(@PathVariable("bankName") String bankName);
 
     /** 一次查询未兑付及未兑付的链单信息 */
-    @PostMapping("/findAllLoan")
+    @PostMapping("/chain/findAllLoan")
     public ResponseResult<ScfpEnterprise> findAllLoan(@RequestBody ScfpChain scfpChain);
 
     /** 查找所有未兑付和已兑付链单数量 */
-    @PostMapping("/findLoanCount")
+    @PostMapping("/chain/findLoanCount")
     public ResponseResult<Object> findLoanCount(@RequestBody ScfpChain scfpChain);
+
+    @GetMapping("/chain/findAllBank")
+    public ResponseResult<ScfpEnterprise> findAll();
+
+    @GetMapping("/chain/findAllFund")
+    public ResponseResult<ScfpFund> findAllFund();
+
+    /** 根据链单id查询链单详细信息 */
+    @PostMapping("/chain/findById")
+    public ResponseResult<Object> findById(@RequestBody ScfpChain scfpChain);
+
+    /** 根据状态查找状态名 */
+    @GetMapping("/chain/findStatus/{status}")
+    public ResponseResult<Object> findStatus(@PathVariable int status);
+
+
+    @PostMapping(value = "/chain/export")
+    @ResponseBody
+    public void export(HttpServletRequest request, HttpServletResponse response);
 }
