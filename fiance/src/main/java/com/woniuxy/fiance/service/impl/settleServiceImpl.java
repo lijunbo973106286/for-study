@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.commons.entity.DTO.EnterpriseAccountDTO;
 import com.woniuxy.commons.entity.DTO.LoanDTO;
+import com.woniuxy.commons.entity.DTO.ServiceChargeDTO;
 import com.woniuxy.commons.entity.ScfpLoan;
 import com.woniuxy.commons.util.ConvertTime;
 import com.woniuxy.commons.util.ResponseResult;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -86,10 +88,15 @@ public class settleServiceImpl implements settleService {
     public void addservice() {
         //获取当前时间
         Date date = new Date();
-        System.out.println(date);
+        //当前时间毫秒值
+        long time = date.getTime();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         String format = dateFormat.format(date);
-
+        //计划支付时间
+        time = time + (1000 * 60 * 30);
+        date.setTime(time);
+        String format1 = dateFormat.format(date);
+        int addservice = settleMapper.addservice(format, format1);
 //        int i= settleMapper.addservice();
     }
 }
