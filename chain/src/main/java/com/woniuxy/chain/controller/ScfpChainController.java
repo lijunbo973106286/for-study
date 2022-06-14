@@ -118,6 +118,12 @@ public class ScfpChainController {
         return scfpChainService.findAllEnterprise();
     }
 
+    @GetMapping("/findAllEnterprise")
+    public ResponseResult<ScfpEnterprise> findAllEnterprise(){
+
+        return scfpChainService.findEnterprise();
+    }
+
     @GetMapping("/findAllFund")
     public ResponseResult<ScfpFund> findAllFund(){
         return scfpChainService.findAllFund();

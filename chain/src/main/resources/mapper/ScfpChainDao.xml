@@ -258,5 +258,8 @@
     <select id="findById" resultMap="findUser">
         select * from scfp_chain where id = #{id}
     </select>
+    <select id="findEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select  * from scfp_enterprise
+    </select>
 
 </mapper>
