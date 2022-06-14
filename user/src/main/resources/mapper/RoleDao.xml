@@ -32,7 +32,7 @@
         from scfp_role_menu
         where role_id = #{id}
     </delete>
-    <select id="qryrole" resultType="com.woniuxy.user.entity.ScfpRole">
+    <select id="qryrole" resultType="com.woniuxy.user.entity.RoleDTO">
         select id, name, type, status, description
         from scfp_role
         <where> type in (select r.type

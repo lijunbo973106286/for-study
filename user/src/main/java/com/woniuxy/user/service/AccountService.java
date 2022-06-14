@@ -25,5 +25,5 @@ public interface AccountService {
 
     ResponseResult qrysub(UserDTO user);
 
-    ScfpUser login(ScfpUser user);
+    UserDTO login(ScfpUser user);
 }

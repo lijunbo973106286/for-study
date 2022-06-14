@@ -26,7 +26,7 @@ public interface AccountDao {
 
     List<UserDTO> qrysub(UserDTO user);
 
-    ScfpUser login(ScfpUser user);
+    UserDTO login(ScfpUser user);
 
     int newsubrole(UserDTO user);
 
