@@ -44,4 +44,9 @@ public class BankController {
     public ResponseResult findTotal(@RequestBody ScfpAmount scfpAmount) {
         return bankService.findTotal(scfpAmount);
     }
+
+    @PostMapping("/findBy")
+    public ResponseResult findBy(@RequestBody ScfpAmount scfpAmount) {
+        return bankService.findBy(scfpAmount);
+    }
 }

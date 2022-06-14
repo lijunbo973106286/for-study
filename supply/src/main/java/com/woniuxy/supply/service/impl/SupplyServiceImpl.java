@@ -1,5 +1,6 @@
 package com.woniuxy.supply.service.impl;
 
+import com.alibaba.nacos.client.naming.utils.CollectionUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.commons.entity.DTO.SupplyDTO;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @BelongsProject supply-chain-finance
@@ -30,6 +32,26 @@ public class SupplyServiceImpl implements SupplyService {
     SuppluDao suppluDao;
 
     ArrayList<SupplyDTO> supplyDTOS = new ArrayList<>();
+
+    @Override
+    public List<SupplyDTO> findAll() {
+
+        List<SupplyDTO> all = suppluDao.findAllSupply();
+        if (all.isEmpty()) {
+            return null;
+        } else {
+            for (SupplyDTO supplyDTO : all
+            ) {
+                int num = recursiveMax(supplyDTO.getEnterprises());
+                supplyDTO.setTier(num);
+                log.info("层级：{}", num);
+                int num1 = getNum(supplyDTO);
+                log.info("下级客户数量：{}", num1);
+                supplyDTO.setNum(num1);
+            }
+            return all;
+        }
+    }
 
     @Override
     public ResponseResult findAllSupply(PageInfomation pageInfomation) {
@@ -128,22 +150,20 @@ public class SupplyServiceImpl implements SupplyService {
         List<SupplyDTO> list = suppluDao.findById(supplyDTO.getEid());
         List<SupplyDTO> list1 = suppluDao.findByFid(supplyDTO.getEid());
         List<SupplyDTO> list_ = getSupplyDTO(list);
-        System.out.println("__________________");
-        System.out.println(distinct(list_));
-
         List<SupplyDTO> list3 = getSupplyDTO(list1);
-        System.out.println("__________________");
-        System.out.println(distinct(list3));
         if (list3 != null) {
             list_.addAll(list3);
         }
         List<SupplyDTO> all = suppluDao.findAllEnterprises();
         all.removeAll(distinct(list_));
+        List<SupplyDTO> resultList = all.stream()
+                .filter(item -> !distinct(list_).stream().map(e -> e.getEid()).collect(Collectors.toList()).contains(item.getEid()))
+                .collect(Collectors.toList());
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
             log.info("非供应链企业：{}", all);
-            return new ResponseResult(200, "查询成功", all, ResStatus.SUCCESS);
+            return new ResponseResult(200, "查询成功", resultList, ResStatus.SUCCESS);
         }
     }
 
@@ -237,6 +257,7 @@ public class SupplyServiceImpl implements SupplyService {
             return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
         }
     }
+
 
     /**
      * @param supplyDTOList

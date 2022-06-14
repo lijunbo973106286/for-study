@@ -2,19 +2,17 @@ package com.woniuxy.fiance.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.woniuxy.commons.entity.DTO.EnterpriseAccountDTO;
 import com.woniuxy.commons.entity.DTO.LoanDTO;
 import com.woniuxy.commons.entity.DTO.ServiceChargeDTO;
-import com.woniuxy.commons.entity.ScfpLoan;
-import com.woniuxy.commons.util.ConvertTime;
 import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.fiance.mapper.settleMapper;
 import com.woniuxy.fiance.service.settleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -84,7 +82,9 @@ public class settleServiceImpl implements settleService {
         return responseResult.fail();
     }
 
+    @Transactional
     @Override
+    //定时发送月租
     public void addservice() {
         //获取当前时间
         Date date = new Date();
@@ -96,7 +96,24 @@ public class settleServiceImpl implements settleService {
         time = time + (1000 * 60 * 30);
         date.setTime(time);
         String format1 = dateFormat.format(date);
-        int addservice = settleMapper.addservice(format, format1);
-//        int i= settleMapper.addservice();
+        ServiceChargeDTO serviceChargeDTO=new ServiceChargeDTO();
+        serviceChargeDTO.setMonth(format);
+        serviceChargeDTO.setPlan_time(format1);
+        int addservice = settleMapper.addservice(serviceChargeDTO);
+        //获取sid
+        int sid = serviceChargeDTO.getId();
+        List<ServiceChargeDTO>list=new ArrayList<>();
+        ServiceChargeDTO serviceChargeDTO1;
+        //获取企业eid
+        int eid[]= settleMapper.findEId();
+        for (int i : eid) {
+            serviceChargeDTO1=new ServiceChargeDTO();
+            serviceChargeDTO1.setEid(i);
+            serviceChargeDTO1.setSid(sid);
+            serviceChargeDTO1.setStatus("未支付");
+            list.add(serviceChargeDTO1);
+        }
+        //将月租发给所有企业
+        settleMapper.addenterpriseServiceFee(list);
     }
 }
