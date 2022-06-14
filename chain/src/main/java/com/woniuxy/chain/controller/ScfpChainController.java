@@ -158,7 +158,7 @@ public class ScfpChainController {
         }
 
         //excel标题
-        String[] title = {"订单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
+        String[] title = {"链单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
 
         //excel文件名
         String fileName = "链单信息表" + ".xls";
