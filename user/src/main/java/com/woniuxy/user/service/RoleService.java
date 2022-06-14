@@ -1,6 +1,7 @@
 package com.woniuxy.user.service;
 
 import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.RoleDTO;
 import com.woniuxy.user.entity.ScfpRole;
 
 /**
@@ -20,6 +21,6 @@ public interface RoleService {
 
     ResponseResult modrole(ScfpRole role);
 
-    ResponseResult qryrole(ScfpRole role);
+    ResponseResult qryrole(RoleDTO role);
 }
 

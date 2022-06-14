@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ScfpUser login(ScfpUser user) {
+    public UserDTO login(ScfpUser user) {
         return accountDao.login(user);
     }
 }

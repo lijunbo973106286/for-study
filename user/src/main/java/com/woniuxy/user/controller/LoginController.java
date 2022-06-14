@@ -4,6 +4,7 @@ import com.woniuxy.commons.util.JWTUtil;
 import com.woniuxy.user.entity.ResStatus;
 import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.UserDTO;
 import com.woniuxy.user.service.AccountService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
@@ -36,9 +37,9 @@ public class LoginController {
     @Resource
     AccountService accountService;
     @PostMapping("/login")
-    public ResponseResult<ScfpUser> login(@RequestBody ScfpUser user, HttpServletResponse response) {
+    public ResponseResult<UserDTO> login(@RequestBody ScfpUser user, HttpServletResponse response) {
         //根据用户名去数据库查找密码
-        ScfpUser scfpUser = accountService.login(user);
+        UserDTO scfpUser = accountService.login(user);
         if (!StringUtils.isEmpty(scfpUser)){
 
             //认证成功，生成token

@@ -5,6 +5,7 @@ import com.woniuxy.user.dao.MenuDao;
 import com.woniuxy.user.dao.RoleDao;
 import com.woniuxy.user.entity.ScfpMenu;
 import com.woniuxy.user.entity.ScfpRole;
+import com.woniuxy.user.entity.UserDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -23,5 +24,10 @@ class UserApplicationTests {
 
     @Test
     void contextLoads() {
+        UserDTO dto = new UserDTO();
+        dto.setFid(79);
+        for (UserDTO userDTO : accountDao.qrysub(dto)) {
+            System.out.println(userDTO);
+        }
     }
 }
