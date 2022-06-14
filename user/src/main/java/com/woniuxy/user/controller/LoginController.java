@@ -37,7 +37,7 @@ public class LoginController {
     @Resource
     AccountService accountService;
     @PostMapping("/login")
-    public ResponseResult<UserDTO> login(@RequestBody ScfpUser user, HttpServletResponse response) {
+    public ResponseResult<ScfpUser> login(@RequestBody ScfpUser user, HttpServletResponse response) {
         //根据用户名去数据库查找密码
         UserDTO scfpUser = accountService.login(user);
         if (!StringUtils.isEmpty(scfpUser)){
