@@ -4,9 +4,9 @@
 <mapper namespace="com.woniuxy.chain.dao.ScfpChainDao">
     <insert id="insert">
         insert into scfp_chain
-            (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time)
+            (chain_no, enterprise_id, network_id, bank, fund_id, money, surplus, file_id, deadline, status, reason, creator, create_time, updator, update_time, subsidy)
         values
-            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, 1, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time})
+            (#{chain_no}, #{enterprise_id}, #{network_id}, #{bank}, #{fund_id}, #{money}, #{surplus}, #{file_id}, #{deadline}, 1, #{reason}, #{creator}, #{create_time}, #{updator}, #{update_time}, #{subsidy})
     </insert>
 
     <update id="update" parameterType="scfpChain">
@@ -141,6 +141,7 @@
         <result property="create_time" column="create_time"/>
         <result property="updator" column="updator"/>
         <result property="update_time" column="update_time"/>
+        <result property="subsidy" column="subsidy"/>
         <association select="findUserInfo" property="scfpUser" column="creator" javaType="scfpUser">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
