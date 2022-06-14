@@ -2,7 +2,6 @@ package com.woniuxy.supply.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.sun.org.apache.xerces.internal.xs.LSInputList;
 import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResStatus;
@@ -161,27 +160,6 @@ public class SupplyServiceImpl implements SupplyService {
             log.info("添加入参：{}", enterprise);
             SupplyDTO supplyDTO1 = suppluDao.exist(enterprise);
             if (supplyDTO1 == null) {
-//                List<SupplyDTO> list = suppluDao.findFid(enterprise);
-//                if (!list.isEmpty()) {
-//                    for (SupplyDTO s : list
-//                    ) {
-//                        if (s.getFid() == enterprise.getEid()) {
-//                            return new ResponseResult(500, "不能邀请上游企业", null, ResStatus.SUCCESS);
-//                        } else {
-//                            SupplyDTO supplyDTO2 = new SupplyDTO();
-//                            supplyDTO2.setEid(s.getFid());
-//                            List<SupplyDTO> list_ = suppluDao.findFid(supplyDTO2);
-//                            if (!list_.isEmpty()) {
-//                                for (SupplyDTO s_ : list
-//                                ) {
-//                                    if (s_.getFid() == enterprise.getEid()) {
-//                                        return new ResponseResult(500, "不能邀请上游企业", null, ResStatus.SUCCESS);
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
                 i += suppluDao.add(enterprise);
             } else {
                 int count = supplyDTO1.getCount();
