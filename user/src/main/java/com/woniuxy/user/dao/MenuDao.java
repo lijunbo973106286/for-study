@@ -2,6 +2,7 @@ package com.woniuxy.user.dao;
 
 import com.woniuxy.user.entity.ScfpMenu;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,9 +18,11 @@ import java.util.List;
 @Mapper
 public interface MenuDao {
 
-    List<ScfpMenu> getList(int id);
+    List<ScfpMenu> all();
 
     List<ScfpMenu> findChild(int id);
 
-    List<ScfpMenu> all();
+    List<ScfpMenu> getList(int id);
+
+    List<ScfpMenu> getChild(@Param("fid") int fid, @Param("user_id") int user_id);
 }

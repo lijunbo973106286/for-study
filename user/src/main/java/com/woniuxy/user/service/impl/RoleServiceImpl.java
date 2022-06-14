@@ -3,6 +3,7 @@ package com.woniuxy.user.service.impl;
 import com.woniuxy.user.dao.RoleDao;
 import com.woniuxy.user.entity.ResStatus;
 import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.RoleDTO;
 import com.woniuxy.user.entity.ScfpRole;
 import com.woniuxy.user.service.RoleService;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public ResponseResult qryrole(int id) {
+    public ResponseResult qryrole(RoleDTO role) {
         return new ResponseResult(200, "查询成功",
-                roleDao.qryrole(id), ResStatus.SUCCESS);
+                roleDao.qryrole(role), ResStatus.SUCCESS);
     }
 }

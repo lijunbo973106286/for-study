@@ -8,6 +8,13 @@
         values (null, #{uname}, #{password}, #{name}, #{identity}, #{phonenum}, #{email}, #{enterprise_id}, #{status},
                 #{fid})
     </insert>
+    <insert id="newsubrole">
+        insert into scfp_user_role values ((select id from scfp_user where uname = #{uname}) user_id,#{role_id})
+    </insert>
+    <insert id="inrole">
+        insert into scfp_user_role (user_id, role_id)
+        values (#{id},#{role_id});
+    </insert>
     <update id="modsub">
         update scfp_user
         <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
@@ -36,32 +43,51 @@
     </update>
     <delete id="delsub">
         delete
-        from scfp_user
-        left join scfp_user_role on scfp_user.id = scfp_user_role.user_id
+        from scfp_user left join scfp_user_role
+        on scfp_user.id = scfp_user_role.user_id
         where scfp_user.id = #{id}
     </delete>
-    <select id="qrysub" resultType="com.woniuxy.user.entity.ScfpUser">
-        select * from scfp_user
+    <delete id="delrole">
+        delete from scfp_user_role where user_id = #{id}
+    </delete>
+    <select id="qrysub" resultType="com.woniuxy.user.entity.UserDTO">
+        select u.id,u.uname,u.name,u.phonenum,u.email,u.identity,u.status,u.enterprise_id,ur.role_id from scfp_user u left join scfp_user_role ur on u.id = ur.user_id
         <where>
-            fid = #{fid}
+            u.fid = #{fid}
             <if test="uname!='' and uname != null">
-                and uname = #{uname}
+                and u.uname = #{uname}
             </if>
             <if test="name!='' and name != null">
-                and `name` = #{name}
+                and u.`name` = #{name}
             </if>
             <if test="phonenum!='' and phonenum != null">
-                and phonenum = #{phonenum}
+                and u.phonenum = #{phonenum}
             </if>
             <if test="email!='' and email != null">
-                and email = #{email}
+                and u.email = #{email}
             </if>
             <if test="identity!='' and identity != null">
-                and `identity` = #{identity}
+                and u.`identity` = #{identity}
             </if>
             <if test="status != '' and status != null">
-                and status = #{status}
+                and u.status = #{status}
+            </if>
+            <if test="enterprise_id != '' and enterprise_id != null">
+                and u.enterprise_id = #{role_id}
+            </if>
+            <if test="role_id != '' and role_id != null">
+                and ur.role_id = #{role_id}
             </if>
         </where>
+    </select>
+    <select id="login" resultType="com.woniuxy.user.entity.UserDTO">
+        select u.id, u.uname, u.name, u.identity, u.phonenum, u.email, u.enterprise_id, u.fid,ur.role_id
+        from scfp_user u left join scfp_user_role ur
+        on u.id = ur.user_id
+            left join scfp_role r on ur.role_id = r.id
+        where u.uname = #{uname}
+          and u.password = #{password}
+          and u.status = '启用'
+--           and r.status = '启用'
     </select>
 </mapper>

@@ -15,7 +15,7 @@ import java.util.List;
  * @Version 1.0
  */
 public interface NetworkDao {
-    List<NetworkDTO> findAllNetwork();
+    List<NetworkDTO> findAllNetwork(NetworkDTO networkDTO);
 
     List<ScfpEnterprise> findByNid(int nid);
 

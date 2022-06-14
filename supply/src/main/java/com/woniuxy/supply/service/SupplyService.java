@@ -34,4 +34,6 @@ public interface SupplyService {
     ResponseResult aggre(int fid, int eid);
 
     ResponseResult refuse(int fid, int eid);
+
+    ResponseResult findByInvite(SupplyDTO supplyDTO);
 }

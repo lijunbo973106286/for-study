@@ -2,6 +2,8 @@ package com.woniuxy.user.service;
 
 import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.UserDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @projectName: BackEnd
@@ -14,11 +16,14 @@ import com.woniuxy.user.entity.ScfpUser;
  */
 public interface AccountService {
 
-    ResponseResult newsub(ScfpUser user);
+    @Transactional
+    ResponseResult newsub(UserDTO user);
 
     ResponseResult delsub(int id);
 
-    ResponseResult modsub(ScfpUser user);
+    ResponseResult modsub(UserDTO user);
 
-    ResponseResult qrysub(ScfpUser user);
+    ResponseResult qrysub(UserDTO user);
+
+    UserDTO login(ScfpUser user);
 }

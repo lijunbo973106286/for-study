@@ -17,4 +17,6 @@ public interface ScfpFileService {
     ResponseResult<Object> delete(String file_name);
 
     ResponseResult<ScfpFile> getPic(int chain_id);
+
+    ResponseResult<Object> deletePic(int chain_id);
 }

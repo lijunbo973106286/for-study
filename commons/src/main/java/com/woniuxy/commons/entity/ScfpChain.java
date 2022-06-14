@@ -72,4 +72,6 @@ public class ScfpChain {
     private String status_tab;
     @ApiModelProperty("网络流转信息")
     private ScfpNetwork scfpNetwork;
+    @ApiModelProperty("补贴范围")
+    private String subsidy;
 }

@@ -162,6 +162,11 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     }
 
     @Override
+    public ResponseResult<ScfpChain> findById(ScfpChain scfpChain) {
+        return new ResponseResult<>(200, "执行成功", scfpChainDao.findById(scfpChain), ResStatus.SUCCESS);
+    }
+
+    @Override
     public ResponseResult<Object> delete(int id) {
         int i = scfpChainDao.delete(id);
         if (i > 0) {

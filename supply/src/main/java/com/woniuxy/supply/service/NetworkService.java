@@ -14,7 +14,7 @@ import com.woniuxy.commons.entity.ScfpNetwork;
  * @Version 1.0
  */
 public interface NetworkService {
-    ResponseResult findAllNetwork(PageInfomation pageInfomation);
+    ResponseResult findAllNetwork(NetworkDTO networkDTO);
 
     ResponseResult addNetwork(NetworkDTO networkDTO);
 
