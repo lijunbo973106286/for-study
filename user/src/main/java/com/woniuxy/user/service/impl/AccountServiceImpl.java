@@ -73,4 +73,10 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.modpwd(user) > 0 ? new ResponseResult(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
 
     }
+
+    @Override
+    public ResponseResult userInfo(int id) {
+        return new ResponseResult(200, "查询成功",
+                accountDao.userInfo(id), ResStatus.SUCCESS);
+    }
 }
