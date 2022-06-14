@@ -112,4 +112,22 @@
           and u.status = '启用'
 --           and r.status = '启用'
     </select>
+    <select id="userInfo" resultType="com.woniuxy.user.entity.UserDTO">
+        select u.id,
+               u.uname,
+               u.name,
+               u.identity,
+               u.phonenum,
+               u.email,
+               u.enterprise_id,
+               u.fid,
+               r.id   role_id,
+               r.name roleName,
+               e.name enterpriseName
+        from scfp_user u
+                 left join scfp_user_role ur on u.id = ur.user_id
+                 left join scfp_role r on ur.role_id = r.id
+                 left join scfp_enterprise e on u.enterprise_id = e.id
+        where u.id = #{id}
+    </select>
 </mapper>

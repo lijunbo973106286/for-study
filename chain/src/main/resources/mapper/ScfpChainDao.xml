@@ -261,5 +261,8 @@
     <select id="findEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select  * from scfp_enterprise
     </select>
+    <select id="findEnterpriseByName" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select * from scfp_enterprise where name like concat('%', #{ename}, '%')
+    </select>
 
 </mapper>

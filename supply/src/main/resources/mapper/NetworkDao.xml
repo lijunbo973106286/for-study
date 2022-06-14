@@ -105,13 +105,9 @@
           and n.status = "1"
     </select>
     <select id="findNid" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
-        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
-        from scfp_enterprise e
-                 RIGHT JOIN scfp_network_enterprise ne on e.id = ne.eid
-                 RIGHT JOIN scfp_network n on n.id = ne.nid
-                 right join scfp_user u on e.id = u.enterprise_id
-                 right join scfp_user_role ur on u.id = ur.user_id
-        where n.id = #{nid}
-          and ur.role_id between 1 and 5
+        select e.id eid, e.name ename from scfp_enterprise e
+            RIGHT JOIN scfp_network_enterprise ne on e.id = ne.eid
+                RIGHT JOIN scfp_network n on n.id = ne.nid
+        where n.id = 1
     </select>
 </mapper>
