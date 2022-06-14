@@ -1,6 +1,7 @@
 package com.woniuxy.supply.service;
 
 import com.woniuxy.commons.entity.ResponseResult;
+import com.woniuxy.commons.entity.ScfpAmount;
 
 /**
  * @BelongsProject supply-chain-finance
@@ -12,4 +13,8 @@ import com.woniuxy.commons.entity.ResponseResult;
  */
 public interface BankService {
     ResponseResult findAllBank();
+
+    ResponseResult allAmount(ScfpAmount scfpAmount);
+
+    ResponseResult findTotal(ScfpAmount scfpAmount);
 }

@@ -104,33 +104,13 @@
         </where>
         order by e.id desc
     </select>
-    <select id="findAllEnterprises" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+    <select id="findAllEnterprises" resultMap="supplyList">
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
         from scfp_enterprise e
                  left join scfp_user u on e.id = u.enterprise_id
-                 left join scfp_supply s on e.id = s.supply_id
                  left join scfp_user_role ur on u.id = ur.user_id
-        where e.id not in (
-            select e.id eid
-            from scfp_enterprise e
-                     left join scfp_user u on e.id = u.enterprise_id
-                     left join scfp_supply s on e.id = s.supply_id
-                     left join scfp_user_role ur on u.id = ur.user_id
-            where s.fid = #{eid}
-              and ur.role_id between 1 and 5
-        )
+        where e.role = 3
           and ur.role_id between 1 and 5
-          and e.role = 3
-        union all
-        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
-        from scfp_enterprise e
-                 left join scfp_user u on e.id = u.enterprise_id
-                 left join scfp_supply s on e.id = s.supply_id
-                 left join scfp_user_role ur on u.id = ur.user_id
-        where s.fid = #{eid}
-          and s.status = 0
-          and ur.role_id between 1 and 5
-        order by eid desc
     </select>
     <select id="findAllInvite" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
         select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address, s.*
@@ -148,5 +128,61 @@
         from scfp_supply
         where supply_id = #{eid}
           and fid = #{fid}
+    </select>
+    <select id="findFid" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select fid
+        from scfp_supply
+        where supply_id = #{eid}
+    </select>
+    <select id="findByInvite" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address, s.*
+        from scfp_enterprise e
+        left join scfp_user u on e.id = u.enterprise_id
+        left join scfp_supply s on e.id = s.fid
+        left join scfp_user_role ur on u.id = ur.user_id
+        <where>s.supply_id = #{eid}
+            and ur.role_id between 1 and 5
+            and s.status = 0
+            <if test="ename != null and ename !=''">
+                and e.name like concat('%',#{ename},'%')
+            </if>
+            <if test="username != null and username !=''">
+                and u.name like concat('%',#{username},'%')
+            </if>
+            <if test="phonenum != null and phonenum !=''">
+                and phonenum like concat('%',#{phonenum},'%')
+            </if>
+        </where>
+        order by s.update_time desc
+    </select>
+    <select id="findByFid" resultMap="list">
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
+        from scfp_enterprise e
+                 left join scfp_user u on e.id = u.enterprise_id
+                 left join scfp_supply s on e.id = s.fid
+                 left join scfp_user_role ur on u.id = ur.user_id
+        where s.supply_id = #{eid}
+          and ur.role_id between 1 and 5
+          and s.status = 1
+        order by e.id desc
+    </select>
+    <resultMap id="list" type="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        <id column="eid" property="eid"/>
+        <result column="ename" property="ename"/>
+        <result column="username" property="username"/>
+        <result column="phonenum" property="phonenum"/>
+        <result column="estatus" property="estatus"/>
+        <!-- 递归查询必然是一个 一对多的关系   -->
+        <collection property="enterprises" select="findFather" column="eid" autoMapping="true"/>
+    </resultMap>
+    <select id="findFather" resultMap="list">
+        select e.id eid, e.name ename, u.name username, phonenum, e.status estatus, e.address address
+        from scfp_enterprise e
+                 left join scfp_user u on e.id = u.enterprise_id
+                 left join scfp_supply s on e.id = s.fid
+                 left join scfp_user_role ur on u.id = ur.user_id
+        where s.supply_id = #{eid}
+          and ur.role_id between 1 and 5
+          and s.status = 1
     </select>
 </mapper>

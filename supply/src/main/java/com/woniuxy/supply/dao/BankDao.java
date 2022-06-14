@@ -1,6 +1,7 @@
 package com.woniuxy.supply.dao;
 
 import com.woniuxy.commons.entity.DTO.NetworkDTO;
+import com.woniuxy.commons.entity.ScfpAmount;
 import com.woniuxy.commons.entity.ScfpEnterprise;
 
 import java.util.List;
@@ -15,4 +16,6 @@ import java.util.List;
  */
 public interface BankDao {
     List<ScfpEnterprise> findAllBank();
+
+    List<ScfpAmount> allAmount(ScfpAmount scfpAmount);
 }

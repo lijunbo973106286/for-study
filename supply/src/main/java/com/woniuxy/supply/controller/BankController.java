@@ -1,8 +1,10 @@
 package com.woniuxy.supply.controller;
 
 import com.woniuxy.commons.entity.ResponseResult;
+import com.woniuxy.commons.entity.ScfpAmount;
 import com.woniuxy.supply.service.BankService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +15,7 @@ import javax.annotation.Resource;
  * @BelongsPackage com.woniuxy.supply.controller
  * @Author qfx
  * @CreateTime 2022-06-08  14:14
- * @Description 资金方管理
+ * @Description 额度管理
  * @Version 1.0
  */
 @RestController
@@ -31,5 +33,15 @@ public class BankController {
     @PostMapping("/allBank")
     public ResponseResult findAllBank() {
         return bankService.findAllBank();
+    }
+
+    @PostMapping("/allAmount")
+    public ResponseResult allAmount(@RequestBody ScfpAmount scfpAmount) {
+        return bankService.allAmount(scfpAmount);
+    }
+
+    @PostMapping("/findTotal")
+    public ResponseResult findTotal(@RequestBody ScfpAmount scfpAmount) {
+        return bankService.findTotal(scfpAmount);
     }
 }

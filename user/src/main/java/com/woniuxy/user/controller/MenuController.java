@@ -35,8 +35,7 @@ public class MenuController {
     }
 
     /**
-     * 查询该管理员拥有的菜单
-     *
+     * 查询用户菜单
      * @param id
      * @return
      */
