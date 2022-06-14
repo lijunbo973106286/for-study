@@ -1,5 +1,6 @@
 package com.woniuxy.user.dao;
 
+import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
 import com.woniuxy.user.entity.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +34,8 @@ public interface AccountDao {
     int delrole(UserDTO user);
 
     int inrole(UserDTO user);
+
+    int modstatus(ScfpUser user);
+
+    int modpwd(ScfpUser user);
 }

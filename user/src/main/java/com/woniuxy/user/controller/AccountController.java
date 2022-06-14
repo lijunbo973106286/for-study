@@ -68,5 +68,20 @@ public class AccountController {
     ResponseResult qrysub(@RequestBody UserDTO user) {
         return accountService.qrysub(user);
     }
-//    ResponseResult newadmin(@RequestBody )
+
+    /**
+     * 修改账号状态
+     *
+     * @param user
+     * @return
+     */
+    @PutMapping("/modstatus")
+    ResponseResult modstatus(@RequestBody ScfpUser user) {
+        return accountService.modstatus(user);
+    }
+
+    @PutMapping("/modpwd")
+    ResponseResult modpwd(@RequestBody ScfpUser user) {
+        return accountService.modpwd(user);
+    }
 }

@@ -1,11 +1,9 @@
 package com.woniuxy.user.controller;
 
 import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.ScfpRoleMenu;
 import com.woniuxy.user.service.MenuService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -36,11 +34,34 @@ public class MenuController {
 
     /**
      * 查询用户菜单
+     *
      * @param id
      * @return
      */
     @GetMapping("/getList/{id}")
     ResponseResult getList(@PathVariable("id") int id) {
         return menuService.getList(id);
+    }
+
+    /**
+     * 获取角色菜单id
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/getRM/{id}")
+    ResponseResult getRM(@PathVariable("id") int id) {
+        return menuService.getRM(id);
+    }
+
+    /**
+     * 修改菜单
+     *
+     * @param roleMenu
+     * @return
+     */
+    @PutMapping("/setRM")
+    ResponseResult setRM(@RequestBody ScfpRoleMenu roleMenu) {
+        return menuService.setRM(roleMenu);
     }
 }
