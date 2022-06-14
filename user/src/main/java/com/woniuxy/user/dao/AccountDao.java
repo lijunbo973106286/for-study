@@ -1,6 +1,7 @@
 package com.woniuxy.user.dao;
 
 import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,9 +22,15 @@ public interface AccountDao {
 
     int delsub(int id);
 
-    int modsub(ScfpUser user);
+    int modsub(UserDTO user);
 
-    List<ScfpUser> qrysub(ScfpUser id);
+    List<UserDTO> qrysub(UserDTO user);
 
     ScfpUser login(ScfpUser user);
+
+    int newsubrole(UserDTO user);
+
+    int delrole(UserDTO user);
+
+    int inrole(UserDTO user);
 }

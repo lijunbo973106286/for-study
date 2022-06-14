@@ -11,13 +11,13 @@
         update scfp_role
         <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
             <if test="name!='' and name != null">
-                `name` = #{name}
+                `name` = #{name},
             </if>
             <if test="description!='' and description != null">
-                description = #{description}
+                description = #{description},
             </if>
             <if test="status!='' and status != null">
-                status = #{status}
+                status = #{status},
             </if>
         </trim>
     </update>
@@ -35,13 +35,24 @@
     <select id="qryrole" resultType="com.woniuxy.user.entity.ScfpRole">
         select id, name, type, status, description
         from scfp_role
-        where type in (select r.type
+        <where> type in (select r.type
                        from scfp_role r
                                 left join scfp_user_role ur on r.id = ur.role_id
-                       where ur.user_id = #{id})
+                       where ur.user_id = #{user_id})
           and id not in (select r.id
                          from scfp_role r
                                   left join scfp_user_role ur on r.id = ur.role_id
-                         where ur.user_id = #{id})
+                         where ur.user_id = #{user_id}
+              )
+            <if test="status != '' and status != null">
+                and status = #{status}
+            </if>
+            <if test="name != '' and name != null">
+                and `name` = #{name}
+            </if>
+            <if test="description != '' and description != null">
+                and description = ${description}%
+            </if>
+</where>
     </select>
 </mapper>

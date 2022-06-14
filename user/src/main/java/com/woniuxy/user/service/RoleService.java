@@ -20,6 +20,6 @@ public interface RoleService {
 
     ResponseResult modrole(ScfpRole role);
 
-    ResponseResult qryrole(int id);
+    ResponseResult qryrole(ScfpRole role);
 }
 
