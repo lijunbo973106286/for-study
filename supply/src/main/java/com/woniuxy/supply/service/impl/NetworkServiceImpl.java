@@ -36,20 +36,20 @@ public class NetworkServiceImpl implements NetworkService {
     NetworkDao networkDao;
 
     @Override
-    public ResponseResult findAllNetwork(PageInfomation pageInfomation) {
-        int currentPage = pageInfomation.getCurrentPage();
-        int pageSize = pageInfomation.getPageSize();
+    public ResponseResult findAllNetwork(NetworkDTO networkDTO) {
+        int currentPage = networkDTO.getCurrentPage();
+        int pageSize = networkDTO.getPageSize();
         PageHelper.startPage(currentPage, pageSize);
-        List<NetworkDTO> all = networkDao.findAllNetwork();
+        List<NetworkDTO> all = networkDao.findAllNetwork(networkDTO);
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
-            for (NetworkDTO networkDTO : all
+            for (NetworkDTO networkDTO_ : all
             ) {
-                List<ScfpEnterprise> enterprises = networkDao.findByNid(networkDTO.getId());
+                List<ScfpEnterprise> enterprises = networkDao.findByNid(networkDTO_.getId());
                 int num = enterprises.size();
-                networkDTO.setEnterprises(enterprises);
-                networkDTO.setNum(num);
+                networkDTO_.setEnterprises(enterprises);
+                networkDTO_.setNum(num);
                 ArrayList<Integer> eids = new ArrayList<>();
                 if (!enterprises.isEmpty()) {
                     for (ScfpEnterprise enterprise : enterprises
@@ -60,7 +60,7 @@ public class NetworkServiceImpl implements NetworkService {
                             eids.add(eid);
                         }
                     }
-                    networkDTO.setEids(eids);
+                    networkDTO_.setEids(eids);
                 }
             }
             log.info("所有流转网络：{}", all);

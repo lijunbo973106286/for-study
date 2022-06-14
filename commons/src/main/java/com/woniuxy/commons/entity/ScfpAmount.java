@@ -36,7 +36,7 @@ public class ScfpAmount {
     @ApiModelProperty("额度到期日")
     private String end_time;
     @ApiModelProperty("状态")
-    private int status;
+    private String status;
     @ApiModelProperty("当前页")
     private int currentPage;
     @ApiModelProperty("每页条数")

@@ -23,7 +23,7 @@ public interface SuppluDao {
 
     List<SupplyDTO> findByConditionAndEid(SupplyDTO supplyDTO);
 
-    List<SupplyDTO> findAllEnterprises(SupplyDTO supplyDTO);
+    List<SupplyDTO> findAllEnterprises();
 
     int add(SupplyDTO supplyDTO);
 
@@ -40,4 +40,6 @@ public interface SuppluDao {
     List<SupplyDTO> findFid(SupplyDTO enterprise);
 
     List<SupplyDTO> findByInvite(SupplyDTO supplyDTO);
+
+    List<SupplyDTO> findByFid(int eid);
 }
