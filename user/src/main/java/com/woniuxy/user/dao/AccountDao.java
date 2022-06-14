@@ -40,4 +40,6 @@ public interface AccountDao {
     int modpwd(ScfpUser user);
 
     UserDTO userInfo(int id);
+
+    ScfpUser checkOldPwd(ScfpUser user);
 }

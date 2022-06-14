@@ -32,4 +32,6 @@ public interface AccountService {
     ResponseResult modpwd(ScfpUser user);
 
     ResponseResult userInfo(int id);
+
+    ResponseResult checkOldPwd(ScfpUser user);
 }

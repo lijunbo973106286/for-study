@@ -50,7 +50,7 @@
     <update id="modpwd">
         update scfp_user
         set password = #{password}
-        where id = #{id}
+        where id = #{id} and uname = #{uname}
     </update>
     <delete id="delsub">
         delete
@@ -129,5 +129,8 @@
                  left join scfp_role r on ur.role_id = r.id
                  left join scfp_enterprise e on u.enterprise_id = e.id
         where u.id = #{id}
+    </select>
+    <select id="checkOldPwd" resultType="com.woniuxy.user.entity.ScfpUser">
+        select uname from scfp_user where id = #{id} and password = #{password} and uname = #{uname}
     </select>
 </mapper>

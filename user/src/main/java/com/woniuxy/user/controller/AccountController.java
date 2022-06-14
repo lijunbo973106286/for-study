@@ -102,4 +102,14 @@ public class AccountController {
 
         return accountService.userInfo(id);
     }
+
+    /**
+     * 密码校验
+     * @param user
+     * @return
+     */
+    @PostMapping("/checkOldPwd")
+    ResponseResult checkOldPwd(@RequestBody ScfpUser user){
+        return accountService.checkOldPwd(user);
+    }
 }
