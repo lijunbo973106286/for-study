@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.fiance.mapper.FAccountMapper">
     <insert id="add">
-        insert into scfp_fundaccount (uaccount,ename,residual,status,pay_pass) value (#{uaccount},#{ename},#{residual},"开通中",#{pay_pass})
+        insert into scfp_fundaccount (uaccount,ename,residual,status,pay_pass) value (#{uaccount},#{ename},#{residual},"申请开通",#{pay_pass})
     </insert>
     <update id="update">
          update scfp_fundaccount set pay_pass=#{pay_pass} where id = #{id}
