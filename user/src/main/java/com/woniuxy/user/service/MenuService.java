@@ -1,6 +1,7 @@
 package com.woniuxy.user.service;
 
 import com.woniuxy.user.entity.ResponseResult;
+import com.woniuxy.user.entity.ScfpRoleMenu;
 
 /**
  * @projectName: BackEnd
@@ -15,4 +16,8 @@ public interface MenuService {
     ResponseResult getList(int id);
 
     ResponseResult all();
+
+    ResponseResult getRM(int id);
+
+    ResponseResult setRM(ScfpRoleMenu roleMenu);
 }

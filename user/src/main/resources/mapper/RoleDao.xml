@@ -24,26 +24,30 @@
     <delete id="delrole">
         delete
         from scfp_role
-        where id = #{id} union
-        delete
-        from scfp_user_role
-        where role_id = #{id} union
+        where id = #{id}
+    </delete>
+    <delete id="delRM">
         delete
         from scfp_role_menu
         where role_id = #{id}
     </delete>
+    <delete id="delUR">
+        delete
+        from scfp_user_role
+        where role_id = #{id};
+    </delete>
     <select id="qryrole" resultType="com.woniuxy.user.entity.RoleDTO">
         select id, name, type, status, description
         from scfp_role
-        <where> type in (select r.type
-                       from scfp_role r
-                                left join scfp_user_role ur on r.id = ur.role_id
-                       where ur.user_id = #{user_id})
-          and id not in (select r.id
-                         from scfp_role r
-                                  left join scfp_user_role ur on r.id = ur.role_id
-                         where ur.user_id = #{user_id}
-              )
+        <where>type in (select r.type
+            from scfp_role r
+            left join scfp_user_role ur on r.id = ur.role_id
+            where ur.user_id = #{user_id})
+            and id not in (select r.id
+            from scfp_role r
+            left join scfp_user_role ur on r.id = ur.role_id
+            where ur.user_id = #{user_id}
+            )
             <if test="status != '' and status != null">
                 and status = #{status}
             </if>
@@ -53,6 +57,6 @@
             <if test="description != '' and description != null">
                 and description = ${description}%
             </if>
-</where>
+        </where>
     </select>
 </mapper>

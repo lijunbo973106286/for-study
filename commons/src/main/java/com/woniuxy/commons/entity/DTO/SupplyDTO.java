@@ -1,5 +1,6 @@
 package com.woniuxy.commons.entity.DTO;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.sun.org.apache.xpath.internal.operations.Equals;
 import com.woniuxy.commons.entity.ScfpEnterprise;
 import io.swagger.annotations.ApiModel;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -24,22 +26,29 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class SupplyDTO {
+public class SupplyDTO implements Serializable {
+    @ExcelProperty("客户编号")
     @ApiModelProperty("企业编号")
     private int eid;
+    @ExcelProperty("客户名称")
     @ApiModelProperty("企业名称")
     private String ename;
+    @ExcelProperty("管理员")
     @ApiModelProperty("管理员名称")
     private String username;
+    @ExcelProperty("管理员电话")
     @ApiModelProperty("管理员电话")
     private String phonenum;
+    @ExcelProperty("客户状态")
     @ApiModelProperty("企业状态")
     private String estatus;
     @ApiModelProperty("子企业")
     private List<SupplyDTO> enterprises;
+    @ExcelProperty("供应链层级")
     @ApiModelProperty("层数")
     private int tier;
     @ApiModelProperty("下级客户数量")
+    @ExcelProperty("下级客户数量")
     private int num;
     @ApiModelProperty("企业地址")
     private String address;

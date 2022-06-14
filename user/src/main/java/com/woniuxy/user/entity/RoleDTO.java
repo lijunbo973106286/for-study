@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDTO extends ScfpRole{
+public class RoleDTO extends ScfpRole {
     int user_id;
 }
