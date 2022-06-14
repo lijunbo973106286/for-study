@@ -3,7 +3,7 @@ spring:
     name: user
   cloud:
     inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
-      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Hosted Network Virtual Adapter'
     nacos:
       discovery:
         server-addr: 192.168.8.142:8848
@@ -17,7 +17,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.8.142:3306/scfp
-#    url: jdbc:mysql://localhost:3306/scfp
+    #    url: jdbc:mysql://localhost:3306/scfp
 
     username: root
     password: 123

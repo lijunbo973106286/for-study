@@ -118,6 +118,12 @@ public class ScfpChainController {
         return scfpChainService.findAllEnterprise();
     }
 
+    @GetMapping("/findAllEnterprise")
+    public ResponseResult<ScfpEnterprise> findAllEnterprise(){
+
+        return scfpChainService.findEnterprise();
+    }
+
     @GetMapping("/findAllFund")
     public ResponseResult<ScfpFund> findAllFund(){
         return scfpChainService.findAllFund();
@@ -175,7 +181,7 @@ public class ScfpChainController {
         HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
         //响应到客户端
         try {
-            this.setResponseHeader(response, fileName);
+            ExcelUtil.setResponseHeader(response, fileName);
             OutputStream os = response.getOutputStream();
             wb.write(os);
             os.flush();
@@ -184,21 +190,5 @@ public class ScfpChainController {
             e.printStackTrace();
         }
     }
-    //发送响应流方法
-    public void setResponseHeader(HttpServletResponse response, String fileName) {
-        try {
-            try {
-                fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-            } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            response.setContentType("application/octet-stream;charset=UTF-8");
-            response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
-            response.addHeader("Pargam", "no-cache");
-            response.addHeader("Cache-Control", "no-cache");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+
 }

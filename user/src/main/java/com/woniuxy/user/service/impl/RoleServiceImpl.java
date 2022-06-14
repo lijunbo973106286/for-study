@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public ResponseResult delrole(int id) {
-        return roleDao.delrole(id) > 0 ? new ResponseResult(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
+        return roleDao.delrole(id) > 0 && roleDao.delRM(id) > 0 && roleDao.delUR(id) > 0 ? new ResponseResult(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
     }
 
     @Override
