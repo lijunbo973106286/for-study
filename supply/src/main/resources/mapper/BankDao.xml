@@ -13,4 +13,22 @@
                  left join scfp_enterprise e on a.bank_id = e.id
         where eid = #{eid}
     </select>
+    <select id="findBy" resultType="com.woniuxy.commons.entity.ScfpAmount">
+        select a.*, e.name bname
+        from scfp_amount a
+        left join scfp_enterprise e on a.bank_id = e.id
+        <where>
+            eid = #{eid}
+            <if test="id != null and id !=''">
+                and a.id like concat('%',#{id},'%')
+            </if>
+            <if test="bname != null and bname !=''">
+                and e.name like concat('%',#{bname},'%')
+            </if>
+            <if test="status != null and status !=''">
+                and a.status =#{status}
+            </if>
+        </where>
+
+    </select>
 </mapper>

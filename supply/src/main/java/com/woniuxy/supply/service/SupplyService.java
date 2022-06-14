@@ -4,6 +4,8 @@ import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResponseResult;
 
+import java.util.List;
+
 /**
  * @BelongsProject supply-chain-finance
  * @BelongsPackage com.woniuxy.supply.service
@@ -36,4 +38,6 @@ public interface SupplyService {
     ResponseResult refuse(int fid, int eid);
 
     ResponseResult findByInvite(SupplyDTO supplyDTO);
+
+    List<SupplyDTO> findAll();
 }

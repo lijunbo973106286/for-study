@@ -25,4 +25,8 @@ public interface RoleDao {
     int modrole(ScfpRole role);
 
     List<RoleDTO> qryrole(RoleDTO role);
+
+    int delRM(int id);
+
+    int delUR(int id);
 }

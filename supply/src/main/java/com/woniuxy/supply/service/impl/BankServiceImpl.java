@@ -74,4 +74,18 @@ public class BankServiceImpl implements BankService {
             return new ResponseResult(200, "查询成功", scfpAmount, ResStatus.SUCCESS);
         }
     }
+
+    @Override
+    public ResponseResult findBy(ScfpAmount scfpAmount) {
+        int currentPage = scfpAmount.getCurrentPage();
+        int pageSize = scfpAmount.getPageSize();
+        PageHelper.startPage(currentPage, pageSize);
+        List<ScfpAmount> all = bankDao.findBy(scfpAmount);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            PageInfo<ScfpAmount> info = PageInfo.of(all);
+            return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
+        }
+    }
 }

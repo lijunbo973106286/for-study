@@ -96,7 +96,7 @@
             and ur.role_id between 1 and 5
             and s.status=1
             <if test="ename != null and ename !=''">
-                and u.name like concat('%',#{ename},'%')
+                and e.name like concat('%',#{ename},'%')
             </if>
             <if test="phonenum != null and phonenum !=''">
                 and phonenum like concat('%',#{phonenum},'%')

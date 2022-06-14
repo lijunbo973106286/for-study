@@ -18,4 +18,6 @@ public interface BankDao {
     List<ScfpEnterprise> findAllBank();
 
     List<ScfpAmount> allAmount(ScfpAmount scfpAmount);
+
+    List<ScfpAmount> findBy(ScfpAmount scfpAmount);
 }

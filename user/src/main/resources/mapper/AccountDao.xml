@@ -9,11 +9,12 @@
                 #{fid})
     </insert>
     <insert id="newsubrole">
-        insert into scfp_user_role values ((select id from scfp_user where uname = #{uname}) user_id,#{role_id})
+        insert into scfp_user_role
+        values ((select id from scfp_user where uname = #{uname}) user_id, #{role_id})
     </insert>
     <insert id="inrole">
         insert into scfp_user_role (user_id, role_id)
-        values (#{id},#{role_id});
+        values (#{id}, #{role_id});
     </insert>
     <update id="modsub">
         update scfp_user
@@ -41,17 +42,29 @@
             </if>
         </trim>
     </update>
+    <update id="modstatus">
+        update scfp_user
+        set status = #{status}
+        where id = #{id}
+    </update>
+    <update id="modpwd">
+        update scfp_user
+        set password = #{password}
+        where id = #{id}
+    </update>
     <delete id="delsub">
         delete
-        from scfp_user left join scfp_user_role
-        on scfp_user.id = scfp_user_role.user_id
-        where scfp_user.id = #{id}
+        from scfp_user
+        where id = #{id}
     </delete>
     <delete id="delrole">
-        delete from scfp_user_role where user_id = #{id}
+        delete
+        from scfp_user_role
+        where user_id = #{id}
     </delete>
     <select id="qrysub" resultType="com.woniuxy.user.entity.UserDTO">
-        select u.id,u.uname,u.name,u.phonenum,u.email,u.identity,u.status,u.enterprise_id,ur.role_id from scfp_user u left join scfp_user_role ur on u.id = ur.user_id
+        select u.id,u.uname,u.name,u.phonenum,u.email,u.identity,u.status,u.enterprise_id,ur.role_id from scfp_user u
+        left join scfp_user_role ur on u.id = ur.user_id
         <where>
             u.fid = #{fid}
             <if test="uname!='' and uname != null">
@@ -81,10 +94,19 @@
         </where>
     </select>
     <select id="login" resultType="com.woniuxy.user.entity.UserDTO">
-        select u.id, u.uname, u.name, u.identity, u.phonenum, u.email, u.enterprise_id, u.fid,ur.role_id
-        from scfp_user u left join scfp_user_role ur
-        on u.id = ur.user_id
-            left join scfp_role r on ur.role_id = r.id
+        select u.id,
+               u.uname,
+               u.name,
+               u.identity,
+               u.phonenum,
+               u.email,
+               u.enterprise_id,
+               u.fid,
+               ur.role_id
+        from scfp_user u
+                 left join scfp_user_role ur
+                           on u.id = ur.user_id
+                 left join scfp_role r on ur.role_id = r.id
         where u.uname = #{uname}
           and u.password = #{password}
           and u.status = '启用'

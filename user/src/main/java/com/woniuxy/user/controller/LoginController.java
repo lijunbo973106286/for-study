@@ -36,11 +36,12 @@ public class LoginController {
     RedisTemplate<String, Object> redisTemplate;
     @Resource
     AccountService accountService;
+
     @PostMapping("/login")
     public ResponseResult<ScfpUser> login(@RequestBody ScfpUser user, HttpServletResponse response) {
         //根据用户名去数据库查找密码
         UserDTO scfpUser = accountService.login(user);
-        if (!StringUtils.isEmpty(scfpUser)){
+        if (!StringUtils.isEmpty(scfpUser)) {
 
             //认证成功，生成token
             String token = JWTUtil.generateToken(user.getUname());
@@ -60,8 +61,8 @@ public class LoginController {
             //暴露响应头，使前端能够访问
             response.setHeader("Access-Control-Expose-Headers", "Authorization,refreshtoken");
             //返回结果
-           return new ResponseResult<>(200,"登录成功",scfpUser, ResStatus.LOGIN_SUCCESS);
+            return new ResponseResult<>(200, "登录成功", scfpUser, ResStatus.LOGIN_SUCCESS);
         }
-        return new ResponseResult<>(500,"登录失败",null,ResStatus.FAIL);
+        return new ResponseResult<>(500, "登录失败", null, ResStatus.FAIL);
     }
 }
