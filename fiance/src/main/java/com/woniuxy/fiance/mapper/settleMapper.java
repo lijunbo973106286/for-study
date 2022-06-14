@@ -2,7 +2,6 @@ package com.woniuxy.fiance.mapper;
 
 import com.woniuxy.commons.entity.DTO.LoanDTO;
 import com.woniuxy.commons.entity.DTO.ServiceChargeDTO;
-import com.woniuxy.commons.entity.ScfpLoan;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,9 +21,11 @@ public interface settleMapper {
 
     int upstatus(int id);
 
-    int addservice(@Param("month")String format, @Param("plan_time") String format1);
+    int addservice(ServiceChargeDTO serviceChargeDTO);
     //查询所有企业id
     int[] findEId();
+
+    void addenterpriseServiceFee(List<ServiceChargeDTO> list);
     //查询 findSid();
 
 }
