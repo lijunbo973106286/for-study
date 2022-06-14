@@ -141,6 +141,12 @@ public class ScfpChainController {
         return scfpChainService.findStatus(status);
     }
 
+    /** 根据公司名字查找公司id */
+    @GetMapping("/findEnterpriseByName/{ename}")
+    public ResponseResult<Object> findEnterpriseByName(@PathVariable("ename") String ename){
+        return scfpChainService.findEnterpriseByName(ename);
+    }
+
     @Resource
     private ScfpChainDao scfpChainDao;
 

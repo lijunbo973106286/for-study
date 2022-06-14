@@ -50,4 +50,6 @@ public interface ScfpChainService {
     ResponseResult<ScfpChain> findById(ScfpChain scfpChain);
 
     ResponseResult<ScfpEnterprise> findEnterprise();
+
+    ResponseResult<Object> findEnterpriseByName(String ename);
 }
