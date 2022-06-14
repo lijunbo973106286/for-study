@@ -3,6 +3,7 @@ package com.woniuxy.supply.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.commons.entity.DTO.NetworkDTO;
+import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResStatus;
 import com.woniuxy.commons.entity.ResponseResult;
@@ -157,6 +158,16 @@ public class NetworkServiceImpl implements NetworkService {
     public ResponseResult findByCoreId(int coreId) {
         log.info("核心企业id：{}", coreId);
         List<NetworkDTO> all = networkDao.findByCoreId(coreId);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            return new ResponseResult(200, "查询成功", all, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult findByNid(int nid) {
+        List<SupplyDTO> all = networkDao.findNid(nid);
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
