@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDTO extends ScfpUser {
     int role_id;
+    String roleName;
+    String enterpriseName;
 }
