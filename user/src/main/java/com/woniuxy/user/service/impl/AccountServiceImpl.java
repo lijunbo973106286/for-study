@@ -73,4 +73,15 @@ public class AccountServiceImpl implements AccountService {
         return accountDao.modpwd(user) > 0 ? new ResponseResult(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
 
     }
+
+    @Override
+    public ResponseResult userInfo(int id) {
+        return new ResponseResult(200, "查询成功",
+                accountDao.userInfo(id), ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult checkOldPwd(ScfpUser user) {
+        return accountDao.checkOldPwd(user) != null ? new ResponseResult(200,"密码验证成功",null,ResStatus.SUCCESS):new ResponseResult(500,"密码验证失败，该密码与原密码不一致",null,ResStatus.FAIL);
+    }
 }

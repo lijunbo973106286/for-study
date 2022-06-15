@@ -104,4 +104,10 @@
         where nc.eid = #{coreId}
           and n.status = "1"
     </select>
+    <select id="findNid" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select e.id eid, e.name ename from scfp_enterprise e
+            RIGHT JOIN scfp_network_enterprise ne on e.id = ne.eid
+                RIGHT JOIN scfp_network n on n.id = ne.nid
+        where n.id = #{nid}
+    </select>
 </mapper>

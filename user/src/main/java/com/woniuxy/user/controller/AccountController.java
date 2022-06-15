@@ -80,8 +80,36 @@ public class AccountController {
         return accountService.modstatus(user);
     }
 
+    /**
+     * 修改密码
+     *
+     * @param user
+     * @return
+     */
     @PutMapping("/modpwd")
     ResponseResult modpwd(@RequestBody ScfpUser user) {
         return accountService.modpwd(user);
+    }
+
+    /**
+     * 个人信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/userInfo/{id}")
+    ResponseResult userInfo(@PathVariable("id") int id) {
+
+        return accountService.userInfo(id);
+    }
+
+    /**
+     * 密码校验
+     * @param user
+     * @return
+     */
+    @PostMapping("/checkOldPwd")
+    ResponseResult checkOldPwd(@RequestBody ScfpUser user){
+        return accountService.checkOldPwd(user);
     }
 }

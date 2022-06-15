@@ -261,5 +261,15 @@
     <select id="findEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select  * from scfp_enterprise
     </select>
+    <select id="findEnterpriseByName" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select * from scfp_enterprise where name like concat('%', #{ename}, '%')
+    </select>
+    <select id="findCore" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
+        select e.* from scfp_enterprise e
+            right join scfp_network_coreenterprise nc on e.id = nc.eid
+                right join scfp_chain c on c.id = 2
+                    right join scfp_network n on n.id = c.network_id and n.id = nc.nid
+        where e.name is not null
+    </select>
 
 </mapper>

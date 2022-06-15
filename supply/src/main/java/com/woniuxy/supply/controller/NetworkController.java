@@ -94,4 +94,16 @@ public class NetworkController {
         return networkService.findByCoreId(coreId);
     }
 
+    /**
+     * @param nid
+     * @return ResponseResult
+     * @description 根据流转网络id查询关联企业
+     * @author qfx
+     * @date 2022/6/14 16:57
+     */
+    @GetMapping("/findByNid/{nid}")
+    public ResponseResult findByNid(@PathVariable("nid") int nid) {
+        return networkService.findByNid(nid);
+    }
+
 }

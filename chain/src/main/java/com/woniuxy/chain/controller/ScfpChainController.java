@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class ScfpChainController {
 
     /** 通过scfpchain对象动态查询ScfpChain对象*/
     @PostMapping("/search")
-    public ResponseResult<ScfpChain> search(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<Object> search(@RequestBody ScfpChain scfpChain){
         return scfpChainService.search(scfpChain);
     }
 
@@ -141,6 +142,22 @@ public class ScfpChainController {
         return scfpChainService.findStatus(status);
     }
 
+    /** 根据公司名字查找公司id */
+    @GetMapping("/findEnterpriseByName/{ename}")
+    public ResponseResult<Object> findEnterpriseByName(@PathVariable("ename") String ename){
+        return scfpChainService.findEnterpriseByName(ename);
+    }
+
+    /**
+     \* @author: ZJH
+     \* @DateTime: 2022/6/15 10:01
+     \* @Description：查找链单流转网络对应的核心企业
+     */
+    @GetMapping("/findCore/{chain_id}")
+    public ResponseResult<ScfpEnterprise> findCore(@PathVariable("chain_id") int chain_id){
+        return scfpChainService.findCore(chain_id);
+    }
+
     @Resource
     private ScfpChainDao scfpChainDao;
 
@@ -158,7 +175,7 @@ public class ScfpChainController {
         }
 
         //excel标题
-        String[] title = {"订单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
+        String[] title = {"链单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
 
         //excel文件名
         String fileName = "链单信息表" + ".xls";
@@ -189,6 +206,18 @@ public class ScfpChainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @param scfpChain
+     * @return ResponseResult<ScfpChain>
+     * @description 查询登录企业链单总金额
+     * @author qfx
+     * @date 2022/6/15 9:59
+     */
+    @PostMapping("/total")
+    public ResponseResult<BigDecimal> total(@RequestBody ScfpChain scfpChain) {
+        return scfpChainService.total(scfpChain);
     }
 
 }

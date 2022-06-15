@@ -6,12 +6,10 @@ import com.woniuxy.chain.dao.ScfpChainDao;
 import com.woniuxy.chain.service.ScfpChainService;
 import com.woniuxy.commons.entity.*;
 import com.woniuxy.commons.entity.ResStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -171,6 +169,35 @@ public class ScfpChainServiceImpl implements ScfpChainService {
         List<ScfpEnterprise> all=scfpChainDao.findEnterprise();
 
         return new ResponseResult(200, "执行成功", all, ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<Object> findEnterpriseByName(String ename) {
+        ScfpEnterprise scfpEnterprise = scfpChainDao.findEnterpriseByName(ename);
+        if (scfpEnterprise != null){
+            return new ResponseResult<>(200, "查询成功", scfpEnterprise, ResStatus.SUCCESS);
+        }
+        return ResponseResult.FAIL;
+    }
+
+    @Override
+    public ResponseResult<BigDecimal> total(ScfpChain scfpChain) {
+        List<ScfpChain> all = scfpChainDao.search(scfpChain);
+        BigDecimal total = new BigDecimal(0);
+        for (ScfpChain chain : all
+        ) {
+            total=total.add(chain.getMoney());
+        }
+        return new ResponseResult<BigDecimal>(200, "查询成功", total, ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<ScfpEnterprise> findCore(int chain_id) {
+        ScfpEnterprise scfpEnterprise = scfpChainDao.findCore(chain_id);
+        if (scfpEnterprise != null){
+            return new ResponseResult<>(200, "查询成功", scfpEnterprise, ResStatus.SUCCESS);
+        }
+        return new ResponseResult<>(500, "查询失败", null, ResStatus.FAIL);
     }
 
     @Override
