@@ -52,4 +52,6 @@ public interface ScfpChainService {
     ResponseResult<ScfpEnterprise> findEnterprise();
 
     ResponseResult<Object> findEnterpriseByName(String ename);
+
+    ResponseResult<ScfpEnterprise> findCore(int chain_id);
 }
