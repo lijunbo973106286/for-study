@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.io.IOException;
@@ -56,7 +57,7 @@ public class ScfpChainController {
 
     /** 通过scfpchain对象动态查询ScfpChain对象*/
     @PostMapping("/search")
-    public ResponseResult<ScfpChain> search(@RequestBody ScfpChain scfpChain){
+    public ResponseResult<Object> search(@RequestBody ScfpChain scfpChain){
         return scfpChainService.search(scfpChain);
     }
 
@@ -211,6 +212,18 @@ public class ScfpChainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @param scfpChain
+     * @return ResponseResult<ScfpChain>
+     * @description 查询登录企业链单总金额
+     * @author qfx
+     * @date 2022/6/15 9:59
+     */
+    @PostMapping("/total")
+    public ResponseResult<BigDecimal> total(@RequestBody ScfpChain scfpChain) {
+        return scfpChainService.total(scfpChain);
     }
 
 }

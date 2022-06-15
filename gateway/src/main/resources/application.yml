@@ -21,25 +21,14 @@ spring:
         connect-timeout: 10000
         response-timeout: 10s
       routes:
-        # 流转网络路由
-        # 供应链路由
-        # 资金方路由
-        - id: bank
+        - id: fiance
+          uri: lb://fiance
+          predicates:
+            - Path=/fiance/**,/settle/**,/faccount/**
+        - id: network
           uri: lb://supply
           predicates:
-            - Path=/bank/**
-        - id: fiance   #路由名
-          uri: lb://fiance   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/fiance/**,/settle/**,/faccount/**   #匹配的路径|
-        - id: fiance   #路由名
-          uri: lb://fiance   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/settle/**   #匹配的路径|
-        - id: network   #路由名
-          uri: lb://supply   #lb:loadbalance   goods:微服务名
-          predicates: #谓词
-            - Path=/network/**,/supply/**,/bank/**  #匹配的路径
+            - Path=/network/**,/supply/**,/bank/**
         # 放款路由
         - id: loan
           uri: lb://loan

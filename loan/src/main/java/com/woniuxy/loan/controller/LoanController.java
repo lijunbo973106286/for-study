@@ -4,6 +4,7 @@ import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpLoan;
 import com.woniuxy.loan.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -52,4 +53,22 @@ public class LoanController {
         return loanService.search(scfpLoan);
     }
 
+    //根据企业id查询未还款的数据：记录条数和总金额
+    @GetMapping("/getPrincipalData/{id}")
+    public  ResponseResult<ScfpLoan> getPrincipalData(@PathVariable("id") int id){
+        return loanService.getPrincipalData(id);
+    }
+
+    //根据企业id查询未支付服务费的数据：记录条数和总金额
+    @GetMapping("/getServiceData/{id}")
+    public  ResponseResult<ScfpLoan> getServiceData(@PathVariable("id") int id){
+        return loanService.getServiceData(id);
+    }
+
+
+    //根据企业id查询未支付利息的数据：记录条数和总金额
+    @GetMapping("/getInterestData/{id}")
+    public  ResponseResult<ScfpLoan> getInterestData(@PathVariable("id") int id){
+        return loanService.getInterestData(id);
+    }
 }
