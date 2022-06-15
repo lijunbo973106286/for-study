@@ -41,7 +41,7 @@ spring:
             - Path=/file/**
         # 链单路由
         - id: chain
-          uri: http://192.168.8.152:6666
+          uri: http://192.168.8.115:6666
 #          uri: lb://chain
           predicates:
             - Path=/chain/**
