@@ -147,6 +147,16 @@ public class ScfpChainController {
         return scfpChainService.findEnterpriseByName(ename);
     }
 
+    /**
+     \* @author: ZJH
+     \* @DateTime: 2022/6/15 10:01
+     \* @Description：查找链单流转网络对应的核心企业
+     */
+    @GetMapping("/findCore/{chain_id}")
+    public ResponseResult<ScfpEnterprise> findCore(@PathVariable("chain_id") int chain_id){
+        return scfpChainService.findCore(chain_id);
+    }
+
     @Resource
     private ScfpChainDao scfpChainDao;
 

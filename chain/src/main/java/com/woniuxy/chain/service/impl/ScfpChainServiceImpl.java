@@ -183,6 +183,15 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     }
 
     @Override
+    public ResponseResult<ScfpEnterprise> findCore(int chain_id) {
+        ScfpEnterprise scfpEnterprise = scfpChainDao.findCore(chain_id);
+        if (scfpEnterprise != null){
+            return new ResponseResult<>(200, "查询成功", scfpEnterprise, ResStatus.SUCCESS);
+        }
+        return new ResponseResult<>(500, "查询失败", null, ResStatus.FAIL);
+    }
+
+    @Override
     public ResponseResult<Object> delete(int id) {
         int i = scfpChainDao.delete(id);
         if (i > 0) {
