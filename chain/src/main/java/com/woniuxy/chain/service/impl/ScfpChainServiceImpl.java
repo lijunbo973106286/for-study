@@ -6,12 +6,10 @@ import com.woniuxy.chain.dao.ScfpChainDao;
 import com.woniuxy.chain.service.ScfpChainService;
 import com.woniuxy.commons.entity.*;
 import com.woniuxy.commons.entity.ResStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

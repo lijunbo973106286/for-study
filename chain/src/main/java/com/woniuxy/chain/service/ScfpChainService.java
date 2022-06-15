@@ -5,6 +5,7 @@ import com.woniuxy.commons.entity.ScfpChain;
 import com.woniuxy.commons.entity.ScfpEnterprise;
 import com.woniuxy.commons.entity.ScfpFund;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
