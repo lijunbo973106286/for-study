@@ -15,4 +15,10 @@ public interface LoanService {
     ResponseResult<Object> overdue(String repay_time);
 
     ResponseResult<Object> search(ScfpLoan scfpLoan);
+
+    ResponseResult<ScfpLoan> getPrincipalData(int id);
+
+    ResponseResult<ScfpLoan> getServiceData(int id);
+
+    ResponseResult<ScfpLoan> getInterestData(int id);
 }

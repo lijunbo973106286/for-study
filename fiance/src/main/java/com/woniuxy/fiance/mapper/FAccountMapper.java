@@ -13,9 +13,11 @@ public interface FAccountMapper {
 
     int del(int id);
 
-    ScfpFundAccount findID(int id);
+    List<ScfpFundAccount> findID(int id);
 
     List<ScfpFundAccount> findAll();
 
-    int activation(@Param("id") int id,@Param("faccount") String faccount);
+    int activation(@Param("eid") int eid,@Param("faccount") String faccount);
+
+    int freeze(int id);
 }

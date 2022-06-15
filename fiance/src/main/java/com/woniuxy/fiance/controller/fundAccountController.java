@@ -28,7 +28,7 @@ public class fundAccountController {
         return fAccountService.del(id);
     }
     //查询自己的资金账户
-    @PostMapping("/findID")
+    @PostMapping("/findID/{id}")
     public ResponseResult findID(@PathVariable("id") int id){
         return fAccountService.findID(id);
     }
@@ -43,6 +43,10 @@ public class fundAccountController {
     public ResponseResult activation(@PathVariable("id") int id){
         return fAccountService.activation(id);
     }
-
+    //冻结资金账户
+    @PostMapping("/freeze/{id}")
+    public ResponseResult freeze(@PathVariable("id") int id){
+        return fAccountService.freeze(id);
+    }
 
 }

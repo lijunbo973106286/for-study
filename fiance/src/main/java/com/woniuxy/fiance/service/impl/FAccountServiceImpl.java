@@ -20,9 +20,8 @@ public class FAccountServiceImpl implements FAccountService {
     FAccountMapper fAccountMapper;
     @Override
     public ResponseResult add(ScfpFundAccount scfpFundAccount) {
-
-        ScfpFundAccount s= fAccountMapper.findID(scfpFundAccount.getId());
-        if (s == null){
+        List<ScfpFundAccount> list=fAccountMapper.findID(scfpFundAccount.getEid());
+        if (list.size()==0){
             int i=  fAccountMapper.add(scfpFundAccount);
             if (i!=1){
                 return responseResult.fail();
@@ -55,9 +54,9 @@ public class FAccountServiceImpl implements FAccountService {
 
     @Override
     public ResponseResult findID(int id) {
-      ScfpFundAccount scfpFundAccount= fAccountMapper.findID(id);
-      if (scfpFundAccount != null){
-          responseResult.success(scfpFundAccount);
+        List<ScfpFundAccount> scfpFundAccount=fAccountMapper.findID(id);
+        if (scfpFundAccount != null){
+         return responseResult.success(scfpFundAccount);
       }
       return responseResult.fail();
     }
@@ -75,6 +74,15 @@ public class FAccountServiceImpl implements FAccountService {
 
     @Override
     public ResponseResult activation(int id) {
+        List<ScfpFundAccount> list = fAccountMapper.findID(id);
+        ScfpFundAccount scfpFundAccount = list.get(0);
+        String faccount1 = scfpFundAccount.getFaccount();
+        System.out.println(faccount1);
+        if (faccount1 !=null ){
+            responseResult.setMsg("已激活");
+            responseResult.setCode(500);
+            return responseResult;
+        }
         //生成资金账户编号
         Date date=new Date();
         long time = date.getTime();
@@ -89,5 +97,14 @@ public class FAccountServiceImpl implements FAccountService {
             return responseResult.success(j);
         }
         return responseResult.fail();
+    }
+
+    @Override
+    public ResponseResult freeze(int id) {
+       int i= fAccountMapper.freeze(id);
+        if (i!=1){
+            responseResult.fail();
+        }
+        return responseResult.success(i);
     }
 }

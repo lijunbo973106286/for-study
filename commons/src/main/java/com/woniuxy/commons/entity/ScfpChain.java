@@ -74,4 +74,6 @@ public class ScfpChain {
     private ScfpNetwork scfpNetwork;
     @ApiModelProperty("补贴范围")
     private String subsidy;
+    @ApiModelProperty("总金额")
+    private BigDecimal total;
 }
