@@ -55,4 +55,6 @@ public interface ScfpChainDao {
     ScfpEnterprise findEnterpriseByName(String ename);
 
     ScfpEnterprise findCore(int chain_id);
+
+    int updateEnterprise(ScfpEnterprise scfpEnterprise);
 }
