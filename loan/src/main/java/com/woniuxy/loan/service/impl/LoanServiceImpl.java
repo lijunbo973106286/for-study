@@ -59,7 +59,7 @@ public class LoanServiceImpl implements LoanService {
             ScfpChain scfpChain = new ScfpChain();
             scfpChain.setId(scfpLoan.getChain_id());
             //调用链单微服务接口查询对应链单信息
-            ResponseResult<Object> search = scfpChainService.findById(scfpChain);
+            ResponseResult<ScfpChain> search = scfpChainService.findById(scfpChain);
             ScfpChain chain = (ScfpChain) search.getData();
             log.info("查询到的链单信息为："+chain);
             //链单是否过期，过期返回false
@@ -68,7 +68,7 @@ public class LoanServiceImpl implements LoanService {
                 return new ResponseResult<>(500, "链单已过期", null, ResStatus.FAIL);
             }
             //链单余额是否充足，不够返回false
-            if (chain.getSurplus().compareTo(new BigDecimal(0))<1) {
+            if (chain.getSurplus() == null||chain.getSurplus().compareTo(new BigDecimal(0))<1) {
                 return new ResponseResult<>(500, "链单余额不足", null, ResStatus.FAIL);
             }
             //赋值
