@@ -15,4 +15,6 @@ public interface FAccountService {
     ResponseResult findAll(int currentPate, int pageSize);
 
     ResponseResult activation(int id);
+
+    ResponseResult freeze(int id);
 }

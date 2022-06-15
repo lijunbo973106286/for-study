@@ -2,6 +2,7 @@ package com.woniuxy.fiance.controller;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.woniuxy.commons.entity.DTO.LoanDTO;
+import com.woniuxy.commons.entity.DTO.ServiceChargeDTO;
 import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.fiance.service.settleService;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -34,7 +35,7 @@ public class settlecontroller {
     }
     //条件查询
     @PostMapping("/search")
-    public ResponseResult<LoanDTO> search(@RequestBody LoanDTO loanDTO){
+    public ResponseResult<ServiceChargeDTO> search(@RequestBody ServiceChargeDTO loanDTO){
         return settleService.search(loanDTO);
     }
     //密码
@@ -43,9 +44,9 @@ public class settlecontroller {
         return settleService.password(id);
     }
     //修改支付状态
-    @PostMapping("status/{id}/{service}")
-    public ResponseResult<LoanDTO> status(@PathVariable("id") int id,@PathVariable("service") String service){
-        return  settleService.upstatus(id);
+    @PostMapping("status/{eid}/{sid}")
+    public ResponseResult<ServiceChargeDTO> status(@PathVariable("eid") int eid,@PathVariable("sid") int sid){
+        return  settleService.upstatus(eid,sid);
 
     }
     //平台按时发平台服务费

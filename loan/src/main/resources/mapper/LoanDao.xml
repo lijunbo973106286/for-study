@@ -55,7 +55,7 @@
     <select id="search" resultMap="getAllLoanByEnterpriseId">
         select l.*,c.chain_no,e.name from scfp_loan l left join scfp_chain c on l.chain_id = c.id
                                                       left join scfp_enterprise e on l.enterprise_id = e.id
-        where l.enterprise_id = (select enterprise_id from scfp_user where id = #{enterprise_id})
+        where l.enterprise_id = #{enterprise_id}
             <if test="chain_no!=null and chain_no!=''">
                 and chain_id = (select id from scfp_chain where chain_no = #{chain_no})
             </if>
