@@ -5,16 +5,25 @@
 
     <insert id="newsub">
         insert into scfp_user
-        values (null, #{uname}, #{password}, #{name}, #{identity}, #{phonenum}, #{email}, #{enterprise_id}, #{status},
+        values (null, #{uname}, '123456', #{name}, #{identity}, #{phonenum}, #{email}, #{enterprise_id}, '停用',
                 #{fid})
     </insert>
     <insert id="newsubrole">
         insert into scfp_user_role
-        values ((select id from scfp_user where uname = #{uname}) user_id, #{role_id})
+        values (#{user_id}, #{role_id})
     </insert>
     <insert id="inrole">
         insert into scfp_user_role (user_id, role_id)
         values (#{id}, #{role_id});
+    </insert>
+    <insert id="register">
+        insert into scfp_enterprise (name, credit_code, legal_person, id_card, address, role)
+        values (#{corpname, #{credit_code}, #{legal_person}, #{id_card}, #{address}, #{type});
+    </insert>
+    <insert id="manager">
+        insert into scfp_user
+            (uname, `name`, password, email, phonenum, `identity`, enterprise_id)
+        values (#{uname}, #{name}, #{password}, #{email}, #{phonenum}, #{identity}, #{corpId});
     </insert>
     <update id="modsub">
         update scfp_user
@@ -50,7 +59,8 @@
     <update id="modpwd">
         update scfp_user
         set password = #{password}
-        where id = #{id} and uname = #{uname}
+        where id = #{id}
+          and uname = #{uname}
     </update>
     <delete id="delsub">
         delete
@@ -102,11 +112,15 @@
                u.email,
                u.enterprise_id,
                u.fid,
-               ur.role_id
+               r.id,
+               r.name roleName,
+               e.role enterpriseType,
+               e.name enterpriseName
         from scfp_user u
                  left join scfp_user_role ur
                            on u.id = ur.user_id
                  left join scfp_role r on ur.role_id = r.id
+                 left join scfp_enterprise e on e.id = u.enterprise_id
         where u.uname = #{uname}
           and u.password = #{password}
           and u.status = '启用'
@@ -123,7 +137,8 @@
                u.fid,
                r.id   role_id,
                r.name roleName,
-               e.name enterpriseName
+               e.name enterpriseName,
+               e.role enterpriseType
         from scfp_user u
                  left join scfp_user_role ur on u.id = ur.user_id
                  left join scfp_role r on ur.role_id = r.id
@@ -131,6 +146,42 @@
         where u.id = #{id}
     </select>
     <select id="checkOldPwd" resultType="com.woniuxy.user.entity.ScfpUser">
-        select uname from scfp_user where id = #{id} and password = #{password} and uname = #{uname}
+        select uname
+        from scfp_user
+        where id = #{id}
+          and password = #{password}
+          and uname = #{uname}
+    </select>
+    <select id="getUserId" resultType="java.lang.Integer">
+        select id
+        from scfp_user
+        where uname = #{uname}
+    </select>
+    <select id="corpInfo" resultType="com.woniuxy.user.entity.EnterpriseDTO">
+        SELECT e.id,
+               e.name,
+               e.credit_code,
+               e.legal_person,
+               e.id_card,
+               e.address,
+               er.id      TYPE,
+               er.role    typeName,
+               u.name     pName,
+               u.phonenum pPhonenum,
+               u.email    pEmail,
+               r.name     pType
+        FROM scfp_enterprise e
+                 LEFT JOIN scfp_enterprise_roles er ON e.role = er.id
+                 LEFT JOIN scfp_user u ON u.enterprise_id = e.id
+                 LEFT JOIN scfp_user_role ur ON u.id = ur.user_id
+                 LEFT JOIN scfp_role r ON r.id = ur.role_id
+        WHERE e.id = #{id}
+          AND r.name = '管理员'
+    </select>
+    <select id="select" resultType="java.lang.Integer">
+        select id
+        from scfp_enterprise
+        where name = #{corpname}
+          and credit_code = #{credit_code};
     </select>
 </mapper>

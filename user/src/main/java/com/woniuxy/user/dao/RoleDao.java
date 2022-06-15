@@ -1,6 +1,7 @@
 package com.woniuxy.user.dao;
 
 import com.woniuxy.user.entity.RoleDTO;
+import com.woniuxy.user.entity.ScfpEnterpriseType;
 import com.woniuxy.user.entity.ScfpRole;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -29,4 +30,6 @@ public interface RoleDao {
     int delRM(int id);
 
     int delUR(int id);
+
+    List<ScfpEnterpriseType> corpType();
 }

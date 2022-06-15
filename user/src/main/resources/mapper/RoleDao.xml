@@ -5,7 +5,7 @@
 
     <insert id="newrole">
         insert into scfp_role
-        values ((null, #{name}, #{type} #{description}, #{status})
+        values (null, #{name}, #{type}, '停用', #{description})
     </insert>
     <update id="modrole">
         update scfp_role
@@ -58,5 +58,9 @@
                 and description = ${description}%
             </if>
         </where>
+    </select>
+    <select id="corpType" resultType="com.woniuxy.user.entity.ScfpEnterpriseType">
+        select id, role type
+        from scfp_enterprise_roles
     </select>
 </mapper>

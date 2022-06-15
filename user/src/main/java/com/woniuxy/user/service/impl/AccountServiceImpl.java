@@ -1,10 +1,7 @@
 package com.woniuxy.user.service.impl;
 
 import com.woniuxy.user.dao.AccountDao;
-import com.woniuxy.user.entity.ResStatus;
-import com.woniuxy.user.entity.ResponseResult;
-import com.woniuxy.user.entity.ScfpUser;
-import com.woniuxy.user.entity.UserDTO;
+import com.woniuxy.user.entity.*;
 import com.woniuxy.user.service.AccountService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +26,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public ResponseResult newsub(UserDTO user) {
-        return accountDao.newsub(user) > 0 && accountDao.newsubrole(user) > 0 ? new ResponseResult(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
+        if (accountDao.newsub(user) > 0) {
+            int user_id = accountDao.getUserId(user);
+            return accountDao.newsubrole(user_id, user.getRole_id()) > 0 ? new ResponseResult(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
+        }
+        return new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
     }
 
     @Override
@@ -82,6 +83,23 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResponseResult checkOldPwd(ScfpUser user) {
-        return accountDao.checkOldPwd(user) != null ? new ResponseResult(200,"密码验证成功",null,ResStatus.SUCCESS):new ResponseResult(500,"密码验证失败，该密码与原密码不一致",null,ResStatus.FAIL);
+        return accountDao.checkOldPwd(user) != null ? new ResponseResult(200, "密码验证成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "密码验证失败，该密码与原密码不一致", null, ResStatus.FAIL);
+    }
+
+    @Override
+    public ResponseResult corpInfo(int id) {
+        return new ResponseResult(200, "查询成功",
+                accountDao.corpInfo(id), ResStatus.SUCCESS);
+    }
+
+    @Override
+    @Transactional
+    public ResponseResult register(Register register) {
+        if (accountDao.register(register) > 0) {
+            int enterpriseId = accountDao.select(register);
+            register.setCorpId(enterpriseId);
+            return accountDao.manager(register) > 0 ? new ResponseResult<>(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult<>(500, "操作失败", null, ResStatus.FAIL);
+        }
+        return new ResponseResult<>(500, "操作失败", null, ResStatus.FAIL);
     }
 }

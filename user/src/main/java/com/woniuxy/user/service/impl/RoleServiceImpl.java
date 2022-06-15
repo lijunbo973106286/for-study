@@ -44,4 +44,9 @@ public class RoleServiceImpl implements RoleService {
         return new ResponseResult(200, "查询成功",
                 roleDao.qryrole(role), ResStatus.SUCCESS);
     }
+
+    @Override
+    public ResponseResult corpType() {
+        return new ResponseResult(200, "查询成功", roleDao.corpType(), ResStatus.SUCCESS);
+    }
 }
