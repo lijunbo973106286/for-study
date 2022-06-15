@@ -55,9 +55,9 @@
     <select id="search" resultMap="getAllLoanByEnterpriseId">
         select l.*,c.chain_no,e.name from scfp_loan l left join scfp_chain c on l.chain_id = c.id
                                                       left join scfp_enterprise e on l.enterprise_id = e.id
-        where l.enterprise_id = #{enterprise_id}
-            <if test="chain_id">
-                and chain_id = #{chain_id}
+        where l.enterprise_id = (select enterprise_id from scfp_user where id = #{enterprise_id})
+            <if test="chain_no!=null and chain_no!=''">
+                and chain_id = (select id from scfp_chain where chain_no = #{chain_no})
             </if>
             <if test="principal_status=='待结清'">
                 and (
@@ -71,5 +71,18 @@
                 and service_status = '已支付'
                 and interest_status = '已支付'
             </if>
+            <if test="loan_time!=null and loan_time!=''">
+                and loan_time between #{loan_time} and #{loan_query_time}
+            </if>
     </select>
+    <select id="getPrincipalData" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select count(id) `count` ,sum(money) `totalMoney` from scfp_loan where enterprise_id = #{id}
+    </select>
+    <select id="getServiceData" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select count(id) `count` ,sum(service) `totalMoney` from scfp_loan where enterprise_id = #{id}
+    </select>
+    <select id="getInterestData" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select count(id) `count` ,sum(interest) `totalMoney` from scfp_loan where enterprise_id = #{id}
+    </select>
+
 </mapper>

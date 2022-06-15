@@ -95,14 +95,14 @@ public class ScfpChainServiceImpl implements ScfpChainService {
         scfpChain.setStatus(19);
         scfpChain.setSurplus(BigDecimal.valueOf(0.0001));
         int count = 0;
-        for (int id : ids) {
+        for (int id : ids){
             scfpChain.setId(id);
             int i = scfpChainDao.update(scfpChain);
-            if (i > 0) {
+            if (i > 0){
                 count++;
             }
         }
-        if (count == ids.size()) {
+        if (count == ids.size()){
             return ResponseResult.SUCCESS;
         } else {
             return ResponseResult.FAIL;
@@ -144,14 +144,14 @@ public class ScfpChainServiceImpl implements ScfpChainService {
 
     @Override
     public ResponseResult<ScfpEnterprise> findAllEnterprise() {
-        List<ScfpEnterprise> all = scfpChainDao.findAllEnterprise();
+        List<ScfpEnterprise> all=scfpChainDao.findAllEnterprise();
 
         return new ResponseResult(200, "执行成功", all, ResStatus.SUCCESS);
     }
 
     @Override
     public ResponseResult<ScfpFund> findAllFund() {
-        List<ScfpFund> all = scfpChainDao.findAllFund();
+        List<ScfpFund> all=scfpChainDao.findAllFund();
 
         return new ResponseResult(200, "执行成功", all, ResStatus.SUCCESS);
     }
@@ -168,7 +168,7 @@ public class ScfpChainServiceImpl implements ScfpChainService {
 
     @Override
     public ResponseResult<ScfpEnterprise> findEnterprise() {
-        List<ScfpEnterprise> all = scfpChainDao.findEnterprise();
+        List<ScfpEnterprise> all=scfpChainDao.findEnterprise();
 
         return new ResponseResult(200, "执行成功", all, ResStatus.SUCCESS);
     }
@@ -176,7 +176,7 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     @Override
     public ResponseResult<Object> findEnterpriseByName(String ename) {
         ScfpEnterprise scfpEnterprise = scfpChainDao.findEnterpriseByName(ename);
-        if (scfpEnterprise != null) {
+        if (scfpEnterprise != null){
             return new ResponseResult<>(200, "查询成功", scfpEnterprise, ResStatus.SUCCESS);
         }
         return ResponseResult.FAIL;
@@ -191,6 +191,15 @@ public class ScfpChainServiceImpl implements ScfpChainService {
             total=total.add(chain.getMoney());
         }
         return new ResponseResult<BigDecimal>(200, "查询成功", total, ResStatus.SUCCESS);
+    }
+
+    @Override
+    public ResponseResult<ScfpEnterprise> findCore(int chain_id) {
+        ScfpEnterprise scfpEnterprise = scfpChainDao.findCore(chain_id);
+        if (scfpEnterprise != null){
+            return new ResponseResult<>(200, "查询成功", scfpEnterprise, ResStatus.SUCCESS);
+        }
+        return new ResponseResult<>(500, "查询失败", null, ResStatus.FAIL);
     }
 
     @Override

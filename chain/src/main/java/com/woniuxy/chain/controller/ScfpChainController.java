@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.io.IOException;
@@ -35,10 +34,7 @@ public class ScfpChainController {
     ScfpChainService scfpChainService;
     @Resource
     ScfpFileService scfpFileService;
-
-    /**
-     * 通过传入的chain对象插入scfp_chain表中，没有的信息默认为null或者0
-     */
+    /** 通过传入的chain对象插入scfp_chain表中，没有的信息默认为null或者0 */
     @PostMapping("/insert")
     public ResponseResult<Object> insert(@RequestBody ScfpChain scfpChain) {
         System.out.println(scfpChain);
@@ -52,134 +48,113 @@ public class ScfpChainController {
     public ResponseResult<Object> update(@RequestBody ScfpChain scfpChain) {
         return scfpChainService.update(scfpChain);
     }
-
-    /**
-     * 通过id进行软删除
-     */
+    /** 通过id进行软删除*/
     @DeleteMapping("/delete/{id}")
-    public ResponseResult<Object> delete(@PathVariable("id") int id) {
+    public  ResponseResult<Object> delete(@PathVariable("id") int id){
         return scfpChainService.delete(id);
     }
 
-    /**
-     * 通过scfpchain对象动态查询ScfpChain对象
-     */
+    /** 通过scfpchain对象动态查询ScfpChain对象*/
     @PostMapping("/search")
-    public ResponseResult<ScfpChain> search(@RequestBody ScfpChain scfpChain) {
+    public ResponseResult<Object> search(@RequestBody ScfpChain scfpChain){
         return scfpChainService.search(scfpChain);
     }
 
-    /**
-     * 分页查询所有链单信息
-     */
+    /** 分页查询所有链单信息 */
     @PostMapping("/findAll")
-    public ResponseResult<Object> findAll(@RequestBody ScfpChain scfpChain) {
+    public ResponseResult<Object> findAll(@RequestBody ScfpChain scfpChain){
         return scfpChainService.findAll(scfpChain);
     }
 
-    /**
-     * 查找所有链单数量
-     */
+    /** 查找所有链单数量 */
     @GetMapping("/findAllCount/{eid}")
-    public ResponseResult<Object> findAllCount(@PathVariable("eid") int eid) {
+    public ResponseResult<Object> findAllCount(@PathVariable("eid") int eid){
         return scfpChainService.findAllCount(eid);
     }
-
-    /**
-     * 查找各分类链单数量
-     */
+    /** 查找各分类链单数量 */
     @PostMapping("/findCount")
-    public ResponseResult<Object> findCount(@RequestBody ScfpChain scfpChain) {
+    public ResponseResult<Object> findCount(@RequestBody ScfpChain scfpChain){
         return scfpChainService.findCount(scfpChain);
     }
 
-    /**
-     * 单个兑付处理
-     */
+    /** 单个兑付处理 */
     @PutMapping("/updateLoan/{chain_id}")
     public ResponseResult<Object> updateLoan(@PathVariable("chain_id") int chain_id) {
         return scfpChainService.updateLoan(chain_id);
     }
 
-    /**
-     * 批处理兑付
-     */
+    /** 批处理兑付 */
     @PutMapping("/updateBatLoan")
     public ResponseResult<Object> updateLoan(@RequestBody List<Integer> ids) {
         return scfpChainService.updateBatLoan(ids);
     }
 
-    /**
-     * 检查交易密码
-     */
+    /** 检查交易密码 */
     @PostMapping("/checkPayPass")
     public ResponseResult<Object> checkPayPass(@RequestBody ScfpEnterprise scfpEnterprise) {
         return scfpChainService.checkPayPass(scfpEnterprise);
     }
-
-    /**
-     * 查找银行相关信息
-     */
+    /** 查找银行相关信息*/
     @GetMapping("/getEnterprise/{bankName}")
-    public ResponseResult<ScfpEnterprise> getEnterprise(@PathVariable("bankName") String bankName) {
+    public ResponseResult<ScfpEnterprise> getEnterprise(@PathVariable("bankName") String bankName){
         return scfpChainService.getEnterprise(bankName);
     }
 
-    /**
-     * 一次查询未兑付及未兑付的链单信息
-     */
+    /** 一次查询未兑付及未兑付的链单信息 */
     @PostMapping("/findAllLoan")
-    public ResponseResult<ScfpEnterprise> findAllLoan(@RequestBody ScfpChain scfpChain) {
+    public ResponseResult<ScfpEnterprise> findAllLoan(@RequestBody ScfpChain scfpChain){
         return scfpChainService.findAllLoan(scfpChain);
     }
 
-    /**
-     * 查找所有未兑付和已兑付链单数量
-     */
+    /** 查找所有未兑付和已兑付链单数量 */
     @PostMapping("/findLoanCount")
-    public ResponseResult<Object> findLoanCount(@RequestBody ScfpChain scfpChain) {
+    public ResponseResult<Object> findLoanCount(@RequestBody ScfpChain scfpChain){
         return scfpChainService.findLoanCount(scfpChain);
     }
 
     @GetMapping("/findAllBank")
-    public ResponseResult<ScfpEnterprise> findAll() {
+    public ResponseResult<ScfpEnterprise> findAll(){
 
         return scfpChainService.findAllEnterprise();
     }
 
     @GetMapping("/findAllEnterprise")
-    public ResponseResult<ScfpEnterprise> findAllEnterprise() {
+    public ResponseResult<ScfpEnterprise> findAllEnterprise(){
 
         return scfpChainService.findEnterprise();
     }
 
     @GetMapping("/findAllFund")
-    public ResponseResult<ScfpFund> findAllFund() {
+    public ResponseResult<ScfpFund> findAllFund(){
         return scfpChainService.findAllFund();
     }
 
-    /**
-     * 根据链单id查询链单详细信息
-     */
+    /** 根据链单id查询链单详细信息 */
     @PostMapping("/findById")
-    public ResponseResult<ScfpChain> findById(@RequestBody ScfpChain scfpChain) {
+    public ResponseResult<ScfpChain> findById(@RequestBody ScfpChain scfpChain){
         return scfpChainService.findById(scfpChain);
     }
 
-    /**
-     * 根据状态查找状态名
-     */
+    /** 根据状态查找状态名 */
     @GetMapping("/findStatus/{status}")
-    public ResponseResult<Object> findStatus(@PathVariable("status") int status) {
+    public ResponseResult<Object> findStatus(@PathVariable("status") int status){
         return scfpChainService.findStatus(status);
     }
 
-    /**
-     * 根据公司名字查找公司id
-     */
+    /** 根据公司名字查找公司id */
     @GetMapping("/findEnterpriseByName/{ename}")
-    public ResponseResult<Object> findEnterpriseByName(@PathVariable("ename") String ename) {
+    public ResponseResult<Object> findEnterpriseByName(@PathVariable("ename") String ename){
         return scfpChainService.findEnterpriseByName(ename);
+    }
+
+    /**
+     \* @author: ZJH
+     \* @DateTime: 2022/6/15 10:01
+     \* @Description：查找链单流转网络对应的核心企业
+     */
+    @GetMapping("/findCore/{chain_id}")
+    public ResponseResult<ScfpEnterprise> findCore(@PathVariable("chain_id") int chain_id){
+        return scfpChainService.findCore(chain_id);
     }
 
     @Resource
@@ -194,8 +169,8 @@ public class ScfpChainController {
 
         List<ScfpChain> list = scfpChainDao.search(scfpChain);
         List<ScfpChainStatus> status_list = new ArrayList<>();
-        for (ScfpChain s : list) {
-            status_list.add((ScfpChainStatus) scfpChainService.findStatus(s.getStatus()).getData());
+        for (ScfpChain s : list){
+            status_list.add((ScfpChainStatus)scfpChainService.findStatus(s.getStatus()).getData());
         }
 
         //excel标题

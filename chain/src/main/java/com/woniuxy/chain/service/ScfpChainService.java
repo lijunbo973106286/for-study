@@ -5,7 +5,6 @@ import com.woniuxy.commons.entity.ScfpChain;
 import com.woniuxy.commons.entity.ScfpEnterprise;
 import com.woniuxy.commons.entity.ScfpFund;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ public interface ScfpChainService {
 
     ResponseResult<Object> delete(int id);
 
-    ResponseResult<ScfpChain> search(ScfpChain scfpChain);
+    ResponseResult<Object> search(ScfpChain scfpChain);
 
     ResponseResult<Object> findAll(ScfpChain scfpChain);
 
@@ -53,6 +52,8 @@ public interface ScfpChainService {
     ResponseResult<ScfpEnterprise> findEnterprise();
 
     ResponseResult<Object> findEnterpriseByName(String ename);
+
+    ResponseResult<ScfpEnterprise> findCore(int chain_id);
 
     ResponseResult<BigDecimal> total(ScfpChain scfpChain);
 }

@@ -22,6 +22,8 @@ public class ScfpLoan {
     private int id;
     @ApiModelProperty("链单id")
     private int chain_id;
+    @ApiModelProperty("链单编号")
+    private String chain_no;
     @ApiModelProperty("链单对象")
     private ScfpChain scfpChain;
     @ApiModelProperty("企业id")
@@ -32,6 +34,8 @@ public class ScfpLoan {
     private BigDecimal money;
     @ApiModelProperty("放款时间")
     private String loan_time;
+    @ApiModelProperty("查询截止时间")
+    private String loan_query_time;
     @ApiModelProperty("还款时间")
     private String repay_time;
     @ApiModelProperty("本金状态")
@@ -48,4 +52,8 @@ public class ScfpLoan {
     private int currentPage;
     @ApiModelProperty("每页条数")
     private int pageSize;
+    @ApiModelProperty("记录数")
+    private int count;
+    @ApiModelProperty("总金额")
+    private BigDecimal totalMoney;
 }
