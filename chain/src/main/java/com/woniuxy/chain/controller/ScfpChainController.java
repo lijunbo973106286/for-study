@@ -158,6 +158,12 @@ public class ScfpChainController {
         return scfpChainService.findCore(chain_id);
     }
 
+    /** 链单审核通过后更新scfp_enterprise表中企业的剩余额度 */
+    @PutMapping("/updateEnterprise")
+    public ResponseResult<Object> updateEnterprise(@RequestBody ScfpEnterprise scfpEnterprise){
+        return scfpChainService.updateEnterprise(scfpEnterprise);
+    }
+
     @Resource
     private ScfpChainDao scfpChainDao;
 

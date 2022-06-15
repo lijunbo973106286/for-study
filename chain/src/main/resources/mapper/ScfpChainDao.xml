@@ -61,6 +61,10 @@
         where id = #{id}
     </update>
 
+    <update id="updateEnterprise">
+        update scfp_enterprise set surplus = #{surplus} where id = #{id}
+    </update>
+
     <delete id="delete">
         update scfp_chain set status=1 where id=#{id}
     </delete>
@@ -267,7 +271,7 @@
     <select id="findCore" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select e.* from scfp_enterprise e
             right join scfp_network_coreenterprise nc on e.id = nc.eid
-                right join scfp_chain c on c.id = 2
+                right join scfp_chain c on c.id = #{chain_id}
                     right join scfp_network n on n.id = c.network_id and n.id = nc.nid
         where e.name is not null
     </select>

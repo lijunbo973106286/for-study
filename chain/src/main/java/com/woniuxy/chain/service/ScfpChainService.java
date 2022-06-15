@@ -57,4 +57,6 @@ public interface ScfpChainService {
     ResponseResult<ScfpEnterprise> findCore(int chain_id);
 
     ResponseResult<BigDecimal> total(ScfpChain scfpChain);
+
+    ResponseResult<Object> updateEnterprise(ScfpEnterprise scfpEnterprise);
 }
