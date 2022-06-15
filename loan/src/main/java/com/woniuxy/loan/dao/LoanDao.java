@@ -14,4 +14,10 @@ public interface LoanDao {
 
 
     List<ScfpLoan> search(ScfpLoan scfpLoan);
+
+    ScfpLoan getPrincipalData(int id);
+
+    ScfpLoan getServiceData(int id);
+
+    ScfpLoan getInterestData(int id);
 }

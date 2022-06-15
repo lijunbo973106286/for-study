@@ -217,4 +217,31 @@ public class LoanServiceImpl implements LoanService {
         responseResult.setMessage("查询成功");
         return responseResult;
     }
+
+    @Override
+    public ResponseResult<ScfpLoan> getPrincipalData(int id) {
+        ScfpLoan scfpLoan = loanDao.getPrincipalData(id);
+        ResponseResult<ScfpLoan> responseResult;
+        responseResult = new ResponseResult<>();
+        responseResult.setData(scfpLoan);
+        return responseResult;
+    }
+
+    @Override
+    public ResponseResult<ScfpLoan> getServiceData(int id) {
+        ScfpLoan scfpLoan = loanDao.getServiceData(id);
+        ResponseResult<ScfpLoan> responseResult;
+        responseResult = new ResponseResult<>();
+        responseResult.setData(scfpLoan);
+        return responseResult;
+    }
+
+    @Override
+    public ResponseResult<ScfpLoan> getInterestData(int id) {
+        ScfpLoan scfpLoan = loanDao.getInterestData(id);
+        ResponseResult<ScfpLoan> responseResult;
+        responseResult = new ResponseResult<>();
+        responseResult.setData(scfpLoan);
+        return responseResult;
+    }
 }

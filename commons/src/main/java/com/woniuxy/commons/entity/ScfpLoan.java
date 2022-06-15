@@ -52,4 +52,8 @@ public class ScfpLoan {
     private int currentPage;
     @ApiModelProperty("每页条数")
     private int pageSize;
+    @ApiModelProperty("记录数")
+    private int count;
+    @ApiModelProperty("总金额")
+    private BigDecimal totalMoney;
 }

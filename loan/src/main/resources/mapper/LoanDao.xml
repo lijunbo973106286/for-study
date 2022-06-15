@@ -75,4 +75,14 @@
                 and loan_time between #{loan_time} and #{loan_query_time}
             </if>
     </select>
+    <select id="getPrincipalData" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select count(id) `count` ,sum(money) `totalMoney` from scfp_loan where enterprise_id = #{id}
+    </select>
+    <select id="getServiceData" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select count(id) `count` ,sum(service) `totalMoney` from scfp_loan where enterprise_id = #{id}
+    </select>
+    <select id="getInterestData" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select count(id) `count` ,sum(interest) `totalMoney` from scfp_loan where enterprise_id = #{id}
+    </select>
+
 </mapper>

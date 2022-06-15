@@ -15,7 +15,7 @@ spring:
 
   cloud:
     inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
-      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Hosted Network Virtual Adapter,Microsoft Wi-Fi Direct Virtual Adapter #3'
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
     gateway:
       httpclient:
         connect-timeout: 10000
@@ -23,6 +23,10 @@ spring:
       routes:
         # 流转网络路由
         # 供应链路由
+        - id: supply
+          uri: lb://supply
+          predicates:
+            - Path=/supply/**
         # 资金方路由
         - id: bank
           uri: lb://supply
@@ -31,7 +35,7 @@ spring:
         - id: fiance   #路由名
           uri: lb://fiance   #lb:loadbalance   goods:微服务名
           predicates: #谓词
-            - Path=/fiance/**,/settle/**,/faccount/**   #匹配的路径|
+            - Path=/fiance/**   #匹配的路径|
         - id: fiance   #路由名
           uri: lb://fiance   #lb:loadbalance   goods:微服务名
           predicates: #谓词
@@ -39,7 +43,7 @@ spring:
         - id: network   #路由名
           uri: lb://supply   #lb:loadbalance   goods:微服务名
           predicates: #谓词
-            - Path=/network/**,/supply/**,/bank/**  #匹配的路径
+            - Path=/network/**   #匹配的路径
         # 放款路由
         - id: loan
           uri: lb://loan
@@ -61,8 +65,7 @@ spring:
 #          uri: http://192.168.8.104:9898/
           uri: lb://user
           predicates:
-            - Path=/menu/**,/login,/account/**
-
+            - Path=/menu/**
 
 #      discovery:
 #        locator:
