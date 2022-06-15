@@ -15,4 +15,6 @@ public interface ScfpFileDao {
     int delete(String file_name);
 
     List<ScfpFile> getPic(int chain_id);
+
+    int deletePic(int chain_id);
 }

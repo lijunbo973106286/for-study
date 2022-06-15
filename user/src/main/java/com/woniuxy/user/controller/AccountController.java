@@ -2,6 +2,7 @@ package com.woniuxy.user.controller;
 
 import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
+import com.woniuxy.user.entity.UserDTO;
 import com.woniuxy.user.service.AccountService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class AccountController {
      * @return
      */
     @PostMapping("/newsub")
-    ResponseResult newsub(@RequestBody ScfpUser user) {
+    ResponseResult newsub(@RequestBody UserDTO user) {
         return accountService.newsub(user);
     }
 
@@ -52,8 +53,7 @@ public class AccountController {
      * @return
      */
     @PutMapping("/modsub")
-    ResponseResult modsub(@RequestBody ScfpUser user) {
-        System.out.println(user);
+    ResponseResult modsub(@RequestBody UserDTO user) {
         return accountService.modsub(user);
     }
 
@@ -65,8 +65,51 @@ public class AccountController {
      * @return
      */
     @PutMapping("qrysub")
-    ResponseResult qrysub(@RequestBody ScfpUser user) {
+    ResponseResult qrysub(@RequestBody UserDTO user) {
         return accountService.qrysub(user);
     }
-//    ResponseResult newadmin(@RequestBody )
+
+    /**
+     * 修改账号状态
+     *
+     * @param user
+     * @return
+     */
+    @PutMapping("/modstatus")
+    ResponseResult modstatus(@RequestBody ScfpUser user) {
+        return accountService.modstatus(user);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param user
+     * @return
+     */
+    @PutMapping("/modpwd")
+    ResponseResult modpwd(@RequestBody ScfpUser user) {
+        return accountService.modpwd(user);
+    }
+
+    /**
+     * 个人信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/userInfo/{id}")
+    ResponseResult userInfo(@PathVariable("id") int id) {
+
+        return accountService.userInfo(id);
+    }
+
+    /**
+     * 密码校验
+     * @param user
+     * @return
+     */
+    @PostMapping("/checkOldPwd")
+    ResponseResult checkOldPwd(@RequestBody ScfpUser user){
+        return accountService.checkOldPwd(user);
+    }
 }

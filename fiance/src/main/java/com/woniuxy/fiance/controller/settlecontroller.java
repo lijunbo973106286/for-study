@@ -50,7 +50,7 @@ public class settlecontroller {
     }
     //平台按时发平台服务费
 //    @Scheduled(fixedRate=3000)
-    @Scheduled(cron = "0/3 * * * * ? ")
+    @Scheduled(cron = "0 0/30 * * * ?")
     public void addservice(){
         settleService.addservice();
     }

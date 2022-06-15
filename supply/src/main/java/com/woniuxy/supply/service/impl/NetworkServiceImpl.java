@@ -3,6 +3,7 @@ package com.woniuxy.supply.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.woniuxy.commons.entity.DTO.NetworkDTO;
+import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.PageInfomation;
 import com.woniuxy.commons.entity.ResStatus;
 import com.woniuxy.commons.entity.ResponseResult;
@@ -36,20 +37,20 @@ public class NetworkServiceImpl implements NetworkService {
     NetworkDao networkDao;
 
     @Override
-    public ResponseResult findAllNetwork(PageInfomation pageInfomation) {
-        int currentPage = pageInfomation.getCurrentPage();
-        int pageSize = pageInfomation.getPageSize();
+    public ResponseResult findAllNetwork(NetworkDTO networkDTO) {
+        int currentPage = networkDTO.getCurrentPage();
+        int pageSize = networkDTO.getPageSize();
         PageHelper.startPage(currentPage, pageSize);
-        List<NetworkDTO> all = networkDao.findAllNetwork();
+        List<NetworkDTO> all = networkDao.findAllNetwork(networkDTO);
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
-            for (NetworkDTO networkDTO : all
+            for (NetworkDTO networkDTO_ : all
             ) {
-                List<ScfpEnterprise> enterprises = networkDao.findByNid(networkDTO.getId());
+                List<ScfpEnterprise> enterprises = networkDao.findByNid(networkDTO_.getId());
                 int num = enterprises.size();
-                networkDTO.setEnterprises(enterprises);
-                networkDTO.setNum(num);
+                networkDTO_.setEnterprises(enterprises);
+                networkDTO_.setNum(num);
                 ArrayList<Integer> eids = new ArrayList<>();
                 if (!enterprises.isEmpty()) {
                     for (ScfpEnterprise enterprise : enterprises
@@ -60,7 +61,7 @@ public class NetworkServiceImpl implements NetworkService {
                             eids.add(eid);
                         }
                     }
-                    networkDTO.setEids(eids);
+                    networkDTO_.setEids(eids);
                 }
             }
             log.info("所有流转网络：{}", all);
@@ -157,6 +158,16 @@ public class NetworkServiceImpl implements NetworkService {
     public ResponseResult findByCoreId(int coreId) {
         log.info("核心企业id：{}", coreId);
         List<NetworkDTO> all = networkDao.findByCoreId(coreId);
+        if (all.isEmpty()) {
+            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+        } else {
+            return new ResponseResult(200, "查询成功", all, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult findByNid(int nid) {
+        List<SupplyDTO> all = networkDao.findNid(nid);
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {

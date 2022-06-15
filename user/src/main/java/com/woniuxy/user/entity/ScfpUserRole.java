@@ -20,5 +20,5 @@ import java.util.List;
 @NoArgsConstructor
 public class ScfpUserRole {
     int user_id;
-    List<Integer> role_id;
+    int role_id;
 }

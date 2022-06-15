@@ -1,5 +1,6 @@
 package com.woniuxy.user.dao;
 
+import com.woniuxy.user.entity.RoleDTO;
 import com.woniuxy.user.entity.ScfpRole;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,5 +24,9 @@ public interface RoleDao {
 
     int modrole(ScfpRole role);
 
-    List<ScfpRole> qryrole(int id);
+    List<RoleDTO> qryrole(RoleDTO role);
+
+    int delRM(int id);
+
+    int delUR(int id);
 }

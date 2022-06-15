@@ -23,15 +23,15 @@ public class NetworkController {
     NetworkService networkService;
 
     /**
-     * @param pageInfomation
+     * @param
      * @return ResponseResult
      * @description 查询所有流转网络
      * @author qfx
      * @date 2022/6/7 19:41
      */
     @PostMapping("/all")
-    public ResponseResult findAllNetwork(@RequestBody PageInfomation pageInfomation) {
-        return networkService.findAllNetwork(pageInfomation);
+    public ResponseResult findAllNetwork(@RequestBody NetworkDTO networkDTO) {
+        return networkService.findAllNetwork(networkDTO);
     }
 
     /**
@@ -83,15 +83,27 @@ public class NetworkController {
     }
 
     /**
+     * @param coreId
+     * @return ResponseResult
      * @description 查询当前登录企业可用的流转网络
      * @author qfx
      * @date 2022/6/10 15:28
-     * @param coreId
-     * @return ResponseResult
      */
     @GetMapping("/findByCoreId/{coreId}")
     public ResponseResult findByCoreId(@PathVariable("coreId") int coreId) {
         return networkService.findByCoreId(coreId);
+    }
+
+    /**
+     * @param nid
+     * @return ResponseResult
+     * @description 根据流转网络id查询关联企业
+     * @author qfx
+     * @date 2022/6/14 16:57
+     */
+    @GetMapping("/findByNid/{nid}")
+    public ResponseResult findByNid(@PathVariable("nid") int nid) {
+        return networkService.findByNid(nid);
     }
 
 }

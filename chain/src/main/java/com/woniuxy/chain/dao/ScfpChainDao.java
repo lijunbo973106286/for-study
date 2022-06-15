@@ -49,4 +49,8 @@ public interface ScfpChainDao {
     ScfpChainStatus findStatus(int cs_id);
 
     ScfpChain findById(ScfpChain scfpChain);
+
+    List<ScfpEnterprise> findEnterprise();
+
+    ScfpEnterprise findEnterpriseByName(String ename);
 }

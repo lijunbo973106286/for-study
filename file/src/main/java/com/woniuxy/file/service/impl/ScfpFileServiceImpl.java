@@ -93,4 +93,14 @@ public class ScfpFileServiceImpl implements ScfpFileService {
         List<ScfpFile> data=scfpFileDao.getPic(chain_id);
         return new ResponseResult(200, "查询成功", data, ResStatus.SUCCESS);
     }
+
+    @Override
+    public ResponseResult<Object> deletePic(int chain_id) {
+        int i=scfpFileDao.deletePic(chain_id);
+        if(i>0){
+            return ResponseResult.SUCCESS;
+        }else {
+            return ResponseResult.FAIL;
+        }
+    }
 }

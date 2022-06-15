@@ -1,6 +1,7 @@
 package com.woniuxy.supply.dao;
 
 import com.woniuxy.commons.entity.DTO.NetworkDTO;
+import com.woniuxy.commons.entity.DTO.SupplyDTO;
 import com.woniuxy.commons.entity.ScfpEnterprise;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @Version 1.0
  */
 public interface NetworkDao {
-    List<NetworkDTO> findAllNetwork();
+    List<NetworkDTO> findAllNetwork(NetworkDTO networkDTO);
 
     List<ScfpEnterprise> findByNid(int nid);
 
@@ -34,4 +35,6 @@ public interface NetworkDao {
     void addNetworkCore(@Param("nid")int nid,@Param("coreid")int coreid);
 
     List<NetworkDTO> findByCoreId(int coreId);
+
+    List<SupplyDTO> findNid(int nid);
 }

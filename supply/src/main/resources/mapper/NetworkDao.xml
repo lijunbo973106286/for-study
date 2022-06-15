@@ -67,6 +67,8 @@
         select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename, bank_id
         from scfp_network n
                  left join scfp_enterprise e on n.bank_id = e.id
+                 left join scfp_network_coreenterprise nc on n.id = nc.nid
+        where nc.eid = #{coreId}
         order by n.id desc
     </select>
     <select id="findByNid" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
@@ -80,9 +82,11 @@
         select n.id id, network_no, `type`, n.status status, n.name nname, e.name ename
         from scfp_network n
         left join scfp_enterprise e on n.bank_id = e.id
+        left join scfp_network_coreenterprise nc on n.id = nc.nid
         <where>
+            nc.eid = #{coreId}
             <if test="name != null and name !=''">
-                n.name like concat('%',#{name},'%')
+                and n.name like concat('%',#{name},'%')
             </if>
             <if test="bank_id != null and bank_id !=''">
                 and bank_id = #{bank_id}
@@ -99,5 +103,11 @@
                  left join scfp_network_coreenterprise nc on n.id = nc.nid
         where nc.eid = #{coreId}
           and n.status = "1"
+    </select>
+    <select id="findNid" resultType="com.woniuxy.commons.entity.DTO.SupplyDTO">
+        select e.id eid, e.name ename from scfp_enterprise e
+            RIGHT JOIN scfp_network_enterprise ne on e.id = ne.eid
+                RIGHT JOIN scfp_network n on n.id = ne.nid
+        where n.id = 1
     </select>
 </mapper>

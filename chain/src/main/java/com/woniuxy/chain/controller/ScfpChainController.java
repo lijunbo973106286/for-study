@@ -118,6 +118,12 @@ public class ScfpChainController {
         return scfpChainService.findAllEnterprise();
     }
 
+    @GetMapping("/findAllEnterprise")
+    public ResponseResult<ScfpEnterprise> findAllEnterprise(){
+
+        return scfpChainService.findEnterprise();
+    }
+
     @GetMapping("/findAllFund")
     public ResponseResult<ScfpFund> findAllFund(){
         return scfpChainService.findAllFund();
@@ -133,6 +139,12 @@ public class ScfpChainController {
     @GetMapping("/findStatus/{status}")
     public ResponseResult<Object> findStatus(@PathVariable("status") int status){
         return scfpChainService.findStatus(status);
+    }
+
+    /** 根据公司名字查找公司id */
+    @GetMapping("/findEnterpriseByName/{ename}")
+    public ResponseResult<Object> findEnterpriseByName(@PathVariable("ename") String ename){
+        return scfpChainService.findEnterpriseByName(ename);
     }
 
     @Resource
@@ -152,7 +164,7 @@ public class ScfpChainController {
         }
 
         //excel标题
-        String[] title = {"订单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
+        String[] title = {"链单编号", "链单金额", "截止兑付时间", "开单人", "开单日", "链单状态"};
 
         //excel文件名
         String fileName = "链单信息表" + ".xls";
@@ -175,7 +187,7 @@ public class ScfpChainController {
         HSSFWorkbook wb = ExcelUtil.getHSSFWorkbook(sheetName, title, content, null);
         //响应到客户端
         try {
-            this.setResponseHeader(response, fileName);
+            ExcelUtil.setResponseHeader(response, fileName);
             OutputStream os = response.getOutputStream();
             wb.write(os);
             os.flush();
@@ -184,21 +196,5 @@ public class ScfpChainController {
             e.printStackTrace();
         }
     }
-    //发送响应流方法
-    public void setResponseHeader(HttpServletResponse response, String fileName) {
-        try {
-            try {
-                fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
-            } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            response.setContentType("application/octet-stream;charset=UTF-8");
-            response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
-            response.addHeader("Pargam", "no-cache");
-            response.addHeader("Cache-Control", "no-cache");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+
 }
