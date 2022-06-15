@@ -23,4 +23,12 @@ public class ServiceChargeDTO {
     private String pay_time;
     @ApiModelProperty("服务费状态")
     private String status;
+    @ApiModelProperty("当前页")
+    private int currentPage;
+    @ApiModelProperty("每页条数")
+    private int pageSize;
+    /** 时间段上限 */
+    private String startTime;
+    /** 时间段下限 */
+    private String endTime;
 }

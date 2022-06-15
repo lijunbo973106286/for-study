@@ -15,31 +15,31 @@
         </foreach>
     </insert>
     <update id="upstatus">
-        update scfp_loan set service_status="已支付" where id=#{id}
+        update scfp_enterprise_service set status="已支付" where eid=#{eid} and sid=#{sid}
     </update>
-    <select id="findsettle" resultType="com.woniuxy.commons.entity.DTO.LoanDTO">
-        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status,sl.enterprise_id,sl.money FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.enterprise_id=#{id}
-    </select>
-    <select id="Paid" resultType="com.woniuxy.commons.entity.DTO.LoanDTO">
-        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status,sl.money FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.`enterprise_id`=#{id} AND sl.`service_status`='已支付'
-    </select>
-    <select id="unpaid" resultType="com.woniuxy.commons.entity.DTO.LoanDTO">
-        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline,sl.repay_time,sl.service_status,sl.money FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.`enterprise_id`=#{id} AND sl.`service_status`='未支付'
-    </select>
-    <select id="search" resultType="com.woniuxy.commons.entity.DTO.LoanDTO">
-        SELECT sl.id,sc.id chain_id,sl.service,sc.deadline deadline,sl.repay_time,sl.service_status,sl.money FROM scfp_loan sl LEFT JOIN scfp_chain sc ON sl.chain_id=sc.id WHERE sl.enterprise_id=#{id}
-                AND sc.`deadline` > #{startTime} and sc.`deadline` &lt; #{endTime}
-            <if test="service_status!=null and service_status!='' and service_status=='已支付'">
-                and sl.service_status='已支付'
+    <select id="search" resultType="com.woniuxy.commons.entity.DTO.ServiceChargeDTO">
+        SELECT * FROM scfp_enterprise_service es  LEFT JOIN scfp_service s ON es.`sid`=s.id WHERE eid=#{eid}
+                AND s.`month` > #{startTime} and s.`month` &lt; #{endTime}
+            <if test="status!=null and status!='' and status=='已支付'">
+                and status='已支付'
             </if>
-            <if test="service_status!=null and service_status!='' and service_status=='未支付'">
-                and sl.service_status='未支付'
+            <if test="status!=null and status!='' and status=='未支付'">
+                and status='未支付'
             </if>
     </select>
     <select id="password" resultType="java.lang.String">
-        select pay_pass from scfp_enterprise where id=#{id}
+        select pay_pass from scfp_fundaccount where eid=#{id}
     </select>
     <select id="findEId" resultType="int">
         select id from scfp_enterprise
+    </select>
+    <select id="findsettle" resultType="com.woniuxy.commons.entity.DTO.ServiceChargeDTO">
+        SELECT * FROM scfp_enterprise_service es  LEFT JOIN scfp_service s ON es.`sid`=s.id WHERE eid=#{eid}
+    </select>
+    <select id="Paid" resultType="com.woniuxy.commons.entity.DTO.ServiceChargeDTO">
+        SELECT * FROM scfp_enterprise_service es  LEFT JOIN scfp_service s ON es.`sid`=s.id WHERE status='已支付' and eid=#{eid}
+    </select>
+    <select id="unpaid" resultType="com.woniuxy.commons.entity.DTO.ServiceChargeDTO">
+        SELECT * FROM scfp_enterprise_service es  LEFT JOIN scfp_service s ON es.`sid`=s.id WHERE status='未支付' and eid=#{eid}
     </select>
 </mapper>

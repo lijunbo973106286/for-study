@@ -2,7 +2,6 @@ package com.woniuxy.fiance.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.woniuxy.commons.entity.DTO.LoanDTO;
 import com.woniuxy.commons.entity.DTO.ServiceChargeDTO;
 import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.fiance.mapper.settleMapper;
@@ -24,9 +23,9 @@ public class settleServiceImpl implements settleService {
     @Override
     public ResponseResult findsettle(int currentPate, int pageSize, int id) {
         PageHelper.startPage(currentPate, pageSize);
-        List<LoanDTO> loans= settleMapper.findsettle(id);
+        List<ServiceChargeDTO> loans= settleMapper.findsettle(id);
         if (loans!=null){
-            PageInfo<LoanDTO> list = PageInfo.of(loans);
+            PageInfo<ServiceChargeDTO> list = PageInfo.of(loans);
            return responseResult.success(list);
        }
         return responseResult.fail();
@@ -35,9 +34,9 @@ public class settleServiceImpl implements settleService {
     @Override
     public ResponseResult Paid(int currentPate, int pageSize, int id) {
         PageHelper.startPage(currentPate, pageSize);
-        List<LoanDTO> loans= settleMapper.Paid(id);
+        List<ServiceChargeDTO> loans= settleMapper.Paid(id);
         if (loans!=null){
-            PageInfo<LoanDTO> list = PageInfo.of(loans);
+            PageInfo<ServiceChargeDTO> list = PageInfo.of(loans);
             return responseResult.success(list);
         }
         return responseResult.fail();
@@ -46,36 +45,35 @@ public class settleServiceImpl implements settleService {
     @Override
     public ResponseResult unpaid(int currentPate, int pageSize, int id) {
         PageHelper.startPage(currentPate, pageSize);
-        List<LoanDTO> loans= settleMapper.unpaid(id);
+        List<ServiceChargeDTO> loans= settleMapper.unpaid(id);
         if (loans!=null){
-            PageInfo<LoanDTO> list = PageInfo.of(loans);
+            PageInfo<ServiceChargeDTO> list = PageInfo.of(loans);
             return responseResult.success(list);
         }
         return responseResult.fail();
     }
-    //条件查询
+    //条件查询handlingFee
     @Override
-    public ResponseResult<LoanDTO> search(LoanDTO loanDTO) {
+    public ResponseResult<ServiceChargeDTO> search(ServiceChargeDTO loanDTO) {
         PageHelper.startPage(loanDTO.getCurrentPage(), loanDTO.getPageSize());
-        List<LoanDTO> loans=  settleMapper.search(loanDTO);
+        List<ServiceChargeDTO> loans=  settleMapper.search(loanDTO);
         System.out.println(loans);
         if (loans!=null){
-            PageInfo<LoanDTO> list = PageInfo.of(loans);
+            PageInfo<ServiceChargeDTO> list = PageInfo.of(loans);
             return responseResult.success(list);
         }
         return responseResult.fail();
     }
 
     @Override
-    public ResponseResult<LoanDTO> password(int id) {
+    public ResponseResult<ServiceChargeDTO> password(int id) {
        String pass= settleMapper.password(id);
-
         return responseResult.success(pass);
     }
 
     @Override
-    public ResponseResult<LoanDTO> upstatus(int id) {
-       int i= settleMapper.upstatus(id);
+    public ResponseResult<ServiceChargeDTO> upstatus(int eid, int sid) {
+       int i= settleMapper.upstatus(eid,sid);
         if (i!=0){
             return responseResult.success(i);
         }

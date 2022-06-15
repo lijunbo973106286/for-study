@@ -2,22 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.fiance.mapper.FAccountMapper">
     <insert id="add">
-        insert into scfp_fundaccount (uaccount,ename,residual,status,pay_pass) value (#{uaccount},#{ename},#{residual},"申请开通",#{pay_pass})
+        insert into scfp_fundaccount (uaccount,ename,residual,status,pay_pass,eid) value (#{uaccount},#{ename},#{residual},"申请开通",#{pay_pass},#{eid})
     </insert>
     <update id="update">
          update scfp_fundaccount set pay_pass=#{pay_pass} where id = #{id}
     </update>
     <update id="activation">
-        update scfp_fundaccount set faccount=#{faccount},status="已开通" where id=#{id}
+        update scfp_fundaccount set faccount=#{faccount},status="已开通" where eid=#{eid}
     </update>
     <update id="freeze">
-        update scfp_fundaccount set status="冻结" where id=#{id}
+        update scfp_fundaccount set status="冻结",faccount=null where id=#{id}
     </update>
     <delete id="del">
         delete from scfp_fundaccount where id=#{id}
     </delete>
     <select id="findID" resultType="com.woniuxy.commons.entity.ScfpFundAccount">
-        select * from scfp_fundaccount where id=#{id}
+        select * from scfp_fundaccount where eid=#{eid}
     </select>
     <select id="findAll" resultType="com.woniuxy.commons.entity.ScfpFundAccount">
         select * from scfp_fundaccount

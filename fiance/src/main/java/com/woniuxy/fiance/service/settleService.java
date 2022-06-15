@@ -1,6 +1,6 @@
 package com.woniuxy.fiance.service;
 
-import com.woniuxy.commons.entity.DTO.LoanDTO;
+import com.woniuxy.commons.entity.DTO.ServiceChargeDTO;
 import com.woniuxy.commons.util.ResponseResult;
 
 public interface settleService {
@@ -10,11 +10,11 @@ public interface settleService {
 
     ResponseResult unpaid(int currentPate, int pageSize, int id);
 
-    ResponseResult<LoanDTO> search(LoanDTO loanDTO);
+    ResponseResult<ServiceChargeDTO> search(ServiceChargeDTO loanDTO);
 
-    ResponseResult<LoanDTO> password(int id);
+    ResponseResult<ServiceChargeDTO> password(int id);
 
-    ResponseResult<LoanDTO> upstatus(int id);
+    ResponseResult<ServiceChargeDTO> upstatus(int eid,int sid);
 
     void addservice();
 }
