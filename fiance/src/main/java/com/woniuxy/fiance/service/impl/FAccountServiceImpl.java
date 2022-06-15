@@ -90,4 +90,13 @@ public class FAccountServiceImpl implements FAccountService {
         }
         return responseResult.fail();
     }
+
+    @Override
+    public ResponseResult freeze(int id) {
+       int i= fAccountMapper.freeze(id);
+        if (i!=1){
+            responseResult.fail();
+        }
+        return responseResult.success(i);
+    }
 }

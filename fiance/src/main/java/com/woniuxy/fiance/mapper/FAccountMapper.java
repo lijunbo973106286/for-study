@@ -18,4 +18,6 @@ public interface FAccountMapper {
     List<ScfpFundAccount> findAll();
 
     int activation(@Param("id") int id,@Param("faccount") String faccount);
+
+    int freeze(int id);
 }

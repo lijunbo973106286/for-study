@@ -10,6 +10,9 @@
     <update id="activation">
         update scfp_fundaccount set faccount=#{faccount},status="已开通" where id=#{id}
     </update>
+    <update id="freeze">
+        update scfp_fundaccount set status="冻结" where id=#{id}
+    </update>
     <delete id="del">
         delete from scfp_fundaccount where id=#{id}
     </delete>

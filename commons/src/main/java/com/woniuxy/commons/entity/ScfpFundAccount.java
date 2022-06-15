@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 public class ScfpFundAccount {
     @ApiModelProperty("id")
     private int id;
+    @ApiModelProperty("企业id")
+    private int eid;
     @ApiModelProperty("用户账号")
     private String uaccount;
     @ApiModelProperty("企业名称")
