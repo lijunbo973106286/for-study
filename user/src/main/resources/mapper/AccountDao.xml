@@ -22,8 +22,8 @@
     </insert>
     <insert id="managerRegist">
         insert into scfp_user
-            (uname, `name`, password, email, phonenum, `identity`, enterprise_id)
-        values (#{uname}, #{name}, #{password}, #{email}, #{phonenum}, #{identity}, #{corpId});
+            (uname, `name`, password, email, phonenum, `identity`, enterprise_id,status)
+        values (#{uname}, #{name}, #{password}, #{email}, #{phonenum}, #{identity}, #{corpId},'启用');
     </insert>
     <update id="modsub">
         update scfp_user
