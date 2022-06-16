@@ -3,6 +3,7 @@ package com.woniuxy.user.service.impl;
 import com.woniuxy.user.dao.AccountDao;
 import com.woniuxy.user.entity.*;
 import com.woniuxy.user.service.AccountService;
+import net.sf.jsqlparser.statement.select.Select;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -95,11 +96,16 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public ResponseResult register(Register register) {
-        if (accountDao.register(register) > 0) {
-            int enterpriseId = accountDao.select(register);
-            register.setCorpId(enterpriseId);
-            return accountDao.manager(register) > 0 ? new ResponseResult<>(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult<>(500, "操作失败", null, ResStatus.FAIL);
+        if (accountDao.corpRegist(register) > 0) {
+            int corpID = accountDao.corpID(register);
+            int managerRID = accountDao.managerRID(register);
+            register.setCorpId(corpID);
+            if (accountDao.managerRegist(register) > 0) {
+                int managerID = accountDao.managerID(register);
+                return accountDao.newsubrole(managerID, managerRID) > 0 ? new ResponseResult(200, "操作成功", null, ResStatus.SUCCESS) : new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
+            }
+            return new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
         }
-        return new ResponseResult<>(500, "操作失败", null, ResStatus.FAIL);
+        return new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
     }
 }

@@ -16,11 +16,11 @@
         insert into scfp_user_role (user_id, role_id)
         values (#{id}, #{role_id});
     </insert>
-    <insert id="register">
+    <insert id="corpRegist">
         insert into scfp_enterprise (name, credit_code, legal_person, id_card, address, role)
-        values (#{corpname, #{credit_code}, #{legal_person}, #{id_card}, #{address}, #{type});
+        values (#{corpname}, #{credit_code}, #{legal_person}, #{id_card}, #{address}, #{type});
     </insert>
-    <insert id="manager">
+    <insert id="managerRegist">
         insert into scfp_user
             (uname, `name`, password, email, phonenum, `identity`, enterprise_id)
         values (#{uname}, #{name}, #{password}, #{email}, #{phonenum}, #{identity}, #{corpId});
@@ -178,10 +178,22 @@
         WHERE e.id = #{id}
           AND r.name = '管理员'
     </select>
-    <select id="select" resultType="java.lang.Integer">
+    <select id="corpID" resultType="java.lang.Integer">
         select id
         from scfp_enterprise
         where name = #{corpname}
           and credit_code = #{credit_code};
+    </select>
+    <select id="managerRID" resultType="java.lang.Integer">
+        select id
+        from scfp_role
+        where type = #{type}
+          and name = '管理员';
+    </select>
+    <select id="managerID" resultType="java.lang.Integer">
+        select id
+        from scfp_user
+        where uname = #{uname}
+          and name = #{name};
     </select>
 </mapper>

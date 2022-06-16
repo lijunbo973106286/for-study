@@ -66,14 +66,4 @@ public class RoleController {
     ResponseResult qryrole(@RequestBody RoleDTO role) {
         return roleService.qryrole(role);
     }
-
-    /**
-     * 获取企业类型
-     *
-     * @return
-     */
-    @GetMapping("/corp")
-    ResponseResult corpType() {
-        return roleService.corpType();
-    }
 }
