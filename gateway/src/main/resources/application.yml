@@ -50,7 +50,7 @@ spring:
 #          uri: http://192.168.8.104:9898/
           uri: lb://user
           predicates:
-            - Path=/menu/**,/login,/account/**
+            - Path=/menu/**,/login,/account/**,/role/**,/register,/corp,/menu/**,
 
 
 #      discovery:
