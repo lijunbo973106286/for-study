@@ -48,9 +48,14 @@ public interface AccountDao {
 
     EnterpriseDTO corpInfo(int id);
 
-    int register(Register register);
 
-    int select(Register register);
+    int corpRegist(Register register);
 
-    int manager(Register register);
+    int corpID(Register register);
+
+    int managerRID(Register register);
+
+    int managerRegist(Register register);
+
+    int managerID(Register register);
 }
