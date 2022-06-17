@@ -75,6 +75,7 @@ public class FAccountServiceImpl implements FAccountService {
     @Transactional
     @Override
     public ResponseResult activation(int id) {
+        //已激活 直接返回
         List<ScfpFundAccount> list = fAccountMapper.findID(id);
         ScfpFundAccount scfpFundAccount = list.get(0);
         String faccount1 = scfpFundAccount.getFaccount();
