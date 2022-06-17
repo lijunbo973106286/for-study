@@ -13,6 +13,9 @@
     <update id="freeze">
         update scfp_fundaccount set status="冻结",faccount=null where id=#{id}
     </update>
+    <update id="pay">
+        update scfp_fundaccount set residual = residual - #{residual} where eid = #{eid}
+    </update>
     <delete id="del">
         delete from scfp_fundaccount where id=#{id}
     </delete>

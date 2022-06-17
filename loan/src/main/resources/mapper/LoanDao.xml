@@ -45,6 +45,7 @@
         <result property="principal_status" column="principal_status"/>
         <result property="loan_time" column="loan_time"/>
         <result property="repay_time" column="repay_time"/>
+        <result property="enterprise_id" column="enterprise_id"/>
         <association property="scfpChain" javaType="com.woniuxy.commons.entity.ScfpChain">
             <result property="chain_no" column="chain_no"/>
         </association>

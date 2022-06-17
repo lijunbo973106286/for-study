@@ -244,4 +244,24 @@ public class LoanServiceImpl implements LoanService {
         responseResult.setData(scfpLoan);
         return responseResult;
     }
+
+    @Override
+    public ResponseResult<Object> payAll(int id) {
+        try {
+            ScfpLoan scfpLoan = new ScfpLoan();
+            scfpLoan.setId(id);
+            scfpLoan.setInterest_status("已支付");
+            scfpLoan.setPrincipal_status("已还款");
+            scfpLoan.setService_status("已支付");
+            int num = loanDao.update(scfpLoan);
+            if (num>0){
+                return ResponseResult.SUCCESS;
+            }else {
+                return ResponseResult.FAIL;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.FAIL;
+        }
+    }
 }
