@@ -7,6 +7,7 @@ import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.fiance.mapper.FAccountMapper;
 import com.woniuxy.fiance.service.FAccountService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -71,7 +72,7 @@ public class FAccountServiceImpl implements FAccountService {
        }
         return responseResult.fail();
     }
-
+    @Transactional
     @Override
     public ResponseResult activation(int id) {
         List<ScfpFundAccount> list = fAccountMapper.findID(id);
