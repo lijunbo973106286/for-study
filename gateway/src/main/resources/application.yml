@@ -24,7 +24,7 @@ spring:
         - id: fiance
           uri: lb://fiance
           predicates:
-            - Path=/fiance/**,/settle/**,/faccount/**
+            - Path=/fiance/**,/settle/**,/faccount/**,/bankaccount/**
         - id: network
           uri: lb://supply
           predicates:
@@ -41,8 +41,8 @@ spring:
             - Path=/file/**
         # 链单路由
         - id: chain
-          uri: http://192.168.8.152:6666
-#          uri: lb://chain
+#          uri: http://192.168.8.152:6666
+          uri: lb://chain
           predicates:
             - Path=/chain/**
         # 账户管理

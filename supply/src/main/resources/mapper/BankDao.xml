@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.woniuxy.supply.dao.BankDao">
-
+    <update id="credit">
+        update scfp_enterprise
+        set money=2000000,
+            surplus=2000000
+        where id = #{eid}
+    </update>
     <select id="findAllBank" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select *
         from scfp_enterprise
@@ -30,5 +35,10 @@
             </if>
         </where>
 
+    </select>
+    <select id="findCredit" resultType="com.woniuxy.commons.entity.ScfpAmount">
+        select money totalMoney, surplus totalAvailable
+        from scfp_enterprise
+        where id = #{eid};
     </select>
 </mapper>

@@ -58,20 +58,26 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public ResponseResult findTotal(ScfpAmount scfpAmount) {
-        List<ScfpAmount> all = bankDao.allAmount(scfpAmount);
-        BigDecimal totalMoney = new BigDecimal(0);
-        BigDecimal totalAvailable = new BigDecimal(0);
-        if (all.isEmpty()) {
+//        List<ScfpAmount> all = bankDao.allAmount(scfpAmount);
+//        BigDecimal totalMoney = new BigDecimal(0);
+//        BigDecimal totalAvailable = new BigDecimal(0);
+//        if (all.isEmpty()) {
+//            return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
+//        } else {
+//            for (ScfpAmount amount : all
+//            ) {
+//                totalMoney = totalMoney.add(amount.getTotal());
+//                totalAvailable = totalAvailable.add(amount.getAvailable());
+//            }
+//            scfpAmount.setTotalMoney(totalMoney);
+//            scfpAmount.setTotalAvailable(totalAvailable);
+//            return new ResponseResult(200, "查询成功", scfpAmount, ResStatus.SUCCESS);
+//        }
+        ScfpAmount scfpAmount_ = bankDao.findCredit(scfpAmount.getEid());
+        if (scfpAmount_ == null) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
-            for (ScfpAmount amount : all
-            ) {
-                totalMoney = totalMoney.add(amount.getTotal());
-                totalAvailable = totalAvailable.add(amount.getAvailable());
-            }
-            scfpAmount.setTotalMoney(totalMoney);
-            scfpAmount.setTotalAvailable(totalAvailable);
-            return new ResponseResult(200, "查询成功", scfpAmount, ResStatus.SUCCESS);
+            return new ResponseResult(200, "查询成功", scfpAmount_, ResStatus.SUCCESS);
         }
     }
 
@@ -86,6 +92,16 @@ public class BankServiceImpl implements BankService {
         } else {
             PageInfo<ScfpAmount> info = PageInfo.of(all);
             return new ResponseResult(200, "查询成功", info, ResStatus.SUCCESS);
+        }
+    }
+
+    @Override
+    public ResponseResult credit(int eid) {
+        int i = bankDao.credit(eid);
+        if (i <= 0) {
+            return new ResponseResult(500, "授信失败", null, ResStatus.FAIL);
+        } else {
+            return new ResponseResult(200, "授信成功", null, ResStatus.SUCCESS);
         }
     }
 }

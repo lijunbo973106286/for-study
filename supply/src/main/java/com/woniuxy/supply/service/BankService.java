@@ -19,4 +19,6 @@ public interface BankService {
     ResponseResult findTotal(ScfpAmount scfpAmount);
 
     ResponseResult findBy(ScfpAmount scfpAmount);
+
+    ResponseResult credit(int eid);
 }

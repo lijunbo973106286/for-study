@@ -20,4 +20,8 @@ public interface BankDao {
     List<ScfpAmount> allAmount(ScfpAmount scfpAmount);
 
     List<ScfpAmount> findBy(ScfpAmount scfpAmount);
+
+    int credit(int eid);
+
+    ScfpAmount findCredit(int eid);
 }

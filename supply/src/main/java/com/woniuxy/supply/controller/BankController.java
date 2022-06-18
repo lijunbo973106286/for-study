@@ -3,10 +3,7 @@ package com.woniuxy.supply.controller;
 import com.woniuxy.commons.entity.ResponseResult;
 import com.woniuxy.commons.entity.ScfpAmount;
 import com.woniuxy.supply.service.BankService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -48,5 +45,10 @@ public class BankController {
     @PostMapping("/findBy")
     public ResponseResult findBy(@RequestBody ScfpAmount scfpAmount) {
         return bankService.findBy(scfpAmount);
+    }
+
+    @PutMapping("/credit/{eid}")
+    public ResponseResult credit(@PathVariable("eid") int eid) {
+        return bankService.credit(eid);
     }
 }
