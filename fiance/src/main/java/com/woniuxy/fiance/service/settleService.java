@@ -17,4 +17,6 @@ public interface settleService {
     ResponseResult<ServiceChargeDTO> upstatus(int eid,int sid);
 
     void addservice();
+
+    ResponseResult<ServiceChargeDTO> unpaidnum(int eid);
 }
