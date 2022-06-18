@@ -3,6 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woniuxy.user.dao.SupplyDao">
     <insert id="add">
-        insert into scfp_supply(supply_id,status) values (#{id},1)
+        insert into scfp_supply(supply_id,status) values (#{corpID},1)
     </insert>
 </mapper>

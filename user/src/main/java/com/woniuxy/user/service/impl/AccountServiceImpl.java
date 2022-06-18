@@ -106,7 +106,9 @@ public class AccountServiceImpl implements AccountService {
             if (accountDao.managerRegist(register) > 0) {
                 int managerID = accountDao.managerID(register);
                 if (accountDao.newsubrole(managerID, managerRID) > 0) {
-                    supplyDao.add(corpID);
+                    if(3==managerRID){
+                        supplyDao.add(corpID);
+                    }
                     return new ResponseResult(200, "操作成功", null, ResStatus.SUCCESS);
                 } else {
                    return new ResponseResult(500, "操作失败", null, ResStatus.FAIL);
