@@ -155,7 +155,7 @@ public class SupplyServiceImpl implements SupplyService {
             list_.addAll(list3);
         }
         List<SupplyDTO> all = suppluDao.findAllEnterprises();
-        all.removeAll(distinct(list_));
+//        all.removeAll(distinct(list_));
         List<SupplyDTO> resultList = all.stream()
                 .filter(item -> !distinct(list_).stream().map(e -> e.getEid()).collect(Collectors.toList()).contains(item.getEid()))
                 .collect(Collectors.toList());
