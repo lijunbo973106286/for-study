@@ -20,4 +20,7 @@ public interface FAccountMapper {
     int activation(@Param("eid") int eid,@Param("faccount") String faccount);
 
     int freeze(int id);
+
+    int pay(ScfpFundAccount account);
+
 }

@@ -47,6 +47,12 @@ public class LoanController {
         return loanService.service(id);
     }
 
+    //结清所有费用
+    @GetMapping("/payAll/{id}")
+    public ResponseResult<Object> payAll(@PathVariable("id") int id){
+        return loanService.payAll(id);
+    }
+
     //查询某用户公司的所有兑付记录
     @PostMapping("/search")
     public ResponseResult<Object> search(@RequestBody ScfpLoan scfpLoan){

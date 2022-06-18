@@ -15,7 +15,7 @@ spring:
 
   cloud:
     inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
-      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Hosted Network Virtual Adapter'
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Hosted Network Virtual Adapter,Microsoft Wi-Fi Direct Virtual Adapter #3'
     gateway:
       httpclient:
         connect-timeout: 10000
@@ -50,7 +50,7 @@ spring:
 #          uri: http://192.168.8.104:9898/
           uri: lb://user
           predicates:
-            - Path=/menu/**,/login,/account/**
+            - Path=/menu/**,/login,/account/**,/role/**,/register,/corp,/menu/**,
 
 
 #      discovery:

@@ -1,9 +1,8 @@
 package com.woniuxy.user.dao;
 
-import com.woniuxy.user.entity.ResponseResult;
-import com.woniuxy.user.entity.ScfpUser;
-import com.woniuxy.user.entity.UserDTO;
+import com.woniuxy.user.entity.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -42,4 +41,21 @@ public interface AccountDao {
     UserDTO userInfo(int id);
 
     ScfpUser checkOldPwd(ScfpUser user);
+
+    int getUserId(UserDTO user);
+
+    int newsubrole(@Param("user_id") int user_id, @Param("role_id") int role_id);
+
+    EnterpriseDTO corpInfo(int id);
+
+
+    int corpRegist(Register register);
+
+    int corpID(Register register);
+
+    int managerRID(Register register);
+
+    int managerRegist(Register register);
+
+    int managerID(Register register);
 }

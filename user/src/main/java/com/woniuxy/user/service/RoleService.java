@@ -22,5 +22,7 @@ public interface RoleService {
     ResponseResult modrole(ScfpRole role);
 
     ResponseResult qryrole(RoleDTO role);
+
+    ResponseResult corpType();
 }
 

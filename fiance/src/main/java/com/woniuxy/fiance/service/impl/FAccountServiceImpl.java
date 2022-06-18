@@ -7,8 +7,10 @@ import com.woniuxy.commons.util.ResponseResult;
 import com.woniuxy.fiance.mapper.FAccountMapper;
 import com.woniuxy.fiance.service.FAccountService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -71,9 +73,10 @@ public class FAccountServiceImpl implements FAccountService {
        }
         return responseResult.fail();
     }
-
+    @Transactional
     @Override
     public ResponseResult activation(int id) {
+        //已激活 直接返回
         List<ScfpFundAccount> list = fAccountMapper.findID(id);
         ScfpFundAccount scfpFundAccount = list.get(0);
         String faccount1 = scfpFundAccount.getFaccount();
@@ -106,5 +109,24 @@ public class FAccountServiceImpl implements FAccountService {
             responseResult.fail();
         }
         return responseResult.success(i);
+    }
+
+    @Override
+    public ResponseResult pay(ScfpFundAccount account) {
+        List<ScfpFundAccount> scfpFundAccount = fAccountMapper.findID(account.getEid());
+        if (scfpFundAccount.size() != 1 || !"已开通".equals(scfpFundAccount.get(0).getStatus())) {
+            return responseResult.success("账户异常");
+        }
+        if (scfpFundAccount.get(0).getPay_pass() != account.getPay_pass()){
+            return responseResult.success("密码错误");
+        }
+        if(scfpFundAccount.get(0).getResidual().compareTo(account.getResidual()) < 0){
+            return responseResult.success("余额不足");
+        }
+        int j = fAccountMapper.pay(account);
+        if (j != 1) {
+            responseResult.success("支付失败");
+        }
+        return responseResult.success(j);
     }
 }

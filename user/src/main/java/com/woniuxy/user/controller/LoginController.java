@@ -1,17 +1,12 @@
 package com.woniuxy.user.controller;
 
 import com.woniuxy.commons.util.JWTUtil;
-import com.woniuxy.user.entity.ResStatus;
-import com.woniuxy.user.entity.ResponseResult;
-import com.woniuxy.user.entity.ScfpUser;
-import com.woniuxy.user.entity.UserDTO;
+import com.woniuxy.user.entity.*;
 import com.woniuxy.user.service.AccountService;
+import com.woniuxy.user.service.RoleService;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +31,8 @@ public class LoginController {
     RedisTemplate<String, Object> redisTemplate;
     @Resource
     AccountService accountService;
+    @Resource
+    RoleService roleService;
 
     @PostMapping("/login")
     public ResponseResult<ScfpUser> login(@RequestBody ScfpUser user, HttpServletResponse response) {
@@ -65,4 +62,27 @@ public class LoginController {
         }
         return new ResponseResult<>(500, "登录失败", null, ResStatus.FAIL);
     }
+
+    /**
+     * 注册
+     *
+     * @param register
+     * @return
+     */
+    @PostMapping("/register")
+    ResponseResult register(@RequestBody Register register) {
+        return accountService.register(register);
+    }
+
+    /**
+     * 获取企业类型
+     *
+     * @return
+     */
+    @GetMapping("/corp")
+    ResponseResult corpType() {
+        return roleService.corpType();
+    }
 }
+
+

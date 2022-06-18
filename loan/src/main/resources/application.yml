@@ -3,7 +3,7 @@ spring:
     name: loan
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.8.142:3306/scfp
+    url: jdbc:mysql://192.168.8.142:3306/scfp?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
     password: 123
   cloud:

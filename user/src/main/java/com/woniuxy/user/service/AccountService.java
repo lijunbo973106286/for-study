@@ -1,5 +1,6 @@
 package com.woniuxy.user.service;
 
+import com.woniuxy.user.entity.Register;
 import com.woniuxy.user.entity.ResponseResult;
 import com.woniuxy.user.entity.ScfpUser;
 import com.woniuxy.user.entity.UserDTO;
@@ -34,4 +35,8 @@ public interface AccountService {
     ResponseResult userInfo(int id);
 
     ResponseResult checkOldPwd(ScfpUser user);
+
+    ResponseResult corpInfo(int id);
+
+    ResponseResult register(Register register);
 }

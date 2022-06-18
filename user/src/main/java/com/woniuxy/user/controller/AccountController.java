@@ -105,11 +105,23 @@ public class AccountController {
 
     /**
      * 密码校验
+     *
      * @param user
      * @return
      */
-    @PostMapping("/checkOldPwd")
-    ResponseResult checkOldPwd(@RequestBody ScfpUser user){
+    @PutMapping("/checkOldPwd")
+    ResponseResult checkOldPwd(@RequestBody ScfpUser user) {
         return accountService.checkOldPwd(user);
+    }
+
+    /**
+     * 查询企业信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/corp/{id}")
+    ResponseResult corpInfo(@PathVariable("id") int id) {
+        return accountService.corpInfo(id);
     }
 }
