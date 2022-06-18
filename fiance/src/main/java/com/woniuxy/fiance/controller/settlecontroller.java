@@ -55,5 +55,11 @@ public class settlecontroller {
     public void addservice(){
         settleService.addservice();
     }
+    //查询未支付条数
+    @PostMapping("unpaidnum/{eid}")
+    public ResponseResult<ServiceChargeDTO> unpaidnum(@PathVariable("eid") int eid){
+        return  settleService.unpaidnum(eid);
+
+    }
 
 }

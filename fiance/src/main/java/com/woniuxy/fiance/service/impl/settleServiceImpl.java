@@ -114,4 +114,10 @@ public class settleServiceImpl implements settleService {
         //将月租发给所有企业
         settleMapper.addenterpriseServiceFee(list);
     }
+
+    @Override
+    public ResponseResult<ServiceChargeDTO> unpaidnum(int eid) {
+       int i= settleMapper.unpaidnum(eid);
+        return responseResult.success(i);
+    }
 }
