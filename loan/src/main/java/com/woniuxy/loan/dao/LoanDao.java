@@ -1,6 +1,7 @@
 package com.woniuxy.loan.dao;
 
 import com.woniuxy.commons.entity.ScfpLoan;
+import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,5 +25,7 @@ public interface LoanDao {
 
     ScfpLoan findById(int id);
 
-    int updateSurplus(int id, BigDecimal surplus);
+    int updateSurplus(@Param("id") int id, @Param("surplus") BigDecimal surplus);
+
+    int findEnterprise_id(int chain_id);
 }
