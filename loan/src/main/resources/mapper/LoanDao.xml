@@ -93,7 +93,7 @@
     </select>
     <select id="findEnterprise_id" resultType="java.lang.Integer">
         select eid from scfp_network_coreenterprise where nid =
-                                (select network_id from scfp_chain where id #{chain_id})
+                                (select network_id from scfp_chain where id =  #{chain_id})
     </select>
 
 </mapper>
