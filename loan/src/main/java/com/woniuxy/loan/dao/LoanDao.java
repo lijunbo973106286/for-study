@@ -2,6 +2,7 @@ package com.woniuxy.loan.dao;
 
 import com.woniuxy.commons.entity.ScfpLoan;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface LoanDao {
@@ -20,4 +21,8 @@ public interface LoanDao {
     ScfpLoan getServiceData(int id);
 
     ScfpLoan getInterestData(int id);
+
+    ScfpLoan findById(int id);
+
+    int updateSurplus(int id, BigDecimal surplus);
 }

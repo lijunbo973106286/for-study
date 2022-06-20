@@ -121,6 +121,11 @@ public class LoanServiceImpl implements LoanService {
         try {
             ScfpLoan scfpLoan = new ScfpLoan();
             scfpLoan.setId(id);
+            ScfpLoan result = loanDao.findById(id);
+            int c = loanDao.updateSurplus(result.getEnterprise_id(),result.getMoney());
+            if (c<1){
+                return ResponseResult.FAIL;
+            }
             scfpLoan.setPrincipal_status("已还款");
             int num = loanDao.update(scfpLoan);
             if (num>0){

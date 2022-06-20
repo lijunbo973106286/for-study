@@ -30,6 +30,9 @@
         </set>
         where id = #{id}
     </update>
+    <update id="updateSurplus">
+        update scfp_enterprise set surplus = surplus + #{surplus} where id = #{id}
+    </update>
 
 
     <select id="findByRepay_time" resultType="com.woniuxy.commons.entity.ScfpLoan">
@@ -84,6 +87,9 @@
     </select>
     <select id="getInterestData" resultType="com.woniuxy.commons.entity.ScfpLoan">
         select count(id) `count` ,sum(interest) `totalMoney` from scfp_loan where enterprise_id = #{id}
+    </select>
+    <select id="findById" resultType="com.woniuxy.commons.entity.ScfpLoan">
+        select * from scfp_loan where id = #{id}
     </select>
 
 </mapper>
