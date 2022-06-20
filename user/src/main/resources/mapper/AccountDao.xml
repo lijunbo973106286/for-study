@@ -112,7 +112,7 @@
                u.email,
                u.enterprise_id,
                u.fid,
-               r.id,
+               r.id role_id,
                r.name roleName,
                e.role enterpriseType,
                e.name enterpriseName

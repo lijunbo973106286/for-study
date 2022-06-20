@@ -49,4 +49,10 @@ public class fundAccountController {
         return fAccountService.freeze(id);
     }
 
+    //账户支付
+    @PostMapping("/pay")
+    public ResponseResult pay(@RequestBody ScfpFundAccount account){
+        return fAccountService.pay(account);
+    }
+
 }

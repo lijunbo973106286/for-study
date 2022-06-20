@@ -3,7 +3,7 @@ spring:
     name: loan
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.8.142:3306/scfp
+    url: jdbc:mysql://192.168.8.142:3306/scfp?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root
     password: 123
   cloud:
@@ -15,11 +15,11 @@ spring:
     inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Wi-Fi Direct Virtual Adapter #3'
   rabbitmq:
-    host: 192.168.8.116
+    host: 192.168.8.142
     port: 5672    # java程序访问时用到的端口
     username: admin   #账号
     password: admin   #密码
-    virtual-host: /dai    #虚拟主机
+    virtual-host: /qfx    #虚拟主机
     publisher-confirm-type: correlated   #开启RabbitMQ的生产者确认模式
     publisher-returns: true    #返回确认消息
     template:

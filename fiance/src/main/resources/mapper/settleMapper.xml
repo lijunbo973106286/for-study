@@ -42,4 +42,7 @@
     <select id="unpaid" resultType="com.woniuxy.commons.entity.DTO.ServiceChargeDTO">
         SELECT * FROM scfp_enterprise_service es  LEFT JOIN scfp_service s ON es.`sid`=s.id WHERE status='未支付' and eid=#{eid}
     </select>
+    <select id="unpaidnum" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM scfp_enterprise_service WHERE eid=#{eid} AND STATUS='未支付'
+    </select>
 </mapper>

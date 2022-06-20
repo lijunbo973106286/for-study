@@ -147,22 +147,23 @@ public class SupplyServiceImpl implements SupplyService {
     @Override
     public ResponseResult findAllEnterprises(SupplyDTO supplyDTO) {
         log.info("条件：{}", supplyDTO);
-        List<SupplyDTO> list = suppluDao.findById(supplyDTO.getEid());
-        List<SupplyDTO> list1 = suppluDao.findByFid(supplyDTO.getEid());
-        List<SupplyDTO> list_ = getSupplyDTO(list);
-        List<SupplyDTO> list3 = getSupplyDTO(list1);
-        if (list3 != null) {
-            list_.addAll(list3);
+        List<SupplyDTO> lisFu = suppluDao.findById(supplyDTO.getEid());
+        List<SupplyDTO> listZi = suppluDao.findByFid(supplyDTO.getEid());
+        List<SupplyDTO> listAll = getSupplyDTO(lisFu);
+//        System.out.println(lisFu);
+        if (!listZi.isEmpty()) {
+            List<SupplyDTO> list3 = getSupplyDTO(listZi);
+            listAll.addAll(list3);
         }
         List<SupplyDTO> all = suppluDao.findAllEnterprises();
-        all.removeAll(distinct(list_));
+//        all.removeAll(distinct(list_));
         List<SupplyDTO> resultList = all.stream()
-                .filter(item -> !distinct(list_).stream().map(e -> e.getEid()).collect(Collectors.toList()).contains(item.getEid()))
+                .filter(item -> !distinct(listAll).stream().map(e -> e.getEid()).collect(Collectors.toList()).contains(item.getEid()))
                 .collect(Collectors.toList());
         if (all.isEmpty()) {
             return new ResponseResult(500, "查询失败", null, ResStatus.FAIL);
         } else {
-            log.info("非供应链企业：{}", all);
+            log.info("非供应链企业：{}", resultList);
             return new ResponseResult(200, "查询成功", resultList, ResStatus.SUCCESS);
         }
     }

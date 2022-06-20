@@ -17,4 +17,6 @@ public interface FAccountService {
     ResponseResult activation(int id);
 
     ResponseResult freeze(int id);
+
+    ResponseResult pay(ScfpFundAccount account);
 }

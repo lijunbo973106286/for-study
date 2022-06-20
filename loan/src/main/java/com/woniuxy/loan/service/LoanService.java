@@ -21,4 +21,6 @@ public interface LoanService {
     ResponseResult<ScfpLoan> getServiceData(int id);
 
     ResponseResult<ScfpLoan> getInterestData(int id);
+
+    ResponseResult<Object> payAll(int id);
 }

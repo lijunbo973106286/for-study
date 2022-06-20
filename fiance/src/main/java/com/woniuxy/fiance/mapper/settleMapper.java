@@ -25,6 +25,8 @@ public interface settleMapper {
     int[] findEId();
 
     void addenterpriseServiceFee(List<ServiceChargeDTO> list);
+
+    int unpaidnum(int eid);
     //查询 findSid();
 
 }
