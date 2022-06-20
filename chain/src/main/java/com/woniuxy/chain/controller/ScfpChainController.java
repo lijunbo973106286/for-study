@@ -92,8 +92,8 @@ public class ScfpChainController {
 
     /** 检查交易密码 */
     @PostMapping("/checkPayPass")
-    public ResponseResult<Object> checkPayPass(@RequestBody ScfpEnterprise scfpEnterprise) {
-        return scfpChainService.checkPayPass(scfpEnterprise);
+    public ResponseResult<Object> checkPayPass(@RequestBody ScfpFundAccount scfpFundAccount) {
+        return scfpChainService.checkPayPass(scfpFundAccount);
     }
     /** 查找银行相关信息*/
     @GetMapping("/getEnterprise/{bankName}")

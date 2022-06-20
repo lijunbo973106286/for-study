@@ -1,9 +1,6 @@
 package com.woniuxy.chain.dao;
 
-import com.woniuxy.commons.entity.ScfpChain;
-import com.woniuxy.commons.entity.ScfpChainStatus;
-import com.woniuxy.commons.entity.ScfpEnterprise;
-import com.woniuxy.commons.entity.ScfpFund;
+import com.woniuxy.commons.entity.*;
 
 import java.util.List;
 
@@ -34,7 +31,7 @@ public interface ScfpChainDao {
 
     int findCount(ScfpChain scfpChain);
 
-    ScfpEnterprise checkPayPass(ScfpEnterprise scfpEnterprise);
+    ScfpFundAccount checkPayPass(ScfpFundAccount scfpFundAccount);
 
     ScfpEnterprise getEnterprise(String bankName);
 

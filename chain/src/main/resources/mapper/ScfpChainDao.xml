@@ -195,6 +195,7 @@
     <select id="findUserInfo" resultType="scfpUser">
         select * from scfp_user where id = #{creator}
     </select>
+
     <select id="findApprUserInfo" resultType="scfpUser">
         select * from scfp_user where id = #{updator}
     </select>
@@ -232,13 +233,14 @@
         select count(*) from scfp_chain where enterprise_id = #{eid}
     </select>
 
-    <select id="checkPayPass" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
-        select * from scfp_enterprise where id = #{id} and pay_pass = #{pay_pass}
+    <select id="checkPayPass" resultType="scfpFundAccount">
+        select * from scfp_fundaccount where uaccount like concat('%', #{uaccount}, '%') and eid = #{eid} and pay_pass = #{pay_pass}
     </select>
 
     <select id="getEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where name= #{bankName}
     </select>
+
     <select id="findNetworkInfo" resultType="com.woniuxy.commons.entity.ScfpNetwork">
         select * from scfp_network where id=#{network_id}
     </select>
@@ -250,24 +252,31 @@
     <select id="findLoanCount" resultType="java.lang.Integer">
         select count(*) from scfp_chain where status >= #{status} and enterprise_id = #{enterprise_id}
     </select>
+
     <select id="findAllEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select  * from scfp_enterprise where role=1
     </select>
+
     <select id="findAllFund" resultType="com.woniuxy.commons.entity.ScfpFund">
         select * from scfp_fund
     </select>
+
     <select id="findStatus" resultType="com.woniuxy.commons.entity.ScfpChainStatus">
         select status from scfp_chain_status where id = #{cs_id}
     </select>
+
     <select id="findById" resultMap="findUser">
         select * from scfp_chain where id = #{id}
     </select>
+
     <select id="findEnterprise" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select  * from scfp_enterprise
     </select>
+
     <select id="findEnterpriseByName" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select * from scfp_enterprise where name like concat('%', #{ename}, '%')
     </select>
+
     <select id="findCore" resultType="com.woniuxy.commons.entity.ScfpEnterprise">
         select e.* from scfp_enterprise e
             right join scfp_network_coreenterprise nc on e.id = nc.eid

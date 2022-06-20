@@ -108,8 +108,8 @@ public class ScfpChainServiceImpl implements ScfpChainService {
     }
 
     @Override
-    public ResponseResult<Object> checkPayPass(ScfpEnterprise scfpEnterprise) {
-        if (scfpChainDao.checkPayPass(scfpEnterprise) != null) {
+    public ResponseResult<Object> checkPayPass(ScfpFundAccount scfpFundAccount) {
+        if (scfpChainDao.checkPayPass(scfpFundAccount) != null) {
             return ResponseResult.SUCCESS;
         } else {
             return ResponseResult.FAIL;

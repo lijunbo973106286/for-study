@@ -1,9 +1,6 @@
 package com.woniuxy.chain.service;
 
-import com.woniuxy.commons.entity.ResponseResult;
-import com.woniuxy.commons.entity.ScfpChain;
-import com.woniuxy.commons.entity.ScfpEnterprise;
-import com.woniuxy.commons.entity.ScfpFund;
+import com.woniuxy.commons.entity.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,7 +31,7 @@ public interface ScfpChainService {
 
     ResponseResult<Object> updateBatLoan(List<Integer> ids);
 
-    ResponseResult<Object> checkPayPass(ScfpEnterprise scfpEnterprise);
+    ResponseResult<Object> checkPayPass(ScfpFundAccount scfpFundAccount);
 
     ResponseResult<ScfpEnterprise> getEnterprise(String bankName);
 
