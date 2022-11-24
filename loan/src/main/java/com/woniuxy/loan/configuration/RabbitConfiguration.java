@@ -29,7 +29,6 @@ public class RabbitConfiguration {
     public CustomExchange customExchange(){
         //初始化参数
         Map<String,Object> args = new HashMap<>();
-
         //参数
         //使用哪种交换机实现延迟交换机
         args.put("x-delayed-type","direct");

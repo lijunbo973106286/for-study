@@ -1,0 +1,72 @@
+spring:
+  application:
+    name: gateway
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.8.142:3306/scfp
+    username: root
+    password: 1234
+    maxActive: 500
+    dbcp2: # 进行数据库连接池的配置
+      min-idle: 5                                  # 数据库连接池的最小维持连接数
+      initial-size: 6                               # 初始化提供的连接数
+      max-total: 300                                # 最大的连接数
+      max-wait-millis: 60000                # 等待连接获取的最大超时时间
+
+  cloud:
+    inetutils: # 忽略虚拟机网卡,避免启动项目时卡顿
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8,Microsoft Hosted Network Virtual Adapter,Microsoft Wi-Fi Direct Virtual Adapter #3'
+    gateway:
+      httpclient:
+        connect-timeout: 10000
+        response-timeout: 10s
+      routes:
+        - id: fiance
+          uri: lb://fiance
+          predicates:
+            - Path=/fiance/**,/settle/**,/faccount/**,/bankaccount/**
+        - id: network
+          uri: lb://supply
+          predicates:
+            - Path=/network/**,/supply/**,/bank/**
+        # 放款路由
+        - id: loan
+          uri: lb://loan
+          predicates:
+            - Path=/loan/**
+        # 文件路由
+        - id: file
+          uri: lb://file
+          predicates:
+            - Path=/file/**
+        # 链单路由
+        - id: chain
+#          uri: http://192.168.8.152:6666
+          uri: lb://chain
+          predicates:
+            - Path=/chain/**
+        # 账户管理
+        - id: user
+#          uri: http://192.168.8.104:9898/
+          uri: lb://user
+          predicates:
+            - Path=/menu/**,/login,/account/**,/role/**,/register,/corp,/menu/**,
+
+
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true # 服务名小写
+    nacos:
+      discovery:
+        server-addr: 192.168.8.142:8848
+        username: nacos
+        password: nacos
+
+server:
+  port: 8888
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'    #暴露当前微服务的监控端口，让所有的ip地址都能监控到本微服务

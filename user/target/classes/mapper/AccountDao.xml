@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.user.dao.AccountDao">
+
+    <insert id="newsub">
+        insert into scfp_user
+        values (null, #{uname}, '123456', #{name}, #{identity}, #{phonenum}, #{email}, #{enterprise_id}, '停用',
+                #{fid})
+    </insert>
+    <insert id="newsubrole">
+        insert into scfp_user_role
+        values (#{user_id}, #{role_id})
+    </insert>
+    <insert id="inrole">
+        insert into scfp_user_role (user_id, role_id)
+        values (#{id}, #{role_id});
+    </insert>
+    <insert id="corpRegist">
+        insert into scfp_enterprise (name, credit_code, legal_person, id_card, address, role)
+        values (#{corpname}, #{credit_code}, #{legal_person}, #{id_card}, #{address}, #{type});
+    </insert>
+    <insert id="managerRegist">
+        insert into scfp_user
+            (uname, `name`, password, email, phonenum, `identity`, enterprise_id,status)
+        values (#{uname}, #{name}, #{password}, #{email}, #{phonenum}, #{identity}, #{corpId},'启用');
+    </insert>
+    <update id="modsub">
+        update scfp_user
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="uname!='' and uname != null">
+                uname = #{uname},
+            </if>
+            <if test="password!='' and password != null">
+                password = #{password},
+            </if>
+            <if test="name!='' and name != null">
+                `name` = #{name},
+            </if>
+            <if test="identity!='' and identity != null">
+                `identity` = #{identity},
+            </if>
+            <if test="phonenum!='' and phonenum != null">
+                phonenum = #{phonenum},
+            </if>
+            <if test="email!='' and email != null">
+                email = #{email},
+            </if>
+            <if test="status!='' and status != null">
+                `status` = #{status},
+            </if>
+        </trim>
+    </update>
+    <update id="modstatus">
+        update scfp_user
+        set status = #{status}
+        where id = #{id}
+    </update>
+    <update id="modpwd">
+        update scfp_user
+        set password = #{password}
+        where id = #{id}
+          and uname = #{uname}
+    </update>
+    <delete id="delsub">
+        delete
+        from scfp_user
+        where id = #{id}
+    </delete>
+    <delete id="delrole">
+        delete
+        from scfp_user_role
+        where user_id = #{id}
+    </delete>
+    <select id="qrysub" resultType="com.woniuxy.user.entity.UserDTO">
+        select u.id,u.uname,u.name,u.phonenum,u.email,u.identity,u.status,u.enterprise_id,ur.role_id from scfp_user u
+        left join scfp_user_role ur on u.id = ur.user_id
+        <where>
+            u.fid = #{fid}
+            <if test="uname!='' and uname != null">
+                and u.uname = #{uname}
+            </if>
+            <if test="name!='' and name != null">
+                and u.`name` = #{name}
+            </if>
+            <if test="phonenum!='' and phonenum != null">
+                and u.phonenum = #{phonenum}
+            </if>
+            <if test="email!='' and email != null">
+                and u.email = #{email}
+            </if>
+            <if test="identity!='' and identity != null">
+                and u.`identity` = #{identity}
+            </if>
+            <if test="status != '' and status != null">
+                and u.status = #{status}
+            </if>
+            <if test="enterprise_id != '' and enterprise_id != null">
+                and u.enterprise_id = #{role_id}
+            </if>
+            <if test="role_id != '' and role_id != null">
+                and ur.role_id = #{role_id}
+            </if>
+        </where>
+    </select>
+    <select id="login" resultType="com.woniuxy.user.entity.UserDTO">
+        select u.id,
+               u.uname,
+               u.name,
+               u.identity,
+               u.phonenum,
+               u.email,
+               u.enterprise_id,
+               u.fid,
+               r.id role_id,
+               r.name roleName,
+               e.role enterpriseType,
+               e.name enterpriseName
+        from scfp_user u
+                 left join scfp_user_role ur
+                           on u.id = ur.user_id
+                 left join scfp_role r on ur.role_id = r.id
+                 left join scfp_enterprise e on e.id = u.enterprise_id
+        where u.uname = #{uname}
+          and u.password = #{password}
+          and u.status = '启用'
+--           and r.status = '启用'
+    </select>
+    <select id="userInfo" resultType="com.woniuxy.user.entity.UserDTO">
+        select u.id,
+               u.uname,
+               u.name,
+               u.identity,
+               u.phonenum,
+               u.email,
+               u.enterprise_id,
+               u.fid,
+               r.id   role_id,
+               r.name roleName,
+               e.name enterpriseName,
+               e.role enterpriseType
+        from scfp_user u
+                 left join scfp_user_role ur on u.id = ur.user_id
+                 left join scfp_role r on ur.role_id = r.id
+                 left join scfp_enterprise e on u.enterprise_id = e.id
+        where u.id = #{id}
+    </select>
+    <select id="checkOldPwd" resultType="com.woniuxy.user.entity.ScfpUser">
+        select uname
+        from scfp_user
+        where id = #{id}
+          and password = #{password}
+          and uname = #{uname}
+    </select>
+    <select id="getUserId" resultType="java.lang.Integer">
+        select id
+        from scfp_user
+        where uname = #{uname}
+    </select>
+    <select id="corpInfo" resultType="com.woniuxy.user.entity.EnterpriseDTO">
+        SELECT e.id,
+               e.name,
+               e.credit_code,
+               e.legal_person,
+               e.id_card,
+               e.address,
+               er.id      TYPE,
+               er.role    typeName,
+               u.name     pName,
+               u.phonenum pPhonenum,
+               u.email    pEmail,
+               r.name     pType
+        FROM scfp_enterprise e
+                 LEFT JOIN scfp_enterprise_roles er ON e.role = er.id
+                 LEFT JOIN scfp_user u ON u.enterprise_id = e.id
+                 LEFT JOIN scfp_user_role ur ON u.id = ur.user_id
+                 LEFT JOIN scfp_role r ON r.id = ur.role_id
+        WHERE e.id = #{id}
+          AND r.name = '管理员'
+    </select>
+    <select id="corpID" resultType="java.lang.Integer">
+        select id
+        from scfp_enterprise
+        where name = #{corpname}
+          and credit_code = #{credit_code};
+    </select>
+    <select id="managerRID" resultType="java.lang.Integer">
+        select id
+        from scfp_role
+        where type = #{type}
+          and name = '管理员';
+    </select>
+    <select id="managerID" resultType="java.lang.Integer">
+        select id
+        from scfp_user
+        where uname = #{uname}
+          and name = #{name};
+    </select>
+</mapper>
